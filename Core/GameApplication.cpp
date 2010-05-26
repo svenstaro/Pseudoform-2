@@ -1,0 +1,67 @@
+#include "GameApplication.h"
+
+GameApplication::GameApplication()
+{
+	mSystemsList.push_back(new GraphicSystem());
+	//mSystemsList->push_back(new GuiSystem());
+	// ...
+
+	mRunning = true;
+}
+
+GameApplication::~GameApplication() { }
+
+bool GameApplication::init()
+{
+	foreach(ISystem &curSystem, mSystemsList)
+	{
+		curSystem.init();
+	}
+
+	mGameListener = new GameListener();
+	mMaterialListener = new MaterialListener();
+
+	// TODO: Set event callbacks for keyboard, mouse
+
+	GraphicSystem::getPtr()->getRoot()->addFrameListener(mGameListener);
+	Ogre::MaterialManager::getSingletonPtr()->addListener(mMaterialListener);
+
+	return true;
+}
+
+void GameApplication::start()
+{
+	// Create game engine controllers
+	// Create world
+	// Load resource
+}
+
+void GameApplication::loop()
+{
+	while(true)
+	{
+		Ogre::WindowEventUtilities::messagePump();
+
+		// Capture keyboard and mouse
+		foreach(ISystem &curSystem, mSystemsList)
+		{
+			curSystem.update();
+		}
+		// Check world state in StateManager
+
+		if (!GraphicSystem::getPtr()->getRoot()->renderOneFrame()) break;
+	}
+}
+
+void GameApplication::shutdown()
+{
+	// Delete managers
+	// Clean script system
+
+	// We needn't in deleting manually singleton-objects like:
+	// delete GraphicSystem::getPtr();
+	// We've done this manually in ISingleton interface!
+
+	delete mGameListener;
+	delete mMaterialListener;
+}
