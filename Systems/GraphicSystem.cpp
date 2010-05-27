@@ -36,8 +36,13 @@ void GraphicSystem::init()
 	mRoot->initialise(false);
 
 	Ogre::NameValuePairList windowParams;
-	windowParams["FSAA"] = CONFIG("fsaa", string, "");
-	windowParams["vsync"] = CONFIG("vsync", string, "");
+	windowParams["FSAA"] = CONFIG("fsaa", string, "0");
+	windowParams["vsync"] = CONFIG("vsync", string, "false");
+
+	int windowWidth = CONFIG("width", int, "1024");
+	int windowHeight = CONFIG("height", int, "760");
+
+	bool windowFullscreen = CONFIG("fullscreen", bool, "0");
 
 	mWindow = mRoot->createRenderWindow("Pseudoform2", 640, 480, false, &windowParams);
 

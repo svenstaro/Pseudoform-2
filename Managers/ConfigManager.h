@@ -21,7 +21,8 @@ class ConfigManager
 		ConfigManager(const string &filePath = "settings.xml") :
 			mConfigPath(filePath)
 		{
-			mConfigHandle = mConfigPath.c_str();
+			mConfigHandle = document(mConfigPath.c_str());
+			mConfigHandle.LoadFile();
 
 			if (mConfigHandle.Error())
 				throw std::runtime_error("Root error(" + mConfigPath + "): " + mConfigHandle.ErrorDesc());
@@ -34,7 +35,7 @@ class ConfigManager
 			delete mRootElement;
 		}
 
-		template<class T>
+		template<typename T>
 		T getValue(const string &key, const string &defaultValue = "")
 		{
 			return mRootElement->attrib<T>(key, defaultValue);
