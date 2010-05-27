@@ -6,8 +6,23 @@ void GraphicSystem::init()
 {
 	mRoot = new Ogre::Root("", "", "Pseudoform.log");
 
-	// TODO: Add switcher opengl/directx
-	mRoot->loadPlugin("/usr/lib/OGRE/RenderSystem_GL");
+	string renderLib = CONFIG("lib", string, "OPENGL");
+
+	#ifdef _WINDOWS
+		string plugins = ".\\";
+	#else
+		string plugins = CONFIG("plugins", string, "");
+	#endif
+
+	if (renderLib == "OPENGL")
+	{
+		mRoot->loadPlugin(plugins + "RenderSystem_GL");
+		// TODO: Setup enum var
+	}
+	else
+	{
+		mRoot->loadPlugin(plugins + "RenderSystem_Direct3D9");
+	}
 
 	Ogre::LogManager::getSingletonPtr()->setLogDetail(Ogre::LL_NORMAL);
 
@@ -21,8 +36,8 @@ void GraphicSystem::init()
 	mRoot->initialise(false);
 
 	Ogre::NameValuePairList windowParams;
-	windowParams["FSAA"] = "0";
-	windowParams["vsync"] = "false";
+	windowParams["FSAA"] = CONFIG("fsaa", string, "");
+	windowParams["vsync"] = CONFIG("vsync", string, "");
 
 	mWindow = mRoot->createRenderWindow("Pseudoform2", 640, 480, false, &windowParams);
 
@@ -30,18 +45,16 @@ void GraphicSystem::init()
 	mWindow->setAutoUpdated(true);
 
 	mSceneMgr = mRoot->createSceneManager(Ogre::ST_GENERIC);
-
-	// TODO: Move ColourValue to the list of utils
-	mSceneMgr->setAmbientLight(Ogre::ColourValue(0.1, 0.1, 0.1));
+	mSceneMgr->setAmbientLight(colour(0.1, 0.1, 0.1));
 
 	mCamera = mSceneMgr->createCamera("root::_camera");
 	mCamera->setNearClipDistance(0.01);
 	mCamera->setFarClipDistance(1000);
 	mCamera->setAutoAspectRatio(true);
-	mCamera->setFOVy(Ogre::Degree(90)); // TODO: Utils
+	mCamera->setFOVy(deg(90));
 
 	mViewport = mWindow->addViewport(mCamera);
-	mViewport->setBackgroundColour(Ogre::ColourValue(0.5, 0.5, 0.5)); // TODO: Utils
+	mViewport->setBackgroundColour(colour(0.5, 0.5, 0.5));
 
 	Ogre::ResourceGroupManager &rgm = Ogre::ResourceGroupManager::getSingleton();
 	rgm.addResourceLocation("", "FileSystem", "General", true);
@@ -51,6 +64,11 @@ void GraphicSystem::init()
 GraphicSystem::GraphicSystem()
 {
 
+}
+
+std::string GraphicSystem::toString()
+{
+	return "GraphicSystem";
 }
 
 GraphicSystem::~GraphicSystem()

@@ -1,7 +1,7 @@
 #ifndef _MATERIAL_LISTENER_H_
 #define _MATERIAL_LISTENER_H_
 
-#include "Core/OgreIncludes.h"
+#include "Core/AppIncludes.h"
 
 class MaterialListener : public Ogre::MaterialManager::Listener
 {

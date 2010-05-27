@@ -6,17 +6,16 @@
 #include "Listeners/MaterialListener.h"
 
 // Systems
-#include "Systems/GraphicSystem.h"
+// Moved to the AppIncludes.h!
+
 /*
-#include "Systems/GuiSystem.h"
 #include "Systems/InputSystem.h"
 #include "Systems/PhysicSystem.h"
 #include "Systems/SoundSystem.h"
 */
 
 #include "Systems/System.h"
-#include "Core/OgreIncludes.h"
-#include "Core/BoostIncludes.h"
+#include "Core/AppIncludes.h"
 
 class GameApplication
 {

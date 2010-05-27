@@ -2,24 +2,25 @@
 #include <fstream>
 #include <stdexcept>
 
-#include "Core/OgreIncludes.h"
+#include "Core/AppIncludes.h"
 #include "Core/GameApplication.h"
 
 int main(int argc, char **argv)
 {
 	GameApplication appHandle;
+
 	try
 	{
 		if (!appHandle.init()) return 0;
 
-		Ogre::LogManager::getSingleton().logMessage("******** System Initialized *******\n");
+		LOG("System initialized ******************\n");
 		appHandle.start();
 
-		Ogre::LogManager::getSingleton().logMessage("******** Entering main loop *******\n");
+		LOG("Entering Main Loop ******************\n");
 		appHandle.loop();
-		Ogre::LogManager::getSingleton().logMessage("********* Main loop exited ********\n");
+		LOG("Exiting Main Loop *******************\n");
 
-		Ogre::LogManager::getSingleton().logMessage("********** Shutting down **********\n");
+		LOG("Shutting down ***********************\n");
 		appHandle.shutdown();
 	}
 	catch(const std::exception &e)
@@ -34,7 +35,7 @@ int main(int argc, char **argv)
             << "Description: " << e.what();
 
         std::cerr << desc.str();
-        Ogre::LogManager::getSingleton().logMessage(desc.str());
+        LOG(desc.str());
 	}
 	// catch(...) { } catch (python_error) { }
 }

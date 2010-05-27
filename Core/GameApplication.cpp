@@ -3,7 +3,7 @@
 GameApplication::GameApplication()
 {
 	mSystemsList.push_back(new GraphicSystem());
-	//mSystemsList->push_back(new GuiSystem());
+	mSystemsList.push_back(new GuiSystem());
 	// ...
 
 	mRunning = true;
@@ -13,18 +13,20 @@ GameApplication::~GameApplication() { }
 
 bool GameApplication::init()
 {
-	foreach(ISystem &curSystem, mSystemsList)
+	bforeach(ISystem &curSystem, mSystemsList)
 	{
 		curSystem.init();
+		LOG(FORMAT("Initializating of `%1%` ---------------\n", curSystem.toString()));
 	}
 
-	mGameListener = new GameListener();
-	mMaterialListener = new MaterialListener();
+	//mGameListener = new GameListener();
+	//mMaterialListener = new MaterialListener();
 
 	// TODO: Set event callbacks for keyboard, mouse
 
-	GraphicSystem::getPtr()->getRoot()->addFrameListener(mGameListener);
-	Ogre::MaterialManager::getSingletonPtr()->addListener(mMaterialListener);
+	// TODO: We really needn't in listeners?
+	//GraphicSystem::getPtr()->getRoot()->addFrameListener(mGameListener);
+	//Ogre::MaterialManager::getSingletonPtr()->addListener(mMaterialListener);
 
 	return true;
 }
@@ -43,7 +45,7 @@ void GameApplication::loop()
 		Ogre::WindowEventUtilities::messagePump();
 
 		// Capture keyboard and mouse
-		foreach(ISystem &curSystem, mSystemsList)
+		bforeach(ISystem &curSystem, mSystemsList)
 		{
 			curSystem.update();
 		}
@@ -62,6 +64,6 @@ void GameApplication::shutdown()
 	// delete GraphicSystem::getPtr();
 	// We've done this manually in ISingleton interface!
 
-	delete mGameListener;
-	delete mMaterialListener;
+	//delete mGameListener;
+	//delete mMaterialListener;
 }

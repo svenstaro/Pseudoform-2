@@ -1,7 +1,7 @@
 #ifndef _SINGLETON_H_
 #define _SINGLETON_H_
 
-// Outside ogre absraction
+// Outside ogre abstraction
 template <typename T>
 class ISingleton
 {
@@ -32,7 +32,7 @@ class ISingleton
 
 		static T &get()
 		{
-			if (!mInstance) mInstance = new ISingleton();
+			if (!mInstance) mInstance = new T();
 			return (*mInstance);
 		}
 

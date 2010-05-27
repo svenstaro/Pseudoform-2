@@ -3,7 +3,7 @@
 
 #include "System.h"
 #include "Core/Singleton.h"
-#include "Core/OgreIncludes.h"
+#include "Core/AppIncludes.h"
 
 class GraphicSystem : public ISystem, public ISingleton<GraphicSystem>
 {
@@ -29,6 +29,7 @@ class GraphicSystem : public ISystem, public ISingleton<GraphicSystem>
 		// Inherited from ISystem
 		void init();
 		void update();
+		std::string toString();
 };
 
 #endif
