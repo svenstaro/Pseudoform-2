@@ -39,12 +39,15 @@ void GraphicSystem::init()
 	windowParams["FSAA"] = CONFIG("fsaa", string, "0");
 	windowParams["vsync"] = CONFIG("vsync", string, "false");
 
-	int windowWidth = CONFIG("width", int, "1024");
-	int windowHeight = CONFIG("height", int, "760");
+	string temp = CONFIG("width", string, "1024")
+	string temp2 = CONFIG("height", string, "1024")
 
-	bool windowFullscreen = CONFIG("fullscreen", bool, "0");
+	size_t windowWidth = CONFIG("width", size_t, 1024);
+	size_t windowHeight = CONFIG("height", size_t, 760);
 
-	mWindow = mRoot->createRenderWindow("Pseudoform2", 640, 480, false, &windowParams);
+	bool windowFullscreen = CONFIG("fullscreen", bool, false);
+
+	mWindow = mRoot->createRenderWindow("Pseudoform2", windowWidth, windowHeight, windowFullscreen, &windowParams);
 
 	mWindow->setActive(true);
 	mWindow->setAutoUpdated(true);

@@ -36,7 +36,7 @@ class ConfigManager
 		}
 
 		template<typename T>
-		T getValue(const string &key, const string &defaultValue = "")
+		T getValue(const string &key, const T &defaultValue = T())
 		{
 			return mRootElement->attrib<T>(key, defaultValue);
 		}
