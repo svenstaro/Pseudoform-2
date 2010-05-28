@@ -1,0 +1,11 @@
+; Ogre related
+renderLib "OPENGL"
+pluginsDir "/usr/lib/OGRE/"
+
+; Game window related
+windowWidth  "1024"
+windowHeight  "768"
+windowFullscreen "0"
+
+paramFSAA "0"
+paramVSYNC "false"

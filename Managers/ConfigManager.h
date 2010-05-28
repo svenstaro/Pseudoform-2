@@ -1,44 +1,29 @@
 #ifndef _CONFIG_MANAGER_H_
 #define _CONFIG_MANAGER_H_
 
-#include "Core/Additional/txml/txml.hpp"
-#include "Core/AppIncludes.h"
+#include <boost/property_tree/ptree.hpp>
+#include <boost/property_tree/info_parser.hpp>
 
-#include <stdexcept>
-
+using boost::property_tree::ptree;
 using namespace std;
-using namespace txml;
 
 class ConfigManager
 {
 	protected:
 		string mConfigPath;
-
-		document mConfigHandle;
-		element *mRootElement;
+		ptree mPropertyTree;
 
 	public:
-		ConfigManager(const string &filePath = "settings.xml") :
+		ConfigManager(const string &filePath = "settings.info") :
 			mConfigPath(filePath)
 		{
-			mConfigHandle = document(mConfigPath.c_str());
-			mConfigHandle.LoadFile();
-
-			if (mConfigHandle.Error())
-				throw std::runtime_error("Root error(" + mConfigPath + "): " + mConfigHandle.ErrorDesc());
-
-			mRootElement = mConfigHandle.RootElement();
-		}
-
-		~ConfigManager()
-		{
-			delete mRootElement;
+			read_info(mConfigPath, mPropertyTree);
 		}
 
 		template<typename T>
 		T getValue(const string &key, const T &defaultValue = T())
 		{
-			return mRootElement->attrib<T>(key, defaultValue);
+			return mPropertyTree.get<T>(key, defaultValue);
 		}
 };
 

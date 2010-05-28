@@ -6,12 +6,12 @@ void GraphicSystem::init()
 {
 	mRoot = new Ogre::Root("", "", "Pseudoform.log");
 
-	string renderLib = CONFIG("lib", string, "OPENGL");
+	string renderLib = CONFIG("renderLib", string, "OPENGL");
 
 	#ifdef _WINDOWS
 		string plugins = ".\\";
 	#else
-		string plugins = CONFIG("plugins", string, "");
+		string plugins = CONFIG("pluginsDir", string, "");
 	#endif
 
 	if (renderLib == "OPENGL")
@@ -36,16 +36,13 @@ void GraphicSystem::init()
 	mRoot->initialise(false);
 
 	Ogre::NameValuePairList windowParams;
-	windowParams["FSAA"] = CONFIG("fsaa", string, "0");
-	windowParams["vsync"] = CONFIG("vsync", string, "false");
+	windowParams["FSAA"] = CONFIG("paramFSAA", string, "0");
+	windowParams["vsync"] = CONFIG("paramVSYNC", string, "false");
 
-	string temp = CONFIG("width", string, "1024")
-	string temp2 = CONFIG("height", string, "1024")
+	size_t windowWidth = CONFIG("windowWidth", size_t, 1024);
+	size_t windowHeight = CONFIG("windowHeight", size_t, 760);
 
-	size_t windowWidth = CONFIG("width", size_t, 1024);
-	size_t windowHeight = CONFIG("height", size_t, 760);
-
-	bool windowFullscreen = CONFIG("fullscreen", bool, false);
+	bool windowFullscreen = CONFIG("windowFullscreen", bool, false);
 
 	mWindow = mRoot->createRenderWindow("Pseudoform2", windowWidth, windowHeight, windowFullscreen, &windowParams);
 
