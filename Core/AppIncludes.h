@@ -12,6 +12,9 @@
 #define bforeach BOOST_FOREACH
 #define FORMAT(parentString, params) (boost::format(parentString) % params).str()
 
+/* ************ SFML ************* */
+#include <SFML/Window.hpp>
+
 /* *********** ENGINE *********** */
 #include "Managers/ConfigManager.h"
 #define CONFIG(key, type, def) Utils::getPtr()->configHandle().getValue<type>(key, def);
@@ -24,6 +27,7 @@
 
 /* ************ SYSTEMS *********** */
 #include "Systems/GraphicSystem.h"
+#include "Systems/InputSystem.h"
 #include "Systems/GuiSystem.h"
 
 #endif

@@ -24,6 +24,8 @@ void GraphicSystem::init()
 		mRoot->loadPlugin(plugins + "RenderSystem_Direct3D9");
 	}
 
+	// TODO: Add loading of OGRE plugins from list
+
 	Ogre::LogManager::getSingletonPtr()->setLogDetail(Ogre::LL_NORMAL);
 
 	// Setup renderer
@@ -61,6 +63,7 @@ void GraphicSystem::init()
 	mViewport = mWindow->addViewport(mCamera);
 	mViewport->setBackgroundColour(colour(0.5, 0.5, 0.5));
 
+	// TODO: Add resources worker
 	Ogre::ResourceGroupManager &rgm = Ogre::ResourceGroupManager::getSingleton();
 	rgm.addResourceLocation("", "FileSystem", "General", true);
 	rgm.initialiseResourceGroup("General");

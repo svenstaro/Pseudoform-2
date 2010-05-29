@@ -41,9 +41,12 @@
 <tool id="cdt.managedbuild.tool.gnu.cpp.linker.exe.debug.1230670069" name="GCC C++ Linker" superClass="cdt.managedbuild.tool.gnu.cpp.linker.exe.debug">
 <option id="gnu.cpp.link.option.libs.1346185075" name="Libraries (-l)" superClass="gnu.cpp.link.option.libs" valueType="libs">
 <listOptionValue builtIn="false" value="OgreMain"/>
+<listOptionValue builtIn="false" value="sfml-window"/>
+<listOptionValue builtIn="false" value="sfml-system"/>
 </option>
 <option id="gnu.cpp.link.option.paths.119110654" name="Library search path (-L)" superClass="gnu.cpp.link.option.paths" valueType="libPaths">
 <listOptionValue builtIn="false" value="/usr/lib/OGRE"/>
+<listOptionValue builtIn="false" value="/usr/lib"/>
 </option>
 <inputType id="cdt.managedbuild.tool.gnu.cpp.linker.input.792286824" superClass="cdt.managedbuild.tool.gnu.cpp.linker.input">
 <additionalInput kind="additionalinputdependency" paths="$(USER_OBJS)"/>

@@ -8,7 +8,11 @@ Utils::Utils()
 	mLog =  logPtr(new LogManager());
 }
 
-Utils::~Utils() { }
+Utils::~Utils()
+{
+	mConfig.reset();
+	mLog.reset();
+}
 
 ConfigManager &Utils::configHandle() const
 {

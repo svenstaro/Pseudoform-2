@@ -3,7 +3,9 @@
 GameApplication::GameApplication()
 {
 	mSystemsList.push_back(new GraphicSystem());
+	mSystemsList.push_back(new InputSystem());
 	mSystemsList.push_back(new GuiSystem());
+
 	// ...
 
 	mRunning = true;
@@ -63,6 +65,8 @@ void GameApplication::shutdown()
 	// We needn't in deleting manually singleton-objects like:
 	// delete GraphicSystem::getPtr();
 	// We've done this manually in ISingleton interface!
+
+	// TODO: Clear mSystemsList
 
 	//delete mGameListener;
 	//delete mMaterialListener;
