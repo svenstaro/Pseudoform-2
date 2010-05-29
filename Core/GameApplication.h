@@ -26,9 +26,6 @@ class GameApplication
 		// Listeners
 		GameListener *mGameListener;
 		MaterialListener *mMaterialListener;
-
-		// Additional stuff
-		bool mRunning;
 	
 	public:
 		GameApplication();

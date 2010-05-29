@@ -27,6 +27,8 @@ class Utils : public ISingleton<Utils>
 			DIRECT3D
 		} mRenderer;
 		renderType *renderer();
+
+		bool mRunning;
 };
 
 #endif

@@ -4,6 +4,8 @@ template<> Utils* ISingleton<Utils>::mInstance = 0;
 
 Utils::Utils()
 {
+	mRunning = false;
+
 	mConfig = configPtr(new ConfigManager());
 	string engineLog = CONFIG("logFilename", string, "Engine.log");
 

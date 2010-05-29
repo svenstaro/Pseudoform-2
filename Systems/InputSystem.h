@@ -9,7 +9,7 @@ class InputSystem : public ISystem, public ISingleton<InputSystem>
 {
 	private:
 		size_t mWindowHandle;
-		boost::shared_ptr<sf::Window> mInputWindow;
+		sf::Window mInputWindow;
 
 	public:
 		InputSystem();
