@@ -6,6 +6,10 @@ void GraphicSystem::init()
 {
 	mRoot = new Ogre::Root("", "", "Pseudoform.log");
 
+	Ogre::LogManager::getSingletonPtr()->setLogDetail(Ogre::LL_NORMAL);
+	string engineLog = CONFIG("logFilename", string, "Engine.log");
+    Ogre::LogManager::getSingleton().createLog(engineLog, false, true);
+
 	string renderLib = CONFIG("renderLib", string, "OPENGL");
 
 	#ifdef _WINDOWS
@@ -26,8 +30,6 @@ void GraphicSystem::init()
 
 	// TODO: Add loading of OGRE plugins from list
 
-	Ogre::LogManager::getSingletonPtr()->setLogDetail(Ogre::LL_NORMAL);
-
 	// Setup renderer
 	const Ogre::RenderSystemList renderers = mRoot->getAvailableRenderers();
 	if (renderers.empty()) throw std::runtime_error("No avail renderers!");
@@ -47,6 +49,7 @@ void GraphicSystem::init()
 	bool windowFullscreen = CONFIG("windowFullscreen", bool, false);
 
 	mWindow = mRoot->createRenderWindow("Pseudoform2", windowWidth, windowHeight, windowFullscreen, &windowParams);
+	LOG("\t- Window has been created with given params");
 
 	mWindow->setActive(true);
 	mWindow->setAutoUpdated(true);
@@ -59,6 +62,7 @@ void GraphicSystem::init()
 	mCamera->setFarClipDistance(1000);
 	mCamera->setAutoAspectRatio(true);
 	mCamera->setFOVy(deg(90));
+	LOG("\t- Camera is set up");
 
 	mViewport = mWindow->addViewport(mCamera);
 	mViewport->setBackgroundColour(colour(0.5, 0.5, 0.5));
@@ -67,6 +71,7 @@ void GraphicSystem::init()
 	Ogre::ResourceGroupManager &rgm = Ogre::ResourceGroupManager::getSingleton();
 	rgm.addResourceLocation("", "FileSystem", "General", true);
 	rgm.initialiseResourceGroup("General");
+	LOG("\t- All resources are loaded");
 }
 
 GraphicSystem::GraphicSystem()

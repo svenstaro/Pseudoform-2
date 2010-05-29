@@ -16,7 +16,7 @@ class LogManager
 
 		void write(const string &message)
 		{
-			Ogre::LogManager::getSingletonPtr()->logMessage(message, Ogre::LML_CRITICAL);
+			Ogre::LogManager::getSingletonPtr()->getLog(mLogPath)->logMessage(message, Ogre::LML_CRITICAL);
 		}
 };
 

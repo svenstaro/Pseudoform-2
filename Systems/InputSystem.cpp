@@ -21,6 +21,7 @@ void InputSystem::init()
 	// I put the instance to the heap. We have to use it carefully (so I chose
 	// boost::shared_ptr)
 	mInputWindow = boost::shared_ptr<sf::Window>(new sf::Window(mWindowHandle));
+	LOG("\t- SFML window is created");
 }
 
 void InputSystem::update()
