@@ -33,7 +33,7 @@ bool GameApplication::init()
 
 void GameApplication::start()
 {
-	Utils::getPtr()->mRunning = true;
+	Utils::get_mutable_instance().mRunning = true;
 	// Create game engine controllers
 	// Create world
 	// Load resource
@@ -41,7 +41,7 @@ void GameApplication::start()
 
 void GameApplication::loop()
 {
-	while(Utils::getPtr()->mRunning)
+	while(Utils::get_const_instance().mRunning)
 	{
 		Ogre::WindowEventUtilities::messagePump();
 
@@ -52,7 +52,7 @@ void GameApplication::loop()
 		}
 		// Check world state in StateManager
 
-		if (!GraphicSystem::getPtr()->getRoot()->renderOneFrame()) break;
+		if (!GraphicSystem::get_const_instance().getRoot()->renderOneFrame()) break;
 	}
 }
 

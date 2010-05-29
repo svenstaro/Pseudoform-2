@@ -1,13 +1,14 @@
 #include "Utils.h"
 
-template<> Utils* ISingleton<Utils>::mInstance = 0;
+//template<> Utils* ISingleton<Utils>::mInstance = 0;
 
 Utils::Utils()
 {
 	mRunning = false;
 
 	mConfig = configPtr(new ConfigManager());
-	string engineLog = CONFIG("logFilename", string, "Engine.log");
+	string engineLog = configHandle().getValue<string>("logFilename", "Engine.log");
+	//string engineLog = CONFIG("logFilename", string, "Engine.log");
 
 	mLog =  logPtr(new LogManager(engineLog));
 }

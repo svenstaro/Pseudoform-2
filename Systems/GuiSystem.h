@@ -2,10 +2,9 @@
 #define _GUI_SYSTEM_H_
 
 #include "System.h"
-#include "Core/Singleton.h"
 #include "Core/AppIncludes.h"
 
-class GuiSystem : public ISystem, public ISingleton<GuiSystem>
+class GuiSystem : public ISystem, public singleton<GuiSystem>
 {
 	private:
 		// MyGui ....

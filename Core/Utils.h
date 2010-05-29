@@ -1,12 +1,12 @@
 #ifndef _UTILS_H_
 #define _UTILS_H_
 
-#include "Core/Singleton.h"
 #include "Core/AppIncludes.h"
 
 using namespace boost;
+using namespace boost::serialization;
 
-class Utils : public ISingleton<Utils>
+class Utils : public singleton<Utils>
 {
 	protected:
 		typedef shared_ptr<ConfigManager> configPtr;

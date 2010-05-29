@@ -2,10 +2,11 @@
 #define _INPUT_SYSTEM_H_
 
 #include "System.h"
-#include "Core/Singleton.h"
 #include "Core/AppIncludes.h"
 
-class InputSystem : public ISystem, public ISingleton<InputSystem>
+using namespace boost::serialization;
+
+class InputSystem : public ISystem, public singleton<InputSystem>
 {
 	private:
 		size_t mWindowHandle;

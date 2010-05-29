@@ -1,7 +1,5 @@
 #include "GraphicSystem.h"
 
-template<> GraphicSystem* ISingleton<GraphicSystem>::mInstance = 0;
-
 void GraphicSystem::init()
 {
 	mRoot = new Ogre::Root("", "", "Pseudoform.log");

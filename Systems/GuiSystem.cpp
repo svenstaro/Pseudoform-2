@@ -1,7 +1,5 @@
 #include "GuiSystem.h"
 
-template<> GuiSystem* ISingleton<GuiSystem>::mInstance = 0;
-
 GuiSystem::GuiSystem() { }
 
 GuiSystem::~GuiSystem() { }

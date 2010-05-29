@@ -2,10 +2,11 @@
 #define _GRAPHIC_SYSTEM_H_
 
 #include "System.h"
-#include "Core/Singleton.h"
 #include "Core/AppIncludes.h"
 
-class GraphicSystem : public ISystem, public ISingleton<GraphicSystem>
+using namespace boost::serialization;
+
+class GraphicSystem : public ISystem, public singleton<GraphicSystem>
 {
 	private:
 		Ogre::Root *mRoot;
