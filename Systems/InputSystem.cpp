@@ -1,5 +1,7 @@
 #include "InputSystem.h"
 
+#include <iostream>
+
 template<> InputSystem* ISingleton<InputSystem>::mInstance = 0;
 
 InputSystem::InputSystem()
@@ -21,7 +23,16 @@ void InputSystem::init()
 	mInputWindow = boost::shared_ptr<sf::Window>(new sf::Window(mWindowHandle));
 }
 
-void InputSystem::update() { }
+void InputSystem::update()
+{
+	//cout << "X: " << mInputWindow.get()->GetInput().GetMouseX() << " ; Y: " << mInputWindow.get()->GetInput().GetMouseY() << std::endl;
+	sf::Event localEvent;
+	while(mInputWindow.get()->GetEvent(localEvent))
+	{
+		if ((localEvent.Type == sf::Event::KeyPressed) && (localEvent.Key.Code == sf::Key::Escape))
+			std::cout << "!! lol press !!" << std::endl;
+	}
+}
 
 std::string InputSystem::toString()
 {

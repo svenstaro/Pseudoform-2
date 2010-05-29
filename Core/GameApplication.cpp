@@ -42,7 +42,7 @@ void GameApplication::start()
 
 void GameApplication::loop()
 {
-	while(true)
+	while(GraphicSystem::getPtr()->getRoot()->renderOneFrame())
 	{
 		Ogre::WindowEventUtilities::messagePump();
 
@@ -53,7 +53,7 @@ void GameApplication::loop()
 		}
 		// Check world state in StateManager
 
-		if (!GraphicSystem::getPtr()->getRoot()->renderOneFrame()) break;
+		//if (!) break;
 	}
 }
 
