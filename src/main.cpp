@@ -2,8 +2,8 @@
 #include <fstream>
 #include <stdexcept>
 
-#include "Core/AppIncludes.h"
-#include "Core/GameApplication.h"
+#include "Core/AppIncludes.hpp"
+#include "Core/GameApplication.hpp"
 
 int main(int argc, char **argv)
 {

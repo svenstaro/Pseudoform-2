@@ -1,7 +1,7 @@
 #ifndef _LOG_MANAGER_H_
 #define _LOG_MANAGER_H_
 
-#include "Core/AppIncludes.h"
+#include "Core/AppIncludes.hpp"
 
 using namespace std;
 

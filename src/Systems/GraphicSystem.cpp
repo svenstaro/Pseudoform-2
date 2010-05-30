@@ -1,4 +1,4 @@
-#include "GraphicSystem.h"
+#include "Systems/GraphicSystem.hpp"
 
 void GraphicSystem::init()
 {

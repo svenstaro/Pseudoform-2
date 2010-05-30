@@ -1,8 +1,8 @@
 #ifndef _INPUT_SYSTEM_H_
 #define _INPUT_SYSTEM_H_
 
-#include "System.h"
-#include "Core/AppIncludes.h"
+#include "System.hpp"
+#include "Core/AppIncludes.hpp"
 
 using namespace boost::serialization;
 

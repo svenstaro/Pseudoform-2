@@ -1,7 +1,7 @@
 #ifndef _GAME_LISTENER_H_
 #define _GAME_LISTENER_H_
 
-#include "Core/AppIncludes.h"
+#include "Core/AppIncludes.hpp"
 
 class GameListener: public Ogre::FrameListener
 	// SFML Key and Mouse listeners!

@@ -1,4 +1,4 @@
-#include "GameApplication.h"
+#include "Core/GameApplication.hpp"
 
 GameApplication::GameApplication()
 {

@@ -1,8 +1,8 @@
 #ifndef _GUI_SYSTEM_H_
 #define _GUI_SYSTEM_H_
 
-#include "System.h"
-#include "Core/AppIncludes.h"
+#include "System.hpp"
+#include "Core/AppIncludes.hpp"
 
 class GuiSystem : public ISystem, public singleton<GuiSystem>
 {

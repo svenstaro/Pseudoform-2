@@ -2,20 +2,20 @@
 #define _GAME_APPLICATION_H_
 
 // Listeners
-#include "Listeners/GameListener.h"
-#include "Listeners/MaterialListener.h"
+#include "Listeners/GameListener.hpp"
+#include "Listeners/MaterialListener.hpp"
 
 // Systems
-// Moved to the AppIncludes.h!
+// Moved to the AppIncludes.hpp!
 
 /*
-#include "Systems/InputSystem.h"
-#include "Systems/PhysicSystem.h"
-#include "Systems/SoundSystem.h"
+#include "Systems/InputSystem.hpp"
+#include "Systems/PhysicSystem.hpp"
+#include "Systems/SoundSystem.hpp"
 */
 
-#include "Systems/System.h"
-#include "Core/AppIncludes.h"
+#include "Systems/System.hpp"
+#include "Core/AppIncludes.hpp"
 
 class GameApplication
 {

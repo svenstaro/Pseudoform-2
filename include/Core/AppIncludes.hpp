@@ -17,18 +17,18 @@
 #include <SFML/Window.hpp>
 
 /* *********** ENGINE *********** */
-#include "Managers/ConfigManager.h"
+#include "Managers/ConfigManager.hpp"
 #define CONFIG(key, type, def) Utils::get_const_instance().configHandle().getValue<type>(key, def);
 
-#include "Managers/LogManager.h"
+#include "Managers/LogManager.hpp"
 #define LOG(message) Utils::get_const_instance().logHandle().write(message);
 
-#include "Core/Types.h"
-#include "Core/Utils.h"
+#include "Core/Types.hpp"
+#include "Core/Utils.hpp"
 
 /* ************ SYSTEMS *********** */
-#include "Systems/GraphicSystem.h"
-#include "Systems/InputSystem.h"
-#include "Systems/GuiSystem.h"
+#include "Systems/GraphicSystem.hpp"
+#include "Systems/InputSystem.hpp"
+#include "Systems/GuiSystem.hpp"
 
 #endif
