@@ -11,35 +11,28 @@ GameApplication::GameApplication()
 
 GameApplication::~GameApplication() { }
 
-bool GameApplication::init()
+bool GameApplication::Init()
 {
 	bforeach(ISystem &curSystem, mSystemsList)
 	{
 		curSystem.init();
 		LOG(FORMAT("--------------- Initializating of `%1%` is finished\n", curSystem.toString()));
 	}
-
-	//mGameListener = new GameListener();
-	//mMaterialListener = new MaterialListener();
-
-	// TODO: Set event callbacks for keyboard, mouse
-
-	// TODO: We really needn't in listeners?
-	//GraphicSystem::getPtr()->getRoot()->addFrameListener(mGameListener);
-	//Ogre::MaterialManager::getSingletonPtr()->addListener(mMaterialListener);
-
 	return true;
 }
 
-void GameApplication::start()
+void GameApplication::Start()
 {
 	Utils::get_mutable_instance().mRunning = true;
+
 	// Create game engine controllers
 	// Create world
 	// Load resource
+
+        this->_loop();
 }
 
-void GameApplication::loop()
+void GameApplication::_loop()
 {
 	while(Utils::get_const_instance().mRunning)
 	{
@@ -56,15 +49,8 @@ void GameApplication::loop()
 	}
 }
 
-void GameApplication::shutdown()
+void GameApplication::Shutdown()
 {
-	// Delete managers
-	// Clean script system
-
-	// We needn't in deleting manually singleton-objects like:
-	// delete GraphicSystem::getPtr();
-	// We've done this manually in ISingleton interface!
-
 	// TODO: Clear mSystemsList
 
 	//delete mGameListener;

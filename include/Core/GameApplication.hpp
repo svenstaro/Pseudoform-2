@@ -14,10 +14,10 @@ class GameApplication : public singleton<GameApplication>
 		GameApplication();
 		~GameApplication();
 
-		bool init();
-		void start();
-		void loop();
-		void shutdown();
+		bool Init();
+		void Start();
+		void _loop();
+		void Shutdown();
 };
 
 #endif

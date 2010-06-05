@@ -8,7 +8,6 @@ InputSystem::~InputSystem() { }
 
 void InputSystem::init()
 {
-	GraphicSystem::get_const_instance();
 	GraphicSystem::get_const_instance().getWindow()->getCustomAttribute("WINDOW", &mWindowHandle);
 	mInputWindow.Create(mWindowHandle);
 
