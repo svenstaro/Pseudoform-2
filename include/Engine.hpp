@@ -7,7 +7,7 @@
 class Engine
 {
     public:
-        GameApplication &Application() const { return GameApplication::get_const_instance(); }
+        const GameApplication &Application() const { return GameApplication::get_const_instance(); }
 };
 
 #endif	/* ENGINE_HPP */
