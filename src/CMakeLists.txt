@@ -1,5 +1,4 @@
 set(Pseudoform_srcs
-       
 	Core/GameApplication.cpp
 	Core/Utils.cpp
 	Systems/GraphicSystem.cpp
@@ -15,7 +14,7 @@ add_library(Pseudoform STATIC
 
 target_link_libraries(Pseudoform
 	${Boost_LIBRARIES}
-	${SFML_LIBARIES}
-	${OGRE_LIBARIES}
+	${SFML_LIBRARIES}
+	${OGRE_LIBRARIES}
 	${BULLET_LIBRARIES}
 )
