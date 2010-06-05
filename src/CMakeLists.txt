@@ -16,5 +16,5 @@ target_link_libraries(Pseudoform
 	${Boost_LIBRARIES}
 	${SFML_LIBARIES}
 	${OGRE_LIBARIES}
-	${BULLEt_LIBRARIES}
+	${BULLET_LIBRARIES}
 )

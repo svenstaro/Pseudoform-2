@@ -11,6 +11,7 @@ find_package(Bullet REQUIRED)
 find_package(Boost COMPONENTS filesystem system python REQUIRED)
 
 add_definitions(-Wall)
+set(CMAKE_BUILD_TYPE "RelWithDebInfo")
 
 include_directories(
 	"${CMAKE_SOURCE_DIR}/include/"
