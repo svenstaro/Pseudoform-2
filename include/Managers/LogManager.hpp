@@ -2,21 +2,31 @@
 #define _LOG_MANAGER_H_
 
 #include "PseudoformAdditional.hpp"
+#include <vector>
 
 using namespace std;
 
 class LogManager
 {
 	protected:
-		string mLogPath;
+		string mDefaultPath;
 
 	public:
 		LogManager(const string &logPath = "Engine.log") :
-			mLogPath(logPath) { }
+			mDefaultPath(logPath) { }
 
-		void write(const string &message)
+		void write(const string &message, const string logFile = "")
 		{
-			Ogre::LogManager::getSingletonPtr()->getLog(mLogPath)->logMessage(message, Ogre::LML_CRITICAL);
+                    string workPath = mDefaultPath;
+                    if (logFile != "")
+                    {
+                        if (Ogre::LogManager::getSingletonPtr()->getLog(logFile) == NULL)
+                            Ogre::LogManager::getSingleton().createLog(logFile, false, true);
+
+                        workPath = logFile;
+                    }
+
+                    Ogre::LogManager::getSingletonPtr()->getLog(workPath)->logMessage(message, Ogre::LML_CRITICAL);
 		}
 };
 
