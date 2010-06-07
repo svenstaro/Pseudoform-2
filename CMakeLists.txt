@@ -13,6 +13,9 @@ find_package(Boost COMPONENTS filesystem system python REQUIRED)
 add_definitions(-Wall)
 set(CMAKE_BUILD_TYPE "RelWithDebInfo")
 
+set(EXECUTABLE_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/bin)
+set(LIBRARY_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/lib)
+
 include_directories(
 	"${CMAKE_SOURCE_DIR}/include/"
 	${Boost_INCLUDE_DIRS}
