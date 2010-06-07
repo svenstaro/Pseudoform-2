@@ -9,6 +9,7 @@
 #include <boost/foreach.hpp>
 #include <boost/format.hpp>
 #include <boost/serialization/singleton.hpp>
+//#include <boost/thread/detail/singleton.hpp>
 
 #define bforeach BOOST_FOREACH
 #define FORMAT(parentString, params) (boost::format(parentString) % params).str()

@@ -6,9 +6,9 @@
 
 using namespace boost::serialization;
 
-class GraphicSystem : public ISystem, public singleton<GraphicSystem>
+class GraphicSystem : public ISystem, /*public singleton<GraphicSystem>*/ public Ogre::Singleton<GraphicSystem>
 {
-	private:
+	protected:
 		Ogre::Root *mRoot;
 		Ogre::RenderWindow *mWindow;
 		Ogre::RenderSystem *mRenderSys;

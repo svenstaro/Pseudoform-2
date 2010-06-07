@@ -1,12 +1,14 @@
 #include "Systems/GraphicSystem.hpp"
 
+template<> GraphicSystem* Ogre::Singleton<GraphicSystem>::ms_Singleton = 0;
+
 void GraphicSystem::init()
 {
 	mRoot = new Ogre::Root("", "", "Pseudoform.log");
 
 	Ogre::LogManager::getSingletonPtr()->setLogDetail(Ogre::LL_NORMAL);
 	string engineLog = CONFIG("logFilename", string, "Engine.log");
-    Ogre::LogManager::getSingleton().createLog(engineLog, false, true);
+        Ogre::LogManager::getSingleton().createLog(engineLog, false, true);
 
 	string renderLib = CONFIG("renderLib", string, "OPENGL");
 
@@ -74,7 +76,6 @@ void GraphicSystem::init()
 
 GraphicSystem::GraphicSystem()
 {
-
 }
 
 std::string GraphicSystem::toString()

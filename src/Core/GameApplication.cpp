@@ -2,11 +2,9 @@
 
 GameApplication::GameApplication()
 {
-	mSystemsList.push_back(new GraphicSystem());
+        mSystemsList.push_back(new GraphicSystem());
 	mSystemsList.push_back(new InputSystem());
 	mSystemsList.push_back(new GuiSystem());
-
-	// ...
 }
 
 GameApplication::~GameApplication() { }
@@ -38,21 +36,18 @@ void GameApplication::_loop()
 	{
 		Ogre::WindowEventUtilities::messagePump();
 
-		// Capture keyboard and mouse
 		bforeach(ISystem &curSystem, mSystemsList)
 		{
 			curSystem.update();
 		}
 		// Check world state in StateManager
 
-		if (!GraphicSystem::get_const_instance().getRoot()->renderOneFrame()) break;
+		//if (!GraphicSystem::get_const_instance().getRoot()->renderOneFrame()) break;
+                if (!GraphicSystem::getSingletonPtr()->getRoot()->renderOneFrame()) break;
 	}
 }
 
 void GameApplication::Shutdown()
 {
-	// TODO: Clear mSystemsList
-
-	//delete mGameListener;
-	//delete mMaterialListener;
+    mSystemsList.clear();
 }

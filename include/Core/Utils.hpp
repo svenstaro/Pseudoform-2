@@ -9,24 +9,33 @@ using namespace boost::serialization;
 class Utils : public singleton<Utils>
 {
 	protected:
-		typedef shared_ptr<ConfigManager> configPtr;
-		typedef shared_ptr<LogManager> logPtr;
-
-		configPtr mConfig;
-		logPtr mLog;
+                ConfigManager *configHandlePtr;
+                LogManager *logHandlePtr;
 
 	public:
-		Utils();
-		~Utils();
+		Utils()
+                {
+                    mRunning = false;
 
-		ConfigManager &configHandle() const;
-		LogManager &logHandle() const;
+                    configHandlePtr = new ConfigManager();
+                    string engineLog = configHandle().getValue<string>("logFilename", "Engine.log");
+
+                    logHandlePtr = new LogManager(engineLog);
+                }
+		~Utils()
+                {
+                    delete configHandlePtr;
+                    delete logHandlePtr;
+                }
+
+                ConfigManager &configHandle() const { return *configHandlePtr; }
+                LogManager &logHandle() const { return *logHandlePtr; }
 
 		enum renderType {
 			OPENGL,
 			DIRECT3D
 		} mRenderer;
-		renderType *renderer();
+		renderType *renderer() { return &mRenderer; }
 
 		bool mRunning;
 };

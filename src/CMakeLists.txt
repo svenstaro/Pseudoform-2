@@ -1,6 +1,5 @@
 set(Pseudoform_srcs
 	Core/GameApplication.cpp
-	Core/Utils.cpp
 	Systems/GraphicSystem.cpp
 	Systems/PhysicSystem.cpp
 	Systems/InputSystem.cpp
