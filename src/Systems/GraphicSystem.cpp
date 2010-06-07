@@ -8,7 +8,7 @@ void GraphicSystem::init()
 
 	Ogre::LogManager::getSingletonPtr()->setLogDetail(Ogre::LL_NORMAL);
 	string engineLog = CONFIG("engine.logFilename", string, "Engine.log");
-        Ogre::LogManager::getSingleton().createLog(engineLog, false, true);
+    Ogre::LogManager::getSingleton().createLog(engineLog, false, true);
 
 	string renderLib = CONFIG("ogre.renderLib", string, "OPENGL");
 
@@ -21,7 +21,6 @@ void GraphicSystem::init()
 	if (renderLib == "OPENGL")
 	{
 		mRoot->loadPlugin(pluginsDir + "RenderSystem_GL");
-		// TODO: Setup enum var
 	}
 	else
 	{
@@ -34,7 +33,6 @@ void GraphicSystem::init()
             mRoot->loadPlugin(pluginsDir + plugin);
         }
 
-	// Setup renderer
 	const Ogre::RenderSystemList renderers = mRoot->getAvailableRenderers();
 	if (renderers.empty()) throw std::runtime_error("No available renderers!");
 	Ogre::RenderSystem *renderer = *(renderers.begin());
@@ -71,7 +69,7 @@ void GraphicSystem::init()
 	mViewport = mWindow->addViewport(mCamera);
 	mViewport->setBackgroundColour(colour(0.5, 0.5, 0.5));
 
-        Utils::get_const_instance().resourceHandle().addResourceLocationRecursive(".");
+    Utils::get_const_instance().resourceHandle().addResourceLocationRecursive(".");
 	Ogre::ResourceGroupManager::getSingleton().initialiseAllResourceGroups();
 	LOG("\t- All resources are loaded");
 }

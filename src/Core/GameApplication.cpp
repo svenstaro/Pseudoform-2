@@ -2,7 +2,7 @@
 
 GameApplication::GameApplication()
 {
-        mSystemsList.push_back(new GraphicSystem());
+    mSystemsList.push_back(new GraphicSystem());
 	mSystemsList.push_back(new InputSystem());
 	mSystemsList.push_back(new GuiSystem());
 }
@@ -27,7 +27,7 @@ void GameApplication::Start()
 	// Create world
 	// Load resource
 
-        this->_loop();
+    this->_loop();
 }
 
 void GameApplication::_loop()
@@ -40,10 +40,8 @@ void GameApplication::_loop()
 		{
 			curSystem.update();
 		}
-		// Check world state in StateManager
 
-		//if (!GraphicSystem::get_const_instance().getRoot()->renderOneFrame()) break;
-                if (!GraphicSystem::getSingletonPtr()->getRoot()->renderOneFrame()) break;
+        if (!GraphicSystem::getSingletonPtr()->getRoot()->renderOneFrame()) break;
 	}
 }
 

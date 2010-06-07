@@ -9,7 +9,6 @@
 class GameApplication : public singleton<GameApplication>
 {
 	protected:
-		// Store for systems list
 		boost::ptr_vector<ISystem> mSystemsList;
 	
 	public:

@@ -14,31 +14,31 @@ using namespace boost::serialization;
 class Utils : public singleton<Utils>
 {
 	protected:
-                ConfigManager *configHandlePtr;
-                LogManager *logHandlePtr;
-                ResourcesManager *resourceHandlePtr;
+		ConfigManager *configHandlePtr;
+        LogManager *logHandlePtr;
+        ResourcesManager *resourceHandlePtr;
 
 	public:
 		Utils()
-                {
-                    mRunning = false;
+		{
+			mRunning = false;
 
-                    configHandlePtr = new ConfigManager();
-                    string engineLog = configHandle().getValue<string>("engine.logFilename", "Engine.log");
+			configHandlePtr = new ConfigManager();
+			string engineLog = configHandle().getValue<string>("engine.logFilename", "Engine.log");
 
-                    logHandlePtr = new LogManager(engineLog);
-                    resourceHandlePtr = new ResourcesManager();
-                }
+			logHandlePtr = new LogManager(engineLog);
+			resourceHandlePtr = new ResourcesManager();
+		}
 		~Utils()
-                {
-                    delete configHandlePtr;
-                    delete logHandlePtr;
-                    delete resourceHandlePtr;
-                }
+		{
+			delete configHandlePtr;
+			delete logHandlePtr;
+			delete resourceHandlePtr;
+		}
 
-                ConfigManager &configHandle() const { return *configHandlePtr; }
-                LogManager &logHandle() const { return *logHandlePtr; }
-                ResourcesManager &resourceHandle() const { return *resourceHandlePtr; }
+		ConfigManager &configHandle() const { return *configHandlePtr; }
+		LogManager &logHandle() const { return *logHandlePtr; }
+		ResourcesManager &resourceHandle() const { return *resourceHandlePtr; }
 
 		enum renderType {
 			OPENGL,

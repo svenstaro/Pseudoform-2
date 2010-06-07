@@ -17,16 +17,16 @@ class LogManager
 
 		void write(const string &message, const string logFile = "")
 		{
-                    string workPath = mDefaultPath;
-                    if (logFile != "")
-                    {
-                        if (Ogre::LogManager::getSingletonPtr()->getLog(logFile) == NULL)
-                            Ogre::LogManager::getSingleton().createLog(logFile, false, true);
+			string workPath = mDefaultPath;
+			if (logFile != "")
+			{
+				if (Ogre::LogManager::getSingletonPtr()->getLog(logFile) == NULL)
+					Ogre::LogManager::getSingleton().createLog(logFile, false, true);
 
-                        workPath = logFile;
-                    }
+				workPath = logFile;
+			}
 
-                    Ogre::LogManager::getSingletonPtr()->getLog(workPath)->logMessage(message, Ogre::LML_CRITICAL);
+			Ogre::LogManager::getSingletonPtr()->getLog(workPath)->logMessage(message, Ogre::LML_CRITICAL);
 		}
 };
 

@@ -8,7 +8,6 @@ InputSystem::~InputSystem() { }
 
 void InputSystem::init()
 {
-    //   GraphicSystem::get_const_instance().getWindow()->getCustomAttribute("WINDOW", &mWindowHandle);
     GraphicSystem::getSingletonPtr()->getWindow()->getCustomAttribute("WINDOW", &mWindowHandle);
 	mInputWindow.Create(mWindowHandle);
 
@@ -26,8 +25,8 @@ void InputSystem::update()
 	{
 		if ((localEvent.Type == sf::Event::KeyPressed) && (localEvent.Key.Code == sf::Key::Escape))
 		{
-			std::cout << "!! lol press !!" << std::endl;
-                        Utils::get_mutable_instance().mRunning = false;
+			std::cout << "Esc is pressed" << std::endl;
+            Utils::get_mutable_instance().mRunning = false;
 		}
 		else if (localEvent.Type == sf::Event::Closed)
 		{
