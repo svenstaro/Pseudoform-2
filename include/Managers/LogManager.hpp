@@ -1,7 +1,7 @@
 #ifndef _LOG_MANAGER_H_
 #define _LOG_MANAGER_H_
 
-#include "Core/AppIncludes.hpp"
+#include "PseudoformAdditional.hpp"
 
 using namespace std;
 

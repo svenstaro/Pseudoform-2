@@ -2,7 +2,8 @@
 #define _INPUT_SYSTEM_H_
 
 #include "System.hpp"
-#include "Core/AppIncludes.hpp"
+#include "PseudoformAdditional.hpp"
+#include "PseudoformCore.hpp"
 
 using namespace boost::serialization;
 

@@ -2,11 +2,13 @@
 #define _GRAPHIC_SYSTEM_H_
 
 #include "System.hpp"
-#include "Core/AppIncludes.hpp"
+#include "PseudoformAdditional.hpp"
+#include "PseudoformCore.hpp"
 
 using namespace boost::serialization;
+using namespace std;
 
-class GraphicSystem : public ISystem, /*public singleton<GraphicSystem>*/ public Ogre::Singleton<GraphicSystem>
+class GraphicSystem : public ISystem,  public Ogre::Singleton<GraphicSystem>
 {
 	protected:
 		Ogre::Root *mRoot;

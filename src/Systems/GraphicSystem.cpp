@@ -28,7 +28,6 @@ void GraphicSystem::init()
 		mRoot->loadPlugin(pluginsDir + "RenderSystem_Direct3D9");
 	}
 
-	// TODO: Add loading of OGRE plugins from list
         std::vector<std::string> pluginsList = Utils::get_const_instance().configHandle().getListValue("ogre.plugins");
         bforeach(std::string &plugin, pluginsList)
         {
@@ -37,7 +36,7 @@ void GraphicSystem::init()
 
 	// Setup renderer
 	const Ogre::RenderSystemList renderers = mRoot->getAvailableRenderers();
-	if (renderers.empty()) throw std::runtime_error("No avail renderers!");
+	if (renderers.empty()) throw std::runtime_error("No available renderers!");
 	Ogre::RenderSystem *renderer = *(renderers.begin());
 	mRoot->setRenderSystem(renderer);
 	mRenderSys = renderer;

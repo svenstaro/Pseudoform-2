@@ -1,6 +1,5 @@
 #include "Systems/InputSystem.hpp"
 
-#include "Core/AppIncludes.hpp"
 #include <iostream>
 
 InputSystem::InputSystem() { }

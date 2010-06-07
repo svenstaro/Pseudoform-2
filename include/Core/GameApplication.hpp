@@ -3,6 +3,8 @@
 
 #include "Systems/System.hpp"
 #include "PseudoformSystems.hpp"
+#include "PseudoformAdditional.hpp"
+#include "PseudoformCore.hpp"
 
 class GameApplication : public singleton<GameApplication>
 {

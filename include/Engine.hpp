@@ -8,7 +8,7 @@ class Engine
 {
     public:
         GameApplication &Application() { return GameApplication::get_mutable_instance(); }
-        ConfigManager &Config() { return Utils::get_const_instance().configHandle(); }
+        ConfigManager &Config() { return Utils::get_mutable_instance().configHandle(); }
 
 };
 

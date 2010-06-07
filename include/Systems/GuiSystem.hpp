@@ -2,7 +2,8 @@
 #define _GUI_SYSTEM_H_
 
 #include "System.hpp"
-#include "Core/AppIncludes.hpp"
+#include "PseudoformAdditional.hpp"
+#include "PseudoformCore.hpp"
 
 class GuiSystem : public ISystem, public singleton<GuiSystem>
 {
