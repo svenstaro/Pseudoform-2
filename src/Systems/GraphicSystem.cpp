@@ -7,15 +7,15 @@ void GraphicSystem::init()
 	mRoot = new Ogre::Root("", "", "Pseudoform.log");
 
 	Ogre::LogManager::getSingletonPtr()->setLogDetail(Ogre::LL_NORMAL);
-	string engineLog = CONFIG("logFilename", string, "Engine.log");
+	string engineLog = CONFIG("engine.logFilename", string, "Engine.log");
         Ogre::LogManager::getSingleton().createLog(engineLog, false, true);
 
-	string renderLib = CONFIG("renderLib", string, "OPENGL");
+	string renderLib = CONFIG("ogre.renderLib", string, "OPENGL");
 
 	#ifdef _WINDOWS
 		string plugins = ".\\";
 	#else
-		string plugins = CONFIG("pluginsDir", string, "");
+		string plugins = CONFIG("ogre.pluginsDir", string, "");
 	#endif
 
 	if (renderLib == "OPENGL")
@@ -40,13 +40,13 @@ void GraphicSystem::init()
 	mRoot->initialise(false);
 
 	Ogre::NameValuePairList windowParams;
-	windowParams["FSAA"] = CONFIG("paramFSAA", string, "0");
-	windowParams["vsync"] = CONFIG("paramVSYNC", string, "false");
+	windowParams["FSAA"] = CONFIG("window.paramFSAA", string, "0");
+	windowParams["vsync"] = CONFIG("window.paramVSYNC", string, "false");
 
-	size_t windowWidth = CONFIG("windowWidth", size_t, 1024);
-	size_t windowHeight = CONFIG("windowHeight", size_t, 760);
+	size_t windowWidth = CONFIG("window.width", size_t, 1024);
+	size_t windowHeight = CONFIG("window.height", size_t, 760);
 
-	bool windowFullscreen = CONFIG("windowFullscreen", bool, false);
+	bool windowFullscreen = CONFIG("window.fullscreen", bool, false);
 
 	mWindow = mRoot->createRenderWindow("Pseudoform2", windowWidth, windowHeight, windowFullscreen, &windowParams);
 	LOG("\t- Window has been created with given params");

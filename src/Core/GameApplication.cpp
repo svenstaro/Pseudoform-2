@@ -14,7 +14,7 @@ bool GameApplication::Init()
 	bforeach(ISystem &curSystem, mSystemsList)
 	{
 		curSystem.init();
-		LOG(FORMAT("--------------- Initializating of `%1%` is finished\n", curSystem.toString()));
+		LOG(FORMAT("--------------- Initializating of `%1%` is finished", curSystem.toString()));
 	}
 	return true;
 }

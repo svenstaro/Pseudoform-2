@@ -18,7 +18,7 @@ class Utils : public singleton<Utils>
                     mRunning = false;
 
                     configHandlePtr = new ConfigManager();
-                    string engineLog = configHandle().getValue<string>("logFilename", "Engine.log");
+                    string engineLog = configHandle().getValue<string>("engine.logFilename", "Engine.log");
 
                     logHandlePtr = new LogManager(engineLog);
                 }

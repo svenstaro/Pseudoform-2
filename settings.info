@@ -1,14 +1,21 @@
 ; Ogre related --------------------------------------
-renderLib "OPENGL"
-pluginsDir "/usr/lib/OGRE/"
-
+ogre
+{
+	renderLib "OPENGL"
+	pluginsDir "/usr/lib/OGRE/"
+}
 ; Game window related -------------------------------
-windowWidth  "1024"
-windowHeight  "768"
-windowFullscreen "0"
+window
+{
+	width  "1024"
+	height  "768"
+	fullscreen "0"
 
-paramFSAA "0"
-paramVSYNC "false"
-
-; Engine related -------------------------------------
-logFilename "Engine.log"
+	paramFSAA "0"
+	paramVSYNC "false"
+}
+; Engine related ------------------------------------
+engine
+{
+	logFilename "Engine.log"
+}
