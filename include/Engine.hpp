@@ -9,6 +9,7 @@ class Engine
     public:
         GameApplication &Application() { return GameApplication::get_mutable_instance(); }
         ConfigManager &Config() { return Utils::get_mutable_instance().configHandle(); }
+		LogManager &Log() { return Utils::get_const_instance().logHandle(); }
 
 };
 
