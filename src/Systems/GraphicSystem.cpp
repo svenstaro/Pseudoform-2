@@ -13,22 +13,27 @@ void GraphicSystem::init()
 	string renderLib = CONFIG("ogre.renderLib", string, "OPENGL");
 
 	#ifdef _WINDOWS
-		string plugins = ".\\";
+		string pluginsDir = ".\\";
 	#else
-		string plugins = CONFIG("ogre.pluginsDir", string, "");
+		string pluginsDir = CONFIG("ogre.pluginsDir", string, "/usr/lib/OGRE/");
 	#endif
 
 	if (renderLib == "OPENGL")
 	{
-		mRoot->loadPlugin(plugins + "RenderSystem_GL");
+		mRoot->loadPlugin(pluginsDir + "RenderSystem_GL");
 		// TODO: Setup enum var
 	}
 	else
 	{
-		mRoot->loadPlugin(plugins + "RenderSystem_Direct3D9");
+		mRoot->loadPlugin(pluginsDir + "RenderSystem_Direct3D9");
 	}
 
 	// TODO: Add loading of OGRE plugins from list
+        std::vector<std::string> pluginsList = Utils::get_const_instance().configHandle().getListValue("ogre.plugins");
+        bforeach(std::string &plugin, pluginsList)
+        {
+            mRoot->loadPlugin(pluginsDir + plugin);
+        }
 
 	// Setup renderer
 	const Ogre::RenderSystemList renderers = mRoot->getAvailableRenderers();
@@ -44,7 +49,7 @@ void GraphicSystem::init()
 	windowParams["vsync"] = CONFIG("window.paramVSYNC", string, "false");
 
 	size_t windowWidth = CONFIG("window.width", size_t, 1024);
-	size_t windowHeight = CONFIG("window.height", size_t, 760);
+	size_t windowHeight = CONFIG("window.height", size_t, 768);
 
 	bool windowFullscreen = CONFIG("window.fullscreen", bool, false);
 
