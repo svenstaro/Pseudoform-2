@@ -22,16 +22,13 @@ void InputSystem::update()
 	int y = mInputWindow.GetInput().GetMouseY();
 	//cout << "X: " << x << " ; Y: " << y << std::endl;
 	sf::Event localEvent;
-	if (mInputWindow.IsOpened())
-		cout << "Opened\n";
-	else
-		cout << "Unopened";
 
 	while(mInputWindow.GetEvent(localEvent))
 	{
 		if ((localEvent.Type == sf::Event::KeyPressed) && (localEvent.Key.Code == sf::Key::Escape))
 		{
 			std::cout << "!! lol press !!" << std::endl;
+                        Utils::get_mutable_instance().mRunning = false;
 		}
 		else if (localEvent.Type == sf::Event::Closed)
 		{
