@@ -63,8 +63,6 @@ class ConfigManager
 
                     bforeach(ptree::value_type &value, workTree.get_child(key))
                     {
-                        cout << "!!!!!!!!!!!!!!!!!!!!!!!!!";
-                        cout << value.second.data();
                         listValues.push_back(value.second.data());
                     }
 

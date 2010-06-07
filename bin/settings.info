@@ -1,10 +1,15 @@
-; Ogre related --------------------------------------
 ogre
 {
 	renderLib "OPENGL"
 	pluginsDir "/usr/lib/OGRE/"
+
+	plugins
+	{
+		Cg "Plugin_CgProgramManager"
+		Particle "Plugin_ParticleFX"
+	}
 }
-; Game window related -------------------------------
+
 window
 {
 	width  "1024"
@@ -14,7 +19,7 @@ window
 	paramFSAA "0"
 	paramVSYNC "false"
 }
-; Engine related ------------------------------------
+
 engine
 {
 	logFilename "Engine.log"
