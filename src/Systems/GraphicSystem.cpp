@@ -71,10 +71,8 @@ void GraphicSystem::init()
 	mViewport = mWindow->addViewport(mCamera);
 	mViewport->setBackgroundColour(colour(0.5, 0.5, 0.5));
 
-	// TODO: Add resources worker
-	Ogre::ResourceGroupManager &rgm = Ogre::ResourceGroupManager::getSingleton();
-	rgm.addResourceLocation("", "FileSystem", "General", true);
-	rgm.initialiseResourceGroup("General");
+        Utils::get_const_instance().resourceHandle().addResourceLocationRecursive(".");
+	Ogre::ResourceGroupManager::getSingleton().initialiseAllResourceGroups();
 	LOG("\t- All resources are loaded");
 }
 
