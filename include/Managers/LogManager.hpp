@@ -20,14 +20,18 @@ class LogManager
             string workPath = mDefaultPath;
             if (logFile != "")
             {
-                if (Ogre::LogManager::getSingletonPtr()->getLog(logFile) == NULL)
+                //if (Ogre::LogManager::getSingletonPtr()->getLog(logFile) == NULL)
                         Ogre::LogManager::getSingleton().createLog(logFile, false, true);
 
                 workPath = logFile;
             }
 
+            Ogre::LogManager *logHandle = Ogre::LogManager::getSingletonPtr();
+            Ogre::Log *log2Handle = logHandle->getLog(workPath);
+            log2Handle->logMessage(message);
 
-            Ogre::LogManager::getSingletonPtr()->getLog(workPath)->logMessage(message, Ogre::LML_CRITICAL);
+            //Ogre::LogManager::getSingletonPtr()->getLog(workPath)->logMessage(message, Ogre::LML_CRITICAL);
+            Ogre::LogManager::getSingletonPtr()->logMessage(message);
         }
 };
 

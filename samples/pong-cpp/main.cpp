@@ -6,6 +6,9 @@ int main() {
     string logName = "pong.log";
 
     string test = Engine::Config().getValue<string>("ogre.renderLib");
+    Engine::Log().write("Starting game initializating...");
+    
+    //Engine::Resources().addResourceLocationRecursive("media2/");
     if (Engine::Application().Init())
     {
         //Engine::Log().write("Starting game initializating...", logName);

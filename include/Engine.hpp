@@ -10,7 +10,7 @@ namespace Engine
 
     ConfigManager &Config() { return Utils::get_mutable_instance().configHandle(); }
     LogManager &Log() { return Utils::get_mutable_instance().logHandle(); }
-    ResourcesManager &Resources() { return Utils::get_const_instance().resourceHandle(); }
+    ResourcesManager &Resources() { return Utils::get_mutable_instance().resourceHandle(); }
 };
 
 #endif	/* ENGINE_HPP */

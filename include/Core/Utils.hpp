@@ -22,9 +22,10 @@ class Utils : public singleton<Utils>
         Utils()
         {
             configHandlePtr = new ConfigManager();
-            string engineLog = configHandle().getValue<string>("engine.logFilename", "Engine.log");
 
+            string engineLog = configHandle().getValue<string>("engine.logFilename", "Engine.log");
             logHandlePtr = new LogManager(engineLog);
+            
             resourceHandlePtr = new ResourcesManager();
         }
         ~Utils()
