@@ -8,17 +8,20 @@
 
 class GameApplication : public singleton<GameApplication>
 {
-	protected:
-		boost::ptr_vector<ISystem> mSystemsList;
-	
-	public:
-		GameApplication();
-		~GameApplication();
+    protected:
+        boost::ptr_vector<ISystem> mSystemsList;
+        bool mRunning;
 
-		bool Init();
-		void Start();
-		void _loop();
-		void Shutdown();
+    public:
+        GameApplication();
+        ~GameApplication();
+
+        void setGameState(bool running);
+
+        bool Init();
+        void Start();
+        void _loop();
+        void Shutdown();
 };
 
 #endif
