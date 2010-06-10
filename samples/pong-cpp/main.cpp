@@ -5,7 +5,7 @@ using namespace std;
 int main() {
     string logName = "pong.log";
 
-    //Engine::Log().write("Starting game initializating...");
+    string test = Engine::Config().getValue<string>("ogre.renderLib");
     if (Engine::Application().Init())
     {
         //Engine::Log().write("Starting game initializating...", logName);
