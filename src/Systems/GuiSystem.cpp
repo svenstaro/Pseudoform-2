@@ -10,5 +10,5 @@ void GuiSystem::update() { }
 
 std::string GuiSystem::toString()
 {
-	return "GuiSystem";
+    return "GuiSystem";
 }

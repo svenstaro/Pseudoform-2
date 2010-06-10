@@ -9,18 +9,18 @@ using namespace boost::serialization;
 
 class InputSystem : public ISystem, public singleton<InputSystem>
 {
-	private:
-		size_t mWindowHandle;
-		sf::Window mInputWindow;
+    private:
+        size_t mWindowHandle;
+        sf::Window mInputWindow;
 
-	public:
-		InputSystem();
-		~InputSystem();
+    public:
+        InputSystem();
+        ~InputSystem();
 
-		// Inherited from ISystem
-		void init();
-		void update();
-		std::string toString();
+        // Inherited from ISystem
+        void init();
+        void update();
+        std::string toString();
 };
 
 #endif

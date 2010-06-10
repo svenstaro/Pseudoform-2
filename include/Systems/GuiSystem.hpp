@@ -7,17 +7,17 @@
 
 class GuiSystem : public ISystem, public singleton<GuiSystem>
 {
-	private:
-		// MyGui ....
+    private:
+        // MyGui ....
 
-	public:
-		GuiSystem();
-		~GuiSystem();
+    public:
+        GuiSystem();
+        ~GuiSystem();
 
-		// Inherited from ISystem
-		void init();
-		void update();
-		std::string toString();
+        // Inherited from ISystem
+        void init();
+        void update();
+        std::string toString();
 };
 
 #endif

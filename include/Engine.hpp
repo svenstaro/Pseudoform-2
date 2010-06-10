@@ -4,13 +4,13 @@
 #include "PseudoformCore.hpp"
 #include "PseudoformManagers.hpp"
 
-class Engine
+namespace Engine
 {
-    public:
-        GameApplication &Application() { return GameApplication::get_mutable_instance(); }
-        ConfigManager &Config() { return Utils::get_mutable_instance().configHandle(); }
-		LogManager &Log() { return Utils::get_const_instance().logHandle(); }
+    GameApplication &Application() { return GameApplication::get_mutable_instance(); }
 
+    ConfigManager &Config() { return Utils::get_mutable_instance().configHandle(); }
+    LogManager &Log() { return Utils::get_mutable_instance().logHandle(); }
+    ResourcesManager &Resources() { return Utils::get_const_instance().resourceHandle(); }
 };
 
 #endif	/* ENGINE_HPP */

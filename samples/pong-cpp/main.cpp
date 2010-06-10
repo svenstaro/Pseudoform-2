@@ -1,14 +1,16 @@
 #include "Engine.hpp"
-#include "Core/GameApplication.hpp"
+
+using namespace std;
 
 int main() {
-    Engine EngineHandle;
-    GameApplication &Application = EngineHandle.Application();
-    
-    if (Application.Init())
+    string logName = "pong.log";
+
+    //Engine::Log().write("Starting game initializating...");
+    if (Engine::Application().Init())
     {
-        Application.Start();
-        Application.Shutdown();
+        //Engine::Log().write("Starting game initializating...", logName);
+        Engine::Application().Start();
+        Engine::Application().Shutdown();
     }
     return 0;
 }
