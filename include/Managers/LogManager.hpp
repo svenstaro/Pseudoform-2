@@ -1,8 +1,8 @@
 #ifndef _LOG_MANAGER_H_
 #define _LOG_MANAGER_H_
 
-#include "PseudoformAdditional.hpp"
 #include <vector>
+#include <Ogre.h>
 
 using namespace std;
 
@@ -10,6 +10,7 @@ class LogManager
 {
     protected:
         string mDefaultPath;
+        std::vector<std::string> mCreatedLogs;
 
     public:
         LogManager(const string &logPath = "Engine.log") :
@@ -20,18 +21,17 @@ class LogManager
             string workPath = mDefaultPath;
             if (logFile != "")
             {
-                //if (Ogre::LogManager::getSingletonPtr()->getLog(logFile) == NULL)
-                        Ogre::LogManager::getSingleton().createLog(logFile, false, true);
-
+                // If the log isn't used
+                if (std::find(mCreatedLogs.begin(), mCreatedLogs.end(), logFile) == mCreatedLogs.end())
+                {
+                    Ogre::LogManager::getSingleton().createLog(logFile, false, true);
+                    mCreatedLogs.push_back(logFile);
+                }
+                        
                 workPath = logFile;
             }
 
-            Ogre::LogManager *logHandle = Ogre::LogManager::getSingletonPtr();
-            Ogre::Log *log2Handle = logHandle->getLog(workPath);
-            log2Handle->logMessage(message);
-
-            //Ogre::LogManager::getSingletonPtr()->getLog(workPath)->logMessage(message, Ogre::LML_CRITICAL);
-            Ogre::LogManager::getSingletonPtr()->logMessage(message);
+            Ogre::LogManager::getSingletonPtr()->getLog(workPath)->logMessage(message, Ogre::LML_CRITICAL);
         }
 };
 
