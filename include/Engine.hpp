@@ -1,8 +1,8 @@
 #ifndef ENGINE_HPP
 #define	ENGINE_HPP
 
-#include "PseudoformCore.hpp"
-#include "PseudoformManagers.hpp"
+#include "Core/Managers.hpp"
+#include "Core/GameApplication.hpp"
 
 namespace Engine
 {

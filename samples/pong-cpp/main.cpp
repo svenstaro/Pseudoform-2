@@ -5,15 +5,13 @@ using namespace std;
 int main() {
     string logName = "pong.log";
 
+    Engine::Log().write("Resolving render library type from config...", logName);
     string test = Engine::Config().getValue<string>("ogre.renderLib");
-    Engine::Log().write("Starting game initializating...");
+
+    Engine::Log().write("Adding new source location...", logName);
+    Engine::Resources().addResourceLocationRecursive("pong-media/");
+
+    Engine::Application().Start();
     
-    //Engine::Resources().addResourceLocationRecursive("media2/");
-    if (Engine::Application().Init())
-    {
-        //Engine::Log().write("Starting game initializating...", logName);
-        Engine::Application().Start();
-        Engine::Application().Shutdown();
-    }
     return 0;
 }
