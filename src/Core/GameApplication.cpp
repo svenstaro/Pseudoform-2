@@ -7,23 +7,21 @@ GameApplication::GameApplication()
     mSystemsList.push_back(new GuiSystem());
 
     mRunning = false;
+
+    this->_init();
 }
 
 GameApplication::~GameApplication() { }
 
-void GameApplication::setGameState(bool running)
-{
-    mRunning = running;
-}
+void GameApplication::setGameState(bool running) { mRunning = running; }
 
-bool GameApplication::Init()
+void GameApplication::_init()
 {
-    bforeach(ISystem &curSystem, mSystemsList)
+    BOOST_FOREACH(ISystem &curSystem, mSystemsList)
     {
         curSystem.init();
         LOG(FORMAT("--------------- Initializating of `%1%` is finished", curSystem.toString()));
     }
-    return true;
 }
 
 void GameApplication::Start()
@@ -40,19 +38,21 @@ void GameApplication::Start()
 void GameApplication::_loop()
 {
     while(mRunning)
-{
+    {
         Ogre::WindowEventUtilities::messagePump();
 
-        bforeach(ISystem &curSystem, mSystemsList)
+        BOOST_FOREACH(ISystem &curSystem, mSystemsList)
         {
             curSystem.update();
         }
 
         if (!GraphicSystem::getSingletonPtr()->getRoot()->renderOneFrame()) break;
     }
+
+    this->_shutdown();
 }
 
-void GameApplication::Shutdown()
+void GameApplication::_shutdown()
 {
     mSystemsList.clear();
 }

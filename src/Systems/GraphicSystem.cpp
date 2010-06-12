@@ -28,7 +28,7 @@ void GraphicSystem::init()
     }
 
     std::vector<std::string> pluginsList = Utils::get_const_instance().configHandle().getListValue("ogre.plugins");
-    bforeach(std::string &plugin, pluginsList)
+    BOOST_FOREACH(std::string &plugin, pluginsList)
     {
         mRoot->loadPlugin(pluginsDir + plugin);
     }

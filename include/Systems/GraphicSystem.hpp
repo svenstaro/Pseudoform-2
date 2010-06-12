@@ -2,8 +2,13 @@
 #define _GRAPHIC_SYSTEM_H_
 
 #include "System.hpp"
-#include "PseudoformAdditional.hpp"
-#include "PseudoformCore.hpp"
+#include "Core/Predefines.hpp"
+#include "Core/Types.hpp"
+
+#include <boost/foreach.hpp>
+#include <boost/serialization/singleton.hpp>
+
+#include <Ogre.h>
 
 using namespace boost::serialization;
 using namespace std;

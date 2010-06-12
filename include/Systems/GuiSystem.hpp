@@ -2,8 +2,9 @@
 #define _GUI_SYSTEM_H_
 
 #include "System.hpp"
-#include "PseudoformAdditional.hpp"
-#include "PseudoformCore.hpp"
+#include <boost/serialization/singleton.hpp>
+
+using namespace boost::serialization;
 
 class GuiSystem : public ISystem, public singleton<GuiSystem>
 {

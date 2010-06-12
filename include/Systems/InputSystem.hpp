@@ -2,8 +2,10 @@
 #define _INPUT_SYSTEM_H_
 
 #include "System.hpp"
-#include "PseudoformAdditional.hpp"
-#include "PseudoformCore.hpp"
+#include "Core/GameApplication.hpp"
+
+#include <SFML/Window.hpp>
+#include <boost/serialization/singleton.hpp>
 
 using namespace boost::serialization;
 

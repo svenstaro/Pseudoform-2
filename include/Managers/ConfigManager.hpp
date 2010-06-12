@@ -4,8 +4,7 @@
 #include <boost/property_tree/ptree.hpp>
 #include <boost/property_tree/info_parser.hpp>
 
-#include "PseudoformAdditional.hpp"
-#include "PseudoformCore.hpp"
+#include <boost/foreach.hpp>
 
 #include <vector>
 #include <map>
@@ -64,7 +63,7 @@ class ConfigManager
                 workTree = mPtreeList[mDefaultPath];
             }
 
-            bforeach(ptree::value_type &value, workTree.get_child(key))
+            BOOST_FOREACH(ptree::value_type &value, workTree.get_child(key))
             {
                 listValues.push_back(value.second.data());
             }

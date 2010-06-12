@@ -1,12 +1,9 @@
 #ifndef _UTILS_H_
 #define _UTILS_H_
 
-#define bforeach BOOST_FOREACH
-#define LOG(message) Utils::get_const_instance().logHandle().write(message)
-#define FORMAT(parentString, params) (boost::format(parentString) % params).str()
-#define CONFIG(key, type, def) Utils::get_const_instance().configHandle().getValue<type>(key, def)
+#include "Core/Managers.hpp"
 
-#include "PseudoformManagers.hpp"
+#include <boost/serialization/singleton.hpp>
 
 using namespace boost;
 using namespace boost::serialization;

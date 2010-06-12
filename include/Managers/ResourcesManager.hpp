@@ -1,13 +1,9 @@
 #ifndef RESOURCESMANAGER_HPP
 #define	RESOURCESMANAGER_HPP
 
-#include "PseudoformAdditional.hpp"
-#include "PseudoformCore.hpp"
-
 class ResourcesManager
 {
     public:
-        // ============================================================================================
         void addResourceLocationRecursive(Ogre::String path, Ogre::String group = "General")
         {
             Ogre::ResourceGroupManager::getSingleton().addResourceLocation(path, "FileSystem", group);
@@ -28,7 +24,6 @@ class ResourcesManager
             }
         }
 
-        // ============================================================================================
         void UnloadResource(Ogre::ResourceManager* resMgr, const std::string& resourceName)
         {
             Ogre::ResourcePtr rPtr = resMgr->getByName(resourceName);
@@ -37,7 +32,7 @@ class ResourcesManager
             rPtr->unload();
             resMgr->remove(resourceName);
         }
-        // ============================================================================================
+        
         void ReloadResource(Ogre::ResourceManager* resMgr, const std::string& resourceName, const std::string& resourceGroup)
         {
             Ogre::ResourcePtr rPtr = resMgr->load(resourceName, resourceGroup);
@@ -45,7 +40,6 @@ class ResourcesManager
 
             rPtr->reload();
         }
-        // ============================================================================================
 };
 
 #endif	/* RESOURCESMANAGER_HPP */
