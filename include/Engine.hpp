@@ -10,9 +10,9 @@ namespace Engine
 
     namespace Managers
     {
-        ConfigManager &Config() { return Utils::get_mutable_instance().configHandle(); }
-        LogManager &Log() { return Utils::get_mutable_instance().logHandle(); }
-        ResourcesManager &Resources() { return Utils::get_mutable_instance().resourceHandle(); }
+        ConfigManager &GetConfig() { return Utils::get_mutable_instance().configHandle(); }
+        LogManager &GetLog() { return Utils::get_mutable_instance().logHandle(); }
+        ResourcesManager &GetResources() { return Utils::get_mutable_instance().resourceHandle(); }
     }
 };
 

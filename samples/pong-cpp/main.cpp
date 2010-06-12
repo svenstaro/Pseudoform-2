@@ -6,11 +6,11 @@ using namespace Engine;
 int main() {
     string logName = "pong.log";
 
-    Managers::Log().write("Resolving render library type from config...", logName);
-    string test = Managers::Config().getValue<string>("ogre.renderLib");
+    Managers::GetLog().write("Resolving render library type from config...", logName);
+    string test = Managers::GetConfig().getValue<string>("ogre.renderLib");
 
-    Managers::Log().write("Adding new source location...", logName);
-    Managers::Resources().addResourceLocationRecursive("pong-media/");
+    Managers::GetLog().write("Adding new source location...", logName);
+    Managers::GetResources().addResourceLocationRecursive("pong-media/");
 
     Engine::Application().Start();
     
