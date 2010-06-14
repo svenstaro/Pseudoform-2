@@ -3,8 +3,7 @@
 
 #include "Systems/System.hpp"
 #include "Core/Systems.hpp"
-
-#include "Predefines.hpp"
+#include "Managers/LogManager.hpp"
 
 #include <boost/ptr_container/ptr_vector.hpp>
 #include <boost/format.hpp>

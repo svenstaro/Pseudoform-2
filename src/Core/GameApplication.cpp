@@ -46,7 +46,8 @@ void GameApplication::_loop()
             curSystem.update();
         }
 
-        if (!GraphicSystem::getSingletonPtr()->getRoot()->renderOneFrame()) break;
+        //if (!GraphicSystem::getSingletonPtr()->getRoot()->renderOneFrame()) break;
+        if (!GraphicSystem::get_const_instance().getRoot()->renderOneFrame()) break;
     }
 
     this->_shutdown();

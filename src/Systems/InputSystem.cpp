@@ -8,7 +8,9 @@ InputSystem::~InputSystem() { }
 
 void InputSystem::init()
 {
-    GraphicSystem::getSingletonPtr()->getWindow()->getCustomAttribute("WINDOW", &mWindowHandle);
+    //GraphicSystem::getSingletonPtr()->getWindow()->getCustomAttribute("WINDOW", &mWindowHandle);
+
+    GraphicSystem::get_const_instance().getWindow()->getCustomAttribute("WINDOW", &mWindowHandle);
     mInputWindow.Create(mWindowHandle);
 
     LOG("\t- SFML window is created");

@@ -3,6 +3,7 @@
 
 #include "System.hpp"
 #include "Core/GameApplication.hpp"
+#include "Managers/LogManager.hpp"
 
 #include <SFML/Window.hpp>
 #include <boost/serialization/singleton.hpp>

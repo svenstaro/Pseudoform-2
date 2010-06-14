@@ -2,10 +2,12 @@
 #define _GRAPHIC_SYSTEM_H_
 
 #include "System.hpp"
-#include "Core/Predefines.hpp"
 #include "Core/Types.hpp"
+#include "Managers/LogManager.hpp"
 
 #include <boost/foreach.hpp>
+
+#include "Core/Singleton.hpp"
 #include <boost/serialization/singleton.hpp>
 
 #include <Ogre.h>
@@ -13,7 +15,9 @@
 using namespace boost::serialization;
 using namespace std;
 
-class GraphicSystem : public ISystem,  public Ogre::Singleton<GraphicSystem>
+//class GraphicSystem : public ISystem,  public Ogre::Singleton<GraphicSystem>
+//class GraphicSystem : public ISystem, public singleton<GraphicSystem>
+class GraphicSystem : public ISystem, public ISingleton<GraphicSystem>
 {
     protected:
         Ogre::Root *mRoot;

@@ -1,6 +1,17 @@
 #include "Systems/GraphicSystem.hpp"
 
-template<> GraphicSystem* Ogre::Singleton<GraphicSystem>::ms_Singleton = 0;
+//template<> GraphicSystem* Ogre::Singleton<GraphicSystem>::ms_Singleton = 0;
+template<> GraphicSystem* ISingleton<GraphicSystem>::mInstance = 0;
+
+
+GraphicSystem::GraphicSystem()
+{
+}
+
+GraphicSystem::~GraphicSystem()
+{
+    //delete mRoot;
+}
 
 void GraphicSystem::init()
 {
@@ -20,11 +31,11 @@ void GraphicSystem::init()
 
     if (renderLib == "OPENGL")
     {
-            mRoot->loadPlugin(pluginsDir + "RenderSystem_GL");
+        mRoot->loadPlugin(pluginsDir + "RenderSystem_GL");
     }
     else
     {
-            mRoot->loadPlugin(pluginsDir + "RenderSystem_Direct3D9");
+        mRoot->loadPlugin(pluginsDir + "RenderSystem_Direct3D9");
     }
 
     std::vector<std::string> pluginsList = Utils::get_const_instance().configHandle().getListValue("ogre.plugins");
@@ -74,21 +85,12 @@ void GraphicSystem::init()
     LOG("\t- All resources are loaded");
 }
 
-GraphicSystem::GraphicSystem()
+void GraphicSystem::update()
 {
+    // ...
 }
 
 std::string GraphicSystem::toString()
 {
     return "GraphicSystem";
-}
-
-GraphicSystem::~GraphicSystem()
-{
-    delete mRoot;
-}
-
-void GraphicSystem::update()
-{
-    // ...
 }
