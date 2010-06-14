@@ -35,10 +35,12 @@ class EntityManager : public singleton<EntityManager>
                 return false;
             }
 
-            if (copyEntity != NULL)
+            if (copyEntity != NULL) {
                 mEntityList[entityName] = copyEntity;
-            else
+            } else {
                 IEntity newEntity = loadEntity(entityName);
+                mEntityList[entityName] = &newEntity;
+            }
             
             return true;
         }
@@ -58,24 +60,6 @@ class EntityManager : public singleton<EntityManager>
             if (mEntityList.count(entityName) == 0)
             {
                 LOG(FORMAT("Can`t delete entity '%1%', because it doesn`t exsist!", entityName));
-                return false;
-            }
-
-            mEntityList.erase(entityName);
-            return true;
-        }
-
-        bool RenameEntity(const string &entityName, const string &newEntityName)
-        {
-            if (mEntityList.count(entityName) == 0)
-            {
-                LOG(FORMAT("Can`t rename entity '%1%', because it doesn`t exsist!", entityName));
-                return false;
-            }
-
-            if (newEntityName == "")
-            {
-                LOG(FORMAT("New name for entity '%1%' wasn`t declared!", entityName));
                 return false;
             }
 
