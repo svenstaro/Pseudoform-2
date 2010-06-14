@@ -3,18 +3,22 @@
 
 #include <vector>
 #include <Ogre.h>
+#include <boost/serialization/singleton.hpp>
 
+using namespace boost::serialization;
 using namespace std;
 
-class LogManager
+#define LOG(message) LogManager::get_const_instance().write(message)
+class LogManager : public singleton<LogManager>
 {
     protected:
         string mDefaultPath;
         std::vector<std::string> mCreatedLogs;
 
     public:
-        LogManager(const string &logPath = "Engine.log") :
-                mDefaultPath(logPath) { }
+        LogManager() { mDefaultPath = "Engine.log"; }
+        
+        void setDefaultLog(const string &logPath) { mDefaultPath = logPath; }
 
         void write(const string &message, const string logFile = "")
         {
