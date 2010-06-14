@@ -6,6 +6,7 @@
 #include "Managers/ConfigManager.hpp"
 #include "Managers/LogManager.hpp"
 #include "Managers/ResourceManager.hpp"
+#include "Managers/EntityManager.hpp"
 
 namespace Engine
 {
@@ -16,6 +17,7 @@ namespace Engine
         ConfigManager &GetConfig() { return ConfigManager::get_mutable_instance(); }
         LogManager &GetLog() { return LogManager::get_mutable_instance(); }
         ResourceManager &GetResource() { return ResourceManager::get_mutable_instance(); }
+        EntityManager &GetEntity() { return EntityManager::get_mutable_instance(); }
     }
 };
 
