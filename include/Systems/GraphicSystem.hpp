@@ -3,11 +3,11 @@
 
 #include "System.hpp"
 #include "Core/Types.hpp"
+#include "Core/Singleton.hpp"
 #include "Managers/LogManager.hpp"
+#include "Managers/ConfigManager.hpp"
 
 #include <boost/foreach.hpp>
-
-#include "Core/Singleton.hpp"
 #include <boost/serialization/singleton.hpp>
 
 #include <Ogre.h>

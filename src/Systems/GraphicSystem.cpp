@@ -38,7 +38,7 @@ void GraphicSystem::init()
         mRoot->loadPlugin(pluginsDir + "RenderSystem_Direct3D9");
     }
 
-    std::vector<std::string> pluginsList = Utils::get_const_instance().configHandle().getListValue("ogre.plugins");
+    std::vector<std::string> pluginsList = ConfigManager::get_mutable_instance().getListValue("ogre.plugins");
     BOOST_FOREACH(std::string &plugin, pluginsList)
     {
         mRoot->loadPlugin(pluginsDir + plugin);
@@ -80,8 +80,10 @@ void GraphicSystem::init()
     mViewport = mWindow->addViewport(mCamera);
     mViewport->setBackgroundColour(colour(0.5, 0.5, 0.5));
 
+    /*
     Utils::get_const_instance().resourceHandle().addResourceLocationRecursive("media/");
     Ogre::ResourceGroupManager::getSingleton().initialiseAllResourceGroups();
+    */
     LOG("\t- All resources are loaded");
 }
 
