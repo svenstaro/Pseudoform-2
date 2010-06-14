@@ -1,41 +1,28 @@
 #ifndef _UTILS_H_
 #define _UTILS_H_
 
-#include "Core/Managers.hpp"
-
 #include <boost/serialization/singleton.hpp>
+#include <boost/format.hpp>
 
 using namespace boost;
 using namespace boost::serialization;
 
+#define FORMAT(parentString, params) (boost::format(parentString) % params).str()
+
 class Utils : public singleton<Utils>
 {
     protected:
-        ConfigManager *configHandlePtr;
-        LogManager *logHandlePtr;
-        ResourcesManager *resourceHandlePtr;
 
     public:
         Utils()
         {
-            configHandlePtr = new ConfigManager();
-
-            string engineLog = configHandle().getValue<string>("engine.logFilename", "Engine.log");
-            logHandlePtr = new LogManager(engineLog);
-            
-            resourceHandlePtr = new ResourcesManager();
         }
+
         ~Utils()
         {
-            delete configHandlePtr;
-            delete logHandlePtr;
-            delete resourceHandlePtr;
         }
 
-        ConfigManager &configHandle() const { return *configHandlePtr; }
-        LogManager &logHandle() const { return *logHandlePtr; }
-        ResourcesManager &resourceHandle() const { return *resourceHandlePtr; }
-
+        // We really needn't in this
         enum renderType {
             OPENGL,
             DIRECT3D
