@@ -8,7 +8,7 @@
 using namespace boost::serialization;
 using namespace std;
 
-#define LOG(message) LogManager::get_const_instance().write(message)
+#define LOG(message) LogManager::get_mutable_instance().write(message)
 class LogManager : public singleton<LogManager>
 {
     protected:
