@@ -1,7 +1,7 @@
 #ifndef _TYPES_H_
 #define _TYPES_H_
 
-// Really like this
+#include "Ogre.h"
 
 typedef double real;
 
