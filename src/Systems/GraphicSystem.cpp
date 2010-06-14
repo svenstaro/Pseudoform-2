@@ -10,7 +10,7 @@ GraphicSystem::GraphicSystem()
 
 GraphicSystem::~GraphicSystem()
 {
-    //delete mRoot;
+    delete mRoot;
 }
 
 void GraphicSystem::init()
@@ -80,10 +80,10 @@ void GraphicSystem::init()
     mViewport = mWindow->addViewport(mCamera);
     mViewport->setBackgroundColour(colour(0.5, 0.5, 0.5));
 
-    /*
-    Utils::get_const_instance().resourceHandle().addResourceLocationRecursive("media/");
+
+    ResourceManager::get_const_instance().addResourceLocationRecursive("media/");
     Ogre::ResourceGroupManager::getSingleton().initialiseAllResourceGroups();
-    */
+    
     LOG("\t- All resources are loaded");
 }
 

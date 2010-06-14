@@ -4,8 +4,10 @@
 #include "System.hpp"
 #include "Core/Types.hpp"
 #include "Core/Singleton.hpp"
+
 #include "Managers/LogManager.hpp"
 #include "Managers/ConfigManager.hpp"
+#include "Managers/ResourceManager.hpp"
 
 #include <boost/foreach.hpp>
 #include <boost/serialization/singleton.hpp>
