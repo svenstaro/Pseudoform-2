@@ -10,7 +10,7 @@ int main() {
     string test = Managers::GetConfig().getValue<string>("ogre.renderLib");
 
     Managers::GetLog().write("Adding new source location...", logName);
-    Managers::GetResources().addResourceLocationRecursive("pong-media/");
+    Managers::GetResource().addResourceLocationRecursive("pong-media/");
 
     Engine::Application().Start();
     
