@@ -3,6 +3,7 @@
 
 #include "boost/ptr_container/ptr_map.hpp"
 #include "boost/foreach.hpp"
+#include "boost/noncopyable.hpp"
 #include <boost/serialization/singleton.hpp>
 
 #include "Core/Types.hpp"
@@ -12,7 +13,7 @@
 using namespace boost::serialization;
 using namespace std;
 
-class IEntity
+class IEntity : private boost::noncopyable
 {
     protected:
         string mEntityName;
@@ -23,11 +24,11 @@ class IEntity
 class EntityManager : public singleton<EntityManager>
 {
     protected:
-        boost::ptr_map<string, IEntity*> mEntityList;
-        IEntity &loadEntity(const string &entityName) { IEntity *temp; return *temp; /* Here will be loading from info files*/ };
+        boost::ptr_map<const string, IEntity> mEntityList;
+        void loadEntity(const string &entityName) { /*Will be soon*/ };
 
     public:
-        bool CreateEntity(const string &entityName, IEntity *copyEntity = NULL)
+        bool CreateEntity(const string &entityName)
         {
             if (mEntityList.count(entityName) == 0) 
             {
@@ -35,12 +36,8 @@ class EntityManager : public singleton<EntityManager>
                 return false;
             }
 
-            if (copyEntity != NULL) {
-                mEntityList[entityName] = copyEntity;
-            } else {
-                IEntity newEntity = loadEntity(entityName);
-                mEntityList[entityName] = &newEntity;
-            }
+            mEntityList.insert(entityName, new IEntity());
+            loadEntity(entityName);
             
             return true;
         }
@@ -52,7 +49,7 @@ class EntityManager : public singleton<EntityManager>
                 LOG(FORMAT("Can`t get entity '%1%', because it doesn`t exsist!", entityName));
                 return NULL;
             }
-            return mEntityList[entityName];
+            return &mEntityList[entityName];
         }
 
         bool DeleteEntity(const string &entityName)
