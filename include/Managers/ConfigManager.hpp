@@ -22,21 +22,10 @@ class ConfigManager : public singleton<ConfigManager>
         string mDefaultPath;
         map<string, ptree> mPtreeList;
 
-        void _forcePtree(const string &configPath)
-        {
-            if (mPtreeList.count(configPath) == 0)
-            {
-                mPtreeList.insert(make_pair(configPath, ptree()));
-            }
-        }
+        void _forcePtree(const string &configPath);
 
     public:
-        ConfigManager()
-        {
-            mDefaultPath = "settings.info";
-            _forcePtree(mDefaultPath);
-            read_info(mDefaultPath, mPtreeList[mDefaultPath]);
-        }
+        ConfigManager();
 
         template<typename T>
         T getValue(const string &key, const T &defaultValue = T(), const string &ownConfig = "")
@@ -52,30 +41,7 @@ class ConfigManager : public singleton<ConfigManager>
                 return mPtreeList[mDefaultPath].get<T>(key, defaultValue);
             }
         }
-
-        vector<string> getListValue(const string &key, const string &ownConfig = "")
-        {
-            vector<string> listValues;
-            ptree workTree;
-
-            if (key == "") LOG("Trying to get config value of empty key!");
-            if (ownConfig != "")
-            {
-                _forcePtree(ownConfig);
-                workTree = mPtreeList[ownConfig];
-            }
-            else
-            {
-                workTree = mPtreeList[mDefaultPath];
-            }
-
-            BOOST_FOREACH(ptree::value_type &value, workTree.get_child(key))
-            {
-                listValues.push_back(value.second.data());
-            }
-
-            return listValues;
-        }
+        vector<string> getListValue(const string &key, const string &ownConfig = "");
 };
 
 #endif

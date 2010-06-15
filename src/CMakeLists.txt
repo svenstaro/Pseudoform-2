@@ -1,4 +1,7 @@
 set(Pseudoform_srcs
+    Managers/ResourceManager.cpp
+    Managers/LogManager.cpp
+    Managers/ConfigManager.cpp
 	Core/GameApplication.cpp
 	Systems/GraphicSystem.cpp
 	Systems/PhysicSystem.cpp
