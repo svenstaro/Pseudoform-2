@@ -20,7 +20,7 @@ using namespace boost::serialization;
 
 // Define section
 #define CONNECT(EventType, EventName, FunctionPointer) EventManager::get_mutable_instance().connect<EventType>(EventName, bind(FunctionPointer, this, _1));
-#define SIGNAL(EventType, EventName, Arguments) EventManager::get_mutable_instance().get<EventType>(EventName).Call(EventType::ArgsType(Arguments));
+#define SIGNAL(EventType, EventName, ...) EventManager::get_mutable_instance().get<EventType>(EventName).Call(EventType::ArgsType(__VA_ARGS__));
 
 // TODO: Allow lambda-slots
 
