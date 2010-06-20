@@ -2,10 +2,13 @@
 #define _GAME_APPLICATION_H_
 
 #include "Systems/System.hpp"
-#include "Core/Systems.hpp"
-#include "Managers/LogManager.hpp"
 
+#include "Core/Systems.hpp"
 #include "Core/Utils.hpp"
+#include "Core/Events.hpp"
+
+#include "Managers/LogManager.hpp"
+#include "Managers/EventManager.hpp"
 
 #include <boost/ptr_container/ptr_vector.hpp>
 #include <boost/format.hpp>
@@ -26,6 +29,9 @@ class GameApplication : public singleton<GameApplication>
         void Start();
         void _loop();
         void _shutdown();
+
+        // Slots
+        void keyPressed(sf::Event::KeyEvent &eventData);
 };
 
 #endif

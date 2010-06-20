@@ -9,6 +9,8 @@ GameApplication::GameApplication()
     mRunning = false;
 
     this->_init();
+
+    CONNECT(Engine::Events::KeyEvent, "KeyPressed", &GameApplication::keyPressed);
 }
 
 GameApplication::~GameApplication() { }
@@ -56,4 +58,9 @@ void GameApplication::_loop()
 void GameApplication::_shutdown()
 {
     mSystemsList.clear();
+}
+
+void GameApplication::keyPressed(sf::Event::KeyEvent &eventData)
+{
+    if (eventData.Code == sf::Key::Escape) mRunning = false;
 }

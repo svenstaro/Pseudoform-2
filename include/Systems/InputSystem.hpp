@@ -3,7 +3,11 @@
 
 #include "System.hpp"
 #include "Core/GameApplication.hpp"
+#include "Core/Events.hpp"
+
 #include "Managers/LogManager.hpp"
+#include "Managers/EventManager.hpp"
+#include "Managers/EventManager.hpp"
 
 #include <SFML/Window.hpp>
 #include <boost/serialization/singleton.hpp>
@@ -16,10 +20,12 @@ class InputSystem : public ISystem, public singleton<InputSystem>
         size_t mWindowHandle;
         sf::Window mInputWindow;
 
+        //SigKeyPressed mSigKeyPressed;
+
     public:
         InputSystem();
         ~InputSystem();
-
+        
         // Inherited from ISystem
         void init();
         void update();
