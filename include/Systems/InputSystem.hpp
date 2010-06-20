@@ -3,7 +3,7 @@
 
 #include "System.hpp"
 #include "Core/GameApplication.hpp"
-#include "Core/Events.hpp"
+#include "Managers/Events/Events.hpp"
 
 #include "Managers/LogManager.hpp"
 #include "Managers/EventManager.hpp"

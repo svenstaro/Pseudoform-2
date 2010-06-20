@@ -2,12 +2,10 @@
 #define	EVENTS_HPP
 
 #include "Core/Utils.hpp"
+#include "Managers/Events/SlotObject.hpp"
 
 // Event dependencies below
 #include <SFML/Window/Event.hpp>
-
-template<class SignalT>
-class SlotObject;
 
 namespace Engine
 {

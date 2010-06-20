@@ -5,7 +5,7 @@
 
 #include "Core/Systems.hpp"
 #include "Core/Utils.hpp"
-#include "Core/Events.hpp"
+#include "Managers/Events/Events.hpp"
 
 #include "Managers/LogManager.hpp"
 #include "Managers/EventManager.hpp"

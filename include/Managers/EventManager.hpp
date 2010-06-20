@@ -3,17 +3,12 @@
 
 #include <boost/serialization/singleton.hpp>
 #include <boost/function.hpp>
-#include <boost/signals2.hpp>
+
 #include <boost/any.hpp>
-#include <boost/function_types/parameter_types.hpp>
-#include <boost/fusion/include/vector.hpp>
-#include <boost/fusion/include/mpl.hpp>
-#include <boost/fusion/include/fused.hpp>
-#include <boost/shared_ptr.hpp>
 
 #include "Managers/LogManager.hpp"
 #include "Core/Utils.hpp"
-#include "Core/Events.hpp"
+#include "Managers/Events/Events.hpp"
 
 #include <typeinfo>
 #include <iostream>
@@ -21,56 +16,7 @@
 
 using namespace boost;
 using namespace std;
-using namespace boost::signals2;
 using namespace boost::serialization;
-
-// This structure for taking signature of the signal object
-template<class SignalT>
-struct SignatureOf;
-
-template<
-    typename Signature, typename Combiner, typename Group,
-    typename GroupCompare, typename SlotFunction
->
-struct SignatureOf<
-    boost::signals2::signal<Signature, Combiner, Group, GroupCompare, SlotFunction>
->
-{
-    typedef Signature type;
-};
-
-// Signal wrapper
-template<class SignalT>
-class SlotObject
-{
-    private:
-        boost::shared_ptr<SignalT> mSignal;
-    public:
-        SlotObject() { mSignal = boost::shared_ptr<SignalT>(new SignalT()); }
-
-        typedef typename SignatureOf<SignalT>::type SignatureType;
-        typedef typename SignalT::slot_type SignatureSlotType;
-
-        // Packing the arguments signature into vector
-        typedef typename boost::fusion::result_of::as_vector<
-            typename boost::function_types::parameter_types<SignatureType>::type
-        >::type ArgsType;
-
-        // Public interface ----------------------------------------------------
-
-        // This is for easy calling of current signal
-        void Call(ArgsType P)
-        {
-            boost::fusion::fused<SignalT&> f(*mSignal);
-            f(P);
-        }
-
-        // This is for connecting slots
-        signals2::connection Connect(const typename SignalT::slot_type &slotHandle)
-        {
-            return mSignal.get()->connect(slotHandle);
-        }
-};
 
 // Define section
 #define CONNECT(EventType, EventName, FunctionPointer) EventManager::get_mutable_instance().connect<EventType>(EventName, bind(FunctionPointer, this, _1));
