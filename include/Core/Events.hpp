@@ -23,8 +23,12 @@ namespace Engine
 
         NEW_EVENT(void (sf::Event::JoyButtonEvent &eventData), JoyButtonEvent);
         NEW_EVENT(void (sf::Event::JoyMoveEvent &eventData), JoyMoveEvent);
+
+        NEW_EVENT(void (void), CloseEvent);
+        NEW_EVENT(void (void), LostFocusEvent);
+        NEW_EVENT(void (void), GainFocusEvent);
+        NEW_EVENT(void (void), MouseEnteredEvent);
     }
 }
 
 #endif	/* EVENTS_HPP */
-

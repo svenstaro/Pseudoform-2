@@ -105,6 +105,11 @@ class EventManager : public singleton<EventManager>
             mSignalAssociation["JoyButtonPressed"] = JoyButtonEvent();
             mSignalAssociation["JoyButtonReleased"] = JoyButtonEvent();
             mSignalAssociation["JoyMoved"] = JoyMoveEvent();
+            
+            mSignalAssociation["WindowClosed"] = CloseEvent();
+            mSignalAssociation["WindowLostFocus"] = LostFocusEvent();
+            mSignalAssociation["WindowGainedFocus"] = GainFocusEvent();
+            mSignalAssociation["WindowMouseEntered"] = MouseEnteredEvent();
         }
 
         template<typename EventType>

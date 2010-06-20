@@ -44,6 +44,14 @@ void InputSystem::update()
             SIGNAL(JoyButtonEvent, "JoyButtonReleased", localEvent.JoyButton);
         } else if (type == sf::Event::JoyMoved) {
             SIGNAL(JoyMoveEvent, "JoyMoved", localEvent.JoyMove);
+        } else if (type == sf::Event::Closed) {
+            SIGNAL(CloseEvent, "WindowClosed", );
+        } else if (type == sf::Event::LostFocus) {
+            SIGNAL(LostFocusEvent, "WindowLostFocus", );
+        } else if (type == sf::Event::GainedFocus) {
+            SIGNAL(GainFocusEvent, "WindowGainedFocus", );
+        } else if (type == sf::Event::MouseEntered) {
+            SIGNAL(MouseEnteredEvent, "WindowMouseEntered", );
         }
     }
 }
