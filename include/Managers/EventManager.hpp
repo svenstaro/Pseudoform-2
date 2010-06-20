@@ -110,8 +110,8 @@ class EventManager : public singleton<EventManager>
         template<typename EventType>
         signals2::connection connect(const string signalName, const typename EventType::SignatureSlotType  &eventSlot)
         {
+            LOG(FORMAT("[Event System → connect] Connecting new slot for '%1%' signal", signalName));
             return get<EventType>(signalName).Connect(eventSlot);
-            LOG(FORMAT("[Event System → connect] Connected new slot for '%1%' signal", signalName));
         }
 
         template<typename EventType>

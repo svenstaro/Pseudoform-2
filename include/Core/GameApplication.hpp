@@ -32,6 +32,7 @@ class GameApplication : public singleton<GameApplication>
 
         // Slots
         void keyPressed(sf::Event::KeyEvent &eventData);
+        void mouseMoved(sf::Event::MouseMoveEvent &eventData);
 };
 
 #endif
