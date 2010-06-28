@@ -9,6 +9,7 @@ InputSystem::~InputSystem() { }
 void InputSystem::init()
 {
     GraphicSystem::get_const_instance().getWindow()->getCustomAttribute("WINDOW", &mWindowHandle);
+    LOG("\t- Got window handle from ogre");
     mInputWindow.Create(mWindowHandle);
     LOG("\t- SFML window is created");
 }
