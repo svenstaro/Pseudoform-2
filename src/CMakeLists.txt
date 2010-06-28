@@ -1,4 +1,9 @@
 set(Pseudoform_srcs
+    Managers/Entities/Entity3D.cpp
+    Managers/Entities/Entity2D.cpp
+    Managers/Entities/Entity.cpp
+    Managers/EventManager.cpp
+    Managers/EntityManager.cpp
     Managers/ResourceManager.cpp
     Managers/LogManager.cpp
     Managers/ConfigManager.cpp

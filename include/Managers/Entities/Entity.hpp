@@ -21,8 +21,6 @@ class Entity : private boost::noncopyable
         virtual ~Entity();
         virtual void _loadData() = 0;  // From info-file
 
-        // =====================================================================
-        // Doings
         template<typename EventType>
         void AddBehavior(const string &eventName, const typename EventType::SignatureSlotType &eventSlot)
         {
@@ -35,29 +33,25 @@ class Entity : private boost::noncopyable
             // TODO: Implement me!
         }
 
-        // =====================================================================
-        // Getters
-        const string getName() const { return mEntityName; }
-        const string getMeshName() const { return mEntityMesh; }
-        bool isDrawable() const { return mDrawable; }
+        const string getName() const;
+        const string getMeshName() const;
+        bool isDrawable() const;
 
-        Ogre::SceneNode &getNode() const { return *mNode; }
-        Ogre::Entity &getEntity() const { return *mEntity; }
+        Ogre::SceneNode &getNode() const;
+        Ogre::Entity &getEntity() const;
         
-        const vec3 &getPosition() const { return mNode->getPosition(); }
-        const quat &getOrientation() const { return mNode->getOrientation(); }
-        const vec3 &getScale() const { return mNode->getScale(); }
+        const vec3 &getPosition() const;
+        const quat &getOrientation() const;
+        const vec3 &getScale() const;
 
-        // =====================================================================
-        // Setters
-        void setName(const string &entityName) { mEntityName = entityName; }
-        void setMeshName(const string &meshPath) { mEntityMesh = meshPath; }
-        void setDrawable(bool state) { mDrawable = state; }
+        void setName(const string &entityName);
+        void setMeshName(const string &meshPath);
+        void setDrawable(bool state);
         
-        void setMaterial(const string &matName, const string &group = "") { mEntity->setMaterialName(matName, group); }
-        void setPosition(const vec3 pos = vec3()) { mNode->setPosition(pos); }
-        void setRotation(const quat rot = quat()) { mNode->setOrientation(rot); }
-        void setScale(const vec3 scale = vec3()) { mNode->setScale(scale); }
+        void setMaterial(const string &matName, const string &group = "");
+        void setPosition(const vec3 pos = vec3());
+        void setRotation(const quat rot = quat());
+        void setScale(const vec3 scale = vec3());
 };
 
 

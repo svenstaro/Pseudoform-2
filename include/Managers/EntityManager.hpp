@@ -24,24 +24,14 @@ class EntityManager : public singleton<EntityManager>
 
     public:
         // Predefined interface for 3D objects
-        Entity3D *Make3DEntity(const string &entityName)
-        {
-            return MakeEntity<Entity3D>(entityName);
-        }
-        Entity2D *Make2DEntity(const string &entityName)
-        {
-            return MakeEntity<Entity2D>(entityName);
-        }
+        Entity3D *Make3DEntity(const string &entityName);
+        Entity2D *Make2DEntity(const string &entityName);
 
         // Predefined interface for 2D objects
-        Entity3D *Get3DEntity(const string &entityName)
-        {
-            return GetEntity<Entity3D>(entityName);
-        }
-        Entity2D *Get2DEntity(const string &entityName)
-        {
-            return GetEntity<Entity2D>(entityName);
-        }
+        Entity3D *Get3DEntity(const string &entityName);
+        Entity2D *Get2DEntity(const string &entityName);
+
+        bool DeleteEntity(const string &entityName);
 
         // Predefined interface for all objects types
         template<typename EntityType>
@@ -56,6 +46,7 @@ class EntityManager : public singleton<EntityManager>
             mEntityList.insert(entityName, new EntityType(entityName));
             return dynamic_cast<EntityType*>(&mEntityList.at(entityName));
         }
+        
         template<typename EntityType>
         EntityType *GetEntity(const string &entityName)
         {
@@ -66,18 +57,7 @@ class EntityManager : public singleton<EntityManager>
             }
 
             return dynamic_cast<EntityType*>(&mEntityList.at(entityName));
-        }
-
-        bool DeleteEntity(const string &entityName)
-        {
-            if (mEntityList.count(entityName) == 0)
-            {
-                LOG(FORMAT("Can`t delete entity '%1%', because it doesn`t exsist!", entityName));
-                return false;
-            }
-            mEntityList.erase(entityName);
-            return true;
-        }
+        }    
 };
 
 #endif	/* ENTITYMANAGER_HPP */

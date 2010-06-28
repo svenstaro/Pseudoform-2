@@ -29,33 +29,8 @@ class EventManager : public singleton<EventManager>
         map<string, any> mSignalAssociation;
 
     public:
-        EventManager() { fillEventMap(); }
-        
-        void fillEventMap()
-        {
-            using namespace Engine::Events;
-
-            mSignalAssociation["KeyPressed"] = KeyEvent();
-            mSignalAssociation["KeyReleased"] = KeyEvent();
-
-            mSignalAssociation["Resized"] = SizeEvent();
-            mSignalAssociation["TextEntered"] = TextEvent();
-
-            mSignalAssociation["MouseButtonPressed"] = MouseButtonEvent();
-            mSignalAssociation["MouseButtonReleased"] = MouseButtonEvent();
-
-            mSignalAssociation["MouseMoved"] = MouseMoveEvent();
-            mSignalAssociation["MouseWheelMoved"] = MouseWheelEvent();
-
-            mSignalAssociation["JoyButtonPressed"] = JoyButtonEvent();
-            mSignalAssociation["JoyButtonReleased"] = JoyButtonEvent();
-            mSignalAssociation["JoyMoved"] = JoyMoveEvent();
-            
-            mSignalAssociation["WindowClosed"] = CloseEvent();
-            mSignalAssociation["WindowLostFocus"] = LostFocusEvent();
-            mSignalAssociation["WindowGainedFocus"] = GainFocusEvent();
-            mSignalAssociation["WindowMouseEntered"] = MouseEnteredEvent();
-        }
+        EventManager();
+        void fillEventMap();
 
         template<typename EventType>
         signals2::connection connect(const string signalName, const typename EventType::SignatureSlotType  &eventSlot)

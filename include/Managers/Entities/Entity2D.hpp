@@ -8,6 +8,8 @@
 #include <OgreMeshManager.h>
 #include <OgreMaterial.h>
 
+#include "Managers/Entities/Entity.hpp"
+
 using namespace std;
 
 class Entity2D : public Entity
@@ -18,35 +20,14 @@ class Entity2D : public Entity
         string mResGroup;
 
     public:
-        ~Entity2D() { }
         Entity2D(const string entityName, const string &entityMesh = "",
                 const string &resourceGroup = Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME,
-                real width = 0, real height = 0)
-        {
-            mEntityName = entityName;
-            mResGroup = resourceGroup;
+                real width = 0, real height = 0);
 
-            string entMesh = "Mesh:" + entityName;
-            if (entityMesh != "") entMesh = entityMesh;
-            
-            Ogre::MeshManager::getSingleton().createPlane(entMesh, resourceGroup, *mPlane, width, height);
+        void setImage(const string &imgPath);
+        Ogre::MaterialPtr &getMaterial();
 
-            // Attaching new mesh (with name entMesh) to the entity
-            GraphicSystem::get_mutable_instance().getSceneMgr()->createEntity(entityName, entMesh);
-            GraphicSystem::get_mutable_instance().getSceneMgr()->getRootSceneNode()->createChildSceneNode("Node:" + mEntityName);
-        }
-
-        void setImage(const string &imgPath)
-        {
-            mTextureMat = Ogre::MaterialManager::getSingleton().create("Material:" + mEntityName, mResGroup);
-            mTextureMat->getTechnique(0)->getPass(0)->createTextureUnitState(imgPath);
-
-            GraphicSystem::get_mutable_instance().getSceneMgr()->getEntity(mEntityName)->setMaterial(mTextureMat);
-        }
-
-        Ogre::MaterialPtr &getMaterial() { return mTextureMat; }
-
-        void _loadData() { }
+        void _loadData();
 };
 
 #endif	/* ENTITY2D_HPP */
