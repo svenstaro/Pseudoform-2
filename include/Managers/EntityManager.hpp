@@ -11,8 +11,7 @@
 #include "Managers/LogManager.hpp"
 
 #include "Managers/Entities/Entity.hpp"
-#include "Managers/Entities/Entity3D.hpp"
-#include "Managers/Entities/Entity2D.hpp"
+#include "Managers/Entities/Object.hpp"
 
 using namespace boost::serialization;
 using namespace std;
@@ -23,13 +22,8 @@ class EntityManager : public singleton<EntityManager>
         boost::ptr_map<const string, Entity> mEntityList;
 
     public:
-        // Predefined interface for 3D objects
-        Entity3D *Make3DEntity(const string &entityName);
-        Entity2D *Make2DEntity(const string &entityName);
-
-        // Predefined interface for 2D objects
-        Entity3D *Get3DEntity(const string &entityName);
-        Entity2D *Get2DEntity(const string &entityName);
+        Object *MakeObject(const string &entityName);
+        Object *GetObject(const string &entityName);
 
         bool DeleteEntity(const string &entityName);
 

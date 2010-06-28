@@ -1,22 +1,13 @@
 #include "Managers/EntityManager.hpp"
 
-Entity3D *EntityManager::Make3DEntity(const string& entityName)
+Object *EntityManager::MakeObject(const string& entityName)
 {
-    return MakeEntity<Entity3D>(entityName);
+    return this->MakeEntity<Object>(entityName);
 }
 
-Entity2D *EntityManager::Make2DEntity(const string& entityName)
+Object *EntityManager::GetObject(const string& entityName)
 {
-    return MakeEntity<Entity2D>(entityName);
-}
-
-Entity3D *EntityManager::Get3DEntity(const string &entityName)
-{
-    return GetEntity<Entity3D>(entityName);
-}
-Entity2D *EntityManager::Get2DEntity(const string &entityName)
-{
-    return GetEntity<Entity2D>(entityName);
+    return this->GetEntity<Object>(entityName);
 }
 
 bool EntityManager::DeleteEntity(const string& entityName)
