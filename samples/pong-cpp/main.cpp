@@ -12,7 +12,7 @@ int main() {
     Managers::GetLog().write("Adding new source location...", logName);
     Managers::GetResource().addResourceLocationRecursive("pong-media/");
 
-    Engine::Application().Start();
+    World::Application().Start();
     
     return 0;
 }

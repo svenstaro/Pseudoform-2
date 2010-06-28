@@ -80,4 +80,3 @@ class EntityManager : public singleton<EntityManager>
 };
 
 #endif	/* ENTITYMANAGER_HPP */
-

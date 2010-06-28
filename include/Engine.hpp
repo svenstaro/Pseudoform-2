@@ -11,8 +11,6 @@
 
 namespace Engine
 {
-    GameApplication &Application() { return GameApplication::get_mutable_instance(); }
-
     namespace Managers
     {
         ConfigManager &GetConfig() { return ConfigManager::get_mutable_instance(); }
@@ -20,6 +18,12 @@ namespace Engine
         ResourceManager &GetResource() { return ResourceManager::get_mutable_instance(); }
         EntityManager &GetEntity() { return EntityManager::get_mutable_instance(); }
         EventManager &GetEvent() { return EventManager::get_mutable_instance(); }
+    }
+
+    namespace World
+    {
+        GameApplication &Application() { return GameApplication::get_mutable_instance(); }
+        void setDimension(const string &dimension) { Utils::get_mutable_instance().setDimension(dimension); }
     }
 };
 
