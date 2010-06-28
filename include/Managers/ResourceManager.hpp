@@ -4,6 +4,8 @@
 #include "Managers/LogManager.hpp"
 #include "Core/Utils.hpp"
 
+#include <Ogre.h>
+
 #include <boost/serialization/singleton.hpp>
 using namespace boost::serialization;
 

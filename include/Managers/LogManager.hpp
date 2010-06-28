@@ -1,19 +1,26 @@
 #ifndef _LOG_MANAGER_H_
 #define _LOG_MANAGER_H_
 
-#include <vector>
-#include <Ogre.h>
 #include <boost/serialization/singleton.hpp>
+#include <boost/date_time/posix_time/posix_time.hpp>
+#include <boost/date_time/posix_time/posix_time_types.hpp>
+
+#include <vector>
+#include <fstream>
+#include <iostream>
 
 using namespace boost::serialization;
 using namespace std;
+using namespace boost::posix_time;
 
 #define LOG(message) LogManager::get_mutable_instance().write(message)
 class LogManager : public singleton<LogManager>
 {
     protected:
+        ofstream mLogHandle;
         string mDefaultPath;
-        std::vector<std::string> mCreatedLogs;
+
+        string getCurrentTime();
 
     public:
         LogManager();

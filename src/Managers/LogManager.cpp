@@ -5,6 +5,11 @@ LogManager::LogManager()
     mDefaultPath = "Engine.log";
 }
 
+string LogManager::getCurrentTime(){
+    ptime time = microsec_clock::local_time();
+    return to_simple_string(time);
+}
+
 void LogManager::setDefaultLog(const string& logPath)
 {
     mDefaultPath = logPath;
@@ -13,17 +18,9 @@ void LogManager::setDefaultLog(const string& logPath)
 void LogManager::write(const string& message, const string logFile)
 {
     string workPath = mDefaultPath;
-    if (logFile != "")
-    {
-        // If the log isn't used
-        if (std::find(mCreatedLogs.begin(), mCreatedLogs.end(), logFile) == mCreatedLogs.end())
-        {
-            Ogre::LogManager::getSingleton().createLog(logFile, false, true);
-            mCreatedLogs.push_back(logFile);
-        }
+    if (logFile != "") workPath = logFile;
 
-        workPath = logFile;
-    }
-
-    Ogre::LogManager::getSingletonPtr()->getLog(workPath)->logMessage(message, Ogre::LML_CRITICAL);
+    mLogHandle.open(workPath.c_str(), fstream::app | fstream::ate);
+    mLogHandle << getCurrentTime() + "\t: " + message + "\n";
+    mLogHandle.close();
 }
