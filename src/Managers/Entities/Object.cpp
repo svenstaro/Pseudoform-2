@@ -11,8 +11,15 @@ Object::Object(const string entityName, const string &entityMesh)
     if (entityMesh != "") entMesh = entityMesh;
 
     // Attaching new mesh (with name entMesh) to the entity
-    GraphicSystem::get_mutable_instance().getSceneMgr()->createEntity(entityName, entMesh);
-    GraphicSystem::get_mutable_instance().getSceneMgr()->getRootSceneNode()->createChildSceneNode("Node:" + mEntityName);
+    if (Ogre::ResourceGroupManager::getSingletonPtr()->resourceExists(Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME, entMesh))
+    {
+        GraphicSystem::get_mutable_instance().getSceneMgr()->createEntity(entityName, entMesh);
+        GraphicSystem::get_mutable_instance().getSceneMgr()->getRootSceneNode()->createChildSceneNode("Node:" + mEntityName);
+    }
+    else
+    {
+        LOG(FORMAT("Mesh with name '%1%' doesn`t exist in resources list!", entMesh));
+    }
 }
 
 void Object::setImage(const string& imgPath)

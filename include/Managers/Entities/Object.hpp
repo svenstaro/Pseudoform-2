@@ -5,8 +5,7 @@
 #include "Systems/GraphicSystem.hpp"
 #include "Core/Types.hpp"
 
-#include <OgreMeshManager.h>
-#include <OgreMaterial.h>
+#include <Ogre.h>
 
 #include "Managers/Entities/Entity.hpp"
 
