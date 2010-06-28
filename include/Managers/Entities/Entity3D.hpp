@@ -10,6 +10,7 @@ using namespace std;
 class Entity3D : public Entity
 {
     public:
+        ~Entity3D() { }
         Entity3D(const string entityName, const string &entityMesh = "")
         {
             // If we wanna use mesh with name different from entity's name

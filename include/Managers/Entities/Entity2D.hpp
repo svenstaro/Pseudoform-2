@@ -18,6 +18,7 @@ class Entity2D : public Entity
         string mResGroup;
 
     public:
+        ~Entity2D() { }
         Entity2D(const string entityName, const string &entityMesh = "",
                 const string &resourceGroup = Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME,
                 real width = 0, real height = 0)
