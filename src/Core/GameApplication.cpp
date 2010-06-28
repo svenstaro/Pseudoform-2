@@ -22,8 +22,9 @@ void GameApplication::_init()
 {
     BOOST_FOREACH(ISystem &curSystem, mSystemsList)
     {
+        LOG(FORMAT("--------------- Start initializating of `%1%` system", curSystem.toString()));
         curSystem.init();
-        LOG(FORMAT("--------------- Initializating of `%1%` is finished", curSystem.toString()));
+        LOG(FORMAT("--------------- Initializating of `%1%` is finished\n", curSystem.toString()));
     }
 }
 
@@ -49,7 +50,6 @@ void GameApplication::_loop()
             curSystem.update();
         }
 
-        //if (!GraphicSystem::getSingletonPtr()->getRoot()->renderOneFrame()) break;
         if (!GraphicSystem::get_const_instance().getRoot()->renderOneFrame()) break;
     }
 
