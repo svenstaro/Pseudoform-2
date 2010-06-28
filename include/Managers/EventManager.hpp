@@ -12,7 +12,6 @@
 
 #include <typeinfo>
 #include <iostream>
-//#include <map>
 
 using namespace boost;
 using namespace std;
@@ -53,7 +52,6 @@ class EventManager : public singleton<EventManager>
             try
             {
                 return &any_cast<EventType&>(mSignalAssociation.at(signalName));
-                //return any_cast<EventType*>(mSignalAssociation.at(signalName));
             } catch(bad_any_cast &e)
             {
                 LOG(FORMAT("[Event System → get] Can`t make casting of type '%1%' into signal '%2%' signature with type '%3%'!",
@@ -77,12 +75,6 @@ class EventManager : public singleton<EventManager>
             try
             {
                 mSignalAssociation[signalName] = EventType();
-                // Event is created in the map. Now we need in typedefinition of it in the signals
-                // TODO: This should be created in namespace Events. Fix this.
-
-                // This will not work. The user have to do this manually
-                // When he wants to make new event type
-                //NEW_EVENT(typename SignatureOf<EventType>::type, signalName);
             } catch(bad_any_cast &e)
             {
                 LOG(FORMAT("[Event System → create] Can`t make casting from type '%1%' into signal '%2%' signature!",
