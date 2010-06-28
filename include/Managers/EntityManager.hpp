@@ -31,7 +31,7 @@ class EntityManager : public singleton<EntityManager>
         template<typename EntityType>
         EntityType *MakeEntity(const string &entityName)
         {
-            if (mEntityList.count(entityName) == 0)
+            if (mEntityList.count(entityName) != 0)
             {
                 LOG(FORMAT("Can`t make entity with name '%1%' because it's already exsists!", entityName));
                 return NULL;
