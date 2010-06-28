@@ -3,7 +3,6 @@
 
 #include <boost/serialization/singleton.hpp>
 #include <boost/function.hpp>
-
 #include <boost/any.hpp>
 
 #include "Managers/LogManager.hpp"
@@ -22,7 +21,7 @@ using namespace boost::serialization;
 #define CONNECT(EventType, EventName, FunctionPointer) EventManager::get_mutable_instance().connect<EventType>(EventName, bind(FunctionPointer, this, _1));
 #define SIGNAL(EventType, EventName, ...) EventManager::get_mutable_instance().get<EventType>(EventName).Call(EventType::ArgsType(__VA_ARGS__));
 
-// TODO: Allow lambda-slots
+// TODO: Add function for removing listener from signal
 
 class EventManager : public singleton<EventManager>
 {
@@ -101,7 +100,10 @@ class EventManager : public singleton<EventManager>
                 mSignalAssociation[signalName] = EventType();
                 // Event is created in the map. Now we need in typedefinition of it in the signals
                 // TODO: This should be created in namespace Events. Fix this.
-                NEW_EVENT(typename SignatureOf<EventType>::type, signalName);
+
+                // This will not work. The user have to do this manually
+                // When he wants to make new event type
+                //NEW_EVENT(typename SignatureOf<EventType>::type, signalName);
             } catch(bad_any_cast &e)
             {
                 LOG(FORMAT("[Event System → create] Can`t make casting from type '%1%' into signal '%2%' signature!",

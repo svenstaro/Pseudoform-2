@@ -10,46 +10,61 @@
 #include "Core/Utils.hpp"
 #include "Managers/LogManager.hpp"
 
+#include "Managers/Entities/Entity.hpp"
+#include "Managers/Entities/Entity3D.hpp"
+#include "Managers/Entities/Entity2D.hpp"
+
 using namespace boost::serialization;
 using namespace std;
-
-class IEntity : private boost::noncopyable
-{
-    protected:
-        string mEntityName;
-        vec3 mEntityPos;
-        bool mDrawable;
-};
 
 class EntityManager : public singleton<EntityManager>
 {
     protected:
-        boost::ptr_map<const string, IEntity> mEntityList;
-        void loadEntity(const string &entityName) { /*Will be soon*/ };
+        boost::ptr_map<const string, Entity> mEntityList;
 
     public:
-        bool CreateEntity(const string &entityName)
+        // Predefined interface for 3D objects
+        Entity3D *Make3DEntity(const string &entityName)
         {
-            if (mEntityList.count(entityName) == 0) 
+            return MakeEntity<Entity3D>(entityName);
+        }
+        Entity2D *Make2DEntity(const string &entityName)
+        {
+            return MakeEntity<Entity2D>(entityName);
+        }
+
+        // Predefined interface for 2D objects
+        Entity3D *Get3DEntity(const string &entityName)
+        {
+            return GetEntity<Entity3D>(entityName);
+        }
+        Entity2D *Get2DEntity(const string &entityName)
+        {
+            return GetEntity<Entity2D>(entityName);
+        }
+
+        // Predefined interface for all objects types
+        template<typename EntityType>
+        EntityType *MakeEntity(const string &entityName)
+        {
+            if (mEntityList.count(entityName) == 0)
             {
                 LOG(FORMAT("Can`t make entity with name '%1%' because it's already exsists!", entityName));
-                return false;
+                return NULL;
             }
 
-            mEntityList.insert(entityName, new IEntity());
-            loadEntity(entityName);
-            
-            return true;
+            mEntityList.insert(entityName, new EntityType(entityName));
         }
-        
-        IEntity *GetEntity(const string &entityName)
+        template<typename EntityType>
+        EntityType *GetEntity(const string &entityName)
         {
             if (mEntityList.count(entityName) == 0)
             {
                 LOG(FORMAT("Can`t get entity '%1%', because it doesn`t exsist!", entityName));
                 return NULL;
             }
-            return &mEntityList[entityName];
+
+            return dynamic_cast<EntityType*>(&mEntityList.at(entityName));
         }
 
         bool DeleteEntity(const string &entityName)
@@ -59,7 +74,6 @@ class EntityManager : public singleton<EntityManager>
                 LOG(FORMAT("Can`t delete entity '%1%', because it doesn`t exsist!", entityName));
                 return false;
             }
-
             mEntityList.erase(entityName);
             return true;
         }
