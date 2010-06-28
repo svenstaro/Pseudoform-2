@@ -4,6 +4,7 @@
 #include <boost/serialization/singleton.hpp>
 #include <boost/date_time/posix_time/posix_time.hpp>
 #include <boost/date_time/posix_time/posix_time_types.hpp>
+#include <boost/filesystem.hpp>
 
 #include <vector>
 #include <fstream>
@@ -19,8 +20,10 @@ class LogManager : public singleton<LogManager>
     protected:
         ofstream mLogHandle;
         string mDefaultPath;
+        vector<string> mUsedFiles;
 
         string getCurrentTime();
+        void _forceLog(const string &logPath);
 
     public:
         LogManager();
