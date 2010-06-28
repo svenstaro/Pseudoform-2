@@ -1,6 +1,7 @@
 #ifndef EVENTMANAGER_HPP
 #define	EVENTMANAGER_HPP
 
+#include "boost/ptr_container/ptr_map.hpp"
 #include <boost/serialization/singleton.hpp>
 #include <boost/function.hpp>
 #include <boost/any.hpp>
@@ -11,7 +12,7 @@
 
 #include <typeinfo>
 #include <iostream>
-#include <map>
+//#include <map>
 
 using namespace boost;
 using namespace std;
@@ -19,14 +20,14 @@ using namespace boost::serialization;
 
 // Define section
 #define CONNECT(EventType, EventName, FunctionPointer) EventManager::get_mutable_instance().connect<EventType>(EventName, bind(FunctionPointer, this, _1));
-#define SIGNAL(EventType, EventName, ...) EventManager::get_mutable_instance().get<EventType>(EventName).Call(EventType::ArgsType(__VA_ARGS__));
+#define SIGNAL(EventType, EventName, ...) EventManager::get_mutable_instance().get<EventType>(EventName)->Call(EventType::ArgsType(__VA_ARGS__));
 
 // TODO: Add function for removing listener from signal
 
 class EventManager : public singleton<EventManager>
 {
     private:
-        map<string, any> mSignalAssociation;
+        ptr_map<string, any> mSignalAssociation;
 
     public:
         EventManager();
@@ -36,21 +37,23 @@ class EventManager : public singleton<EventManager>
         signals2::connection connect(const string signalName, const typename EventType::SignatureSlotType  &eventSlot)
         {
             LOG(FORMAT("[Event System → connect] Connecting new slot for '%1%' signal", signalName));
-            return get<EventType>(signalName).Connect(eventSlot);
+            return get<EventType>(signalName)->Connect(eventSlot);
         }
 
         template<typename EventType>
-        EventType &get(const string &signalName)
+        EventType *get(const string &signalName)
         {
             if (mSignalAssociation.count(signalName) == 0)
             {
                 LOG(FORMAT("[Event System → get] Wrong assign for the signal '%1%' because it doesn`t exist!",
                     signalName));
+                return NULL;
             }
             
             try
             {
-                return any_cast<EventType&>(mSignalAssociation[signalName]);
+                return &any_cast<EventType&>(mSignalAssociation.at(signalName));
+                //return any_cast<EventType*>(mSignalAssociation.at(signalName));
             } catch(bad_any_cast &e)
             {
                 LOG(FORMAT("[Event System → get] Can`t make casting of type '%1%' into signal '%2%' signature with type '%3%'!",
@@ -59,6 +62,7 @@ class EventManager : public singleton<EventManager>
             {
                 LOG(FORMAT("[Event System → get] Something wrong happend with getting signal %1%", signalName));
             }
+            return NULL;
         }
         
         template<typename EventType>
