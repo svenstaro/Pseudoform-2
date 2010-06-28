@@ -5,6 +5,7 @@
 #include <boost/format.hpp>
 #include <boost/signals2.hpp>
 
+using namespace std;
 using namespace boost;
 using namespace boost::serialization;
 
@@ -14,22 +15,13 @@ using namespace boost::serialization;
 class Utils : public singleton<Utils>
 {
     protected:
-
+        string mDimension;
     public:
-        Utils()
-        {
-        }
+        Utils() : mDimension("2D") { }
+        ~Utils() { }
 
-        ~Utils()
-        {
-        }
-
-        // We really needn't in this
-        enum renderType {
-            OPENGL,
-            DIRECT3D
-        } mRenderer;
-        renderType *renderer() { return &mRenderer; }
+        const string getDimension() const { return mDimension; }
+        void setDimension(const string &d) { mDimension = d; }
 };
 
 #endif
