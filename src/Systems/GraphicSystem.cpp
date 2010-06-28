@@ -16,10 +16,9 @@ GraphicSystem::~GraphicSystem()
 void GraphicSystem::init()
 {
     mRoot = new Ogre::Root("", "", "Pseudoform.log");
-
     Ogre::LogManager::getSingletonPtr()->setLogDetail(Ogre::LL_NORMAL);
-    string engineLog = CONFIG("engine.logFilename", string, "Engine.log");
-    Ogre::LogManager::getSingleton().createLog(engineLog, false, true);
+
+    LOG("\t- Root object is created");
 
     string renderLib = CONFIG("ogre.renderLib", string, "OPENGL");
 
@@ -37,6 +36,8 @@ void GraphicSystem::init()
     {
         mRoot->loadPlugin(pluginsDir + "RenderSystem_Direct3D9");
     }
+
+    LOG("\t- All plugins are loaded");
 
     std::vector<std::string> pluginsList = ConfigManager::get_mutable_instance().getListValue("ogre.plugins");
     BOOST_FOREACH(std::string &plugin, pluginsList)
