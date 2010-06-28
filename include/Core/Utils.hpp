@@ -5,6 +5,8 @@
 #include <boost/format.hpp>
 #include <boost/signals2.hpp>
 
+#include <boost/algorithm/string.hpp>
+
 using namespace std;
 using namespace boost;
 using namespace boost::serialization;
@@ -21,7 +23,20 @@ class Utils : public singleton<Utils>
         ~Utils() { }
 
         const string getDimension() const { return mDimension; }
-        void setDimension(const string &d) { mDimension = d; }
+        void setDimension(string &d) 
+        {
+            boost::to_lower(d);
+            if (d == "2d")
+            {
+                mDimension = "2D";
+                #define TWO_DIMENSIONS
+            }
+            else if (d == "3d")
+            {
+                mDimension = "3D";
+                #define THREE_DIMENSIONS
+            }
+        }
 };
 
 #endif
