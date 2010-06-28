@@ -25,22 +25,14 @@ namespace Engine
         GameApplication &Application() { return GameApplication::get_mutable_instance(); }
         void setDimension(string &dimension) { Utils::get_mutable_instance().setDimension(dimension); }
 
-        Entity3D *Make3DEntity(const string &entityName)
+        Object *MakeObject(const string& entityName)
         {
-            return EntityManager::get_mutable_instance().Make3DEntity(entityName);
-        }
-        Entity2D *Make2DEntity(const string &entityName)
-        {
-            return EntityManager::get_mutable_instance().Make2DEntity(entityName);
+            return EntityManager::get_mutable_instance().MakeObject(entityName);
         }
 
-        Entity3D *Get3DEntity(const string &entityName)
+        Object *GetObject(const string& entityName)
         {
-            return Get3DEntity(entityName);
-        }
-        Entity2D *Get2DEntity(const string &entityName)
-        {
-            return Get2DEntity(entityName);
+            return EntityManager::get_mutable_instance().GetObject(entityName);
         }
     }
 };
