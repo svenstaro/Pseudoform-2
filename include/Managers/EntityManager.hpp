@@ -54,6 +54,7 @@ class EntityManager : public singleton<EntityManager>
             }
 
             mEntityList.insert(entityName, new EntityType(entityName));
+            return dynamic_cast<EntityType*>(&mEntityList.at(entityName));
         }
         template<typename EntityType>
         EntityType *GetEntity(const string &entityName)
