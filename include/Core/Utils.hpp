@@ -5,6 +5,8 @@
 #include <boost/format.hpp>
 #include <boost/signals2.hpp>
 
+#include <Ogre.h>
+
 #include <boost/algorithm/string.hpp>
 
 using namespace std;
@@ -18,25 +20,23 @@ class Utils : public singleton<Utils>
 {
     protected:
         string mDimension;
+
+        void createPlane(Ogre::Mesh *newMesh, );
+        void createSphere(Ogre::Mesh *newMesh);
+        void createCube(Ogre::Mesh *newMesh);
     public:
         Utils() : mDimension("2D") { }
         ~Utils() { }
 
-        const string getDimension() const { return mDimension; }
-        void setDimension(string &d) 
-        {
-            boost::to_lower(d);
-            if (d == "2d")
-            {
-                mDimension = "2D";
-                #define TWO_DIMENSIONS
-            }
-            else if (d == "3d")
-            {
-                mDimension = "3D";
-                #define THREE_DIMENSIONS
-            }
-        }
+        const string getDimension() const;
+        void setDimension(string &d);
+
+        enum MeshTypes {
+            PLANE,
+            CUBE,
+            SPHERE
+        };
+        Ogre::Mesh *createMesh(MeshTypes type, const string &meshName, const string &res = Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME);
 };
 
 #endif
