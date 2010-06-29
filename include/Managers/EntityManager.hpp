@@ -8,8 +8,8 @@
 
 #include "Core/Types.hpp"
 #include "Core/Utils.hpp"
-#include "Managers/LogManager.hpp"
 
+#include "Managers/LogManager.hpp"
 #include "Managers/Entities/Entity.hpp"
 #include "Managers/Entities/Object.hpp"
 
@@ -51,7 +51,7 @@ class EntityManager : public singleton<EntityManager>
             }
 
             return dynamic_cast<EntityType*>(&mEntityList.at(entityName));
-        }    
+        }
 };
 
 #endif	/* ENTITYMANAGER_HPP */

@@ -14,7 +14,7 @@ using namespace std;
 class Object : public Entity
 {
     public:
-        Object(const string entityName, const string &entityMesh = "");
+        Object(const string entityName, const string &entityMesh = "", const string &res = Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME);
         void setImage(const string& imgPath);
         void _loadData();
 };

@@ -3,7 +3,7 @@
 #include <OgreMeshManager.h>
 #include <OgreMaterial.h>
 
-Object::Object(const string entityName, const string &entityMesh)
+Object::Object(const string entityName, const string &entityMesh, const string &res)
 {
     mEntityName = entityName;
 
@@ -11,7 +11,7 @@ Object::Object(const string entityName, const string &entityMesh)
     if (entityMesh != "") entMesh = entityMesh;
 
     // Attaching new mesh (with name entMesh) to the entity
-    if (Ogre::ResourceGroupManager::getSingletonPtr()->resourceExists(Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME, entMesh))
+    if (Ogre::ResourceGroupManager::getSingletonPtr()->resourceExists(res, entMesh))
     {
         GraphicSystem::get_mutable_instance().getSceneMgr()->createEntity(entityName, entMesh);
         GraphicSystem::get_mutable_instance().getSceneMgr()->getRootSceneNode()->createChildSceneNode("Node:" + mEntityName);
