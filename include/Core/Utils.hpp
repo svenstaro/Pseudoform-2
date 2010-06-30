@@ -21,7 +21,7 @@ class Utils : public singleton<Utils>
     protected:
         string mDimension;
 
-        void createPlane(Ogre::Mesh *newMesh, );
+        void createPlane(Ogre::Mesh *newMesh);
         void createSphere(Ogre::Mesh *newMesh);
         void createCube(Ogre::Mesh *newMesh);
     public:
@@ -30,13 +30,6 @@ class Utils : public singleton<Utils>
 
         const string getDimension() const;
         void setDimension(string &d);
-
-        enum MeshTypes {
-            PLANE,
-            CUBE,
-            SPHERE
-        };
-        Ogre::Mesh *createMesh(MeshTypes type, const string &meshName, const string &res = Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME);
 };
 
 #endif

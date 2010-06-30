@@ -20,24 +20,7 @@ const string Utils::getDimension() const
     return mDimension;
 }
 
-Ogre::Mesh *Utils::createMesh(MeshTypes type, const string& meshName, const string& res)
-{
-    using namespace Ogre;
-    Mesh *newMesh;
-    switch (type)
-    {
-        case PLANE:
-            _createPlane(newMesh);
-            break;
-
-        case SPHERE:
-            _createSphere(newMesh);
-            break;
-    }
-    return newMesh;
-}
-
-void Utils::_createPlane(Ogre::Mesh *newMesh)
+void Utils::createPlane(Ogre::Mesh *newMesh)
 {
     using namespace Ogre;
     
@@ -94,7 +77,7 @@ void Utils::_createPlane(Ogre::Mesh *newMesh)
     newMesh->_setBoundingSphereRadius(Math::Sqrt(100*100+100*100));
 }
 
-void Utils::_createSphere(Ogre::Mesh *newMesh)
+void Utils::createSphere(Ogre::Mesh *newMesh)
 {
     using namespace Ogre;
     
