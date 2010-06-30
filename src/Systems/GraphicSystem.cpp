@@ -16,7 +16,7 @@ GraphicSystem::~GraphicSystem()
 void GraphicSystem::init()
 {
     mRoot = new Ogre::Root("", "", "Pseudoform.log");
-    Ogre::LogManager::getSingletonPtr()->setLogDetail(Ogre::LL_NORMAL);
+    Ogre::LogManager::getSingletonPtr()->setLogDetail(Ogre::LL_BOREME);
 
     LOG("\t- Root object is created");
 
@@ -81,8 +81,6 @@ void GraphicSystem::init()
     mViewport = mWindow->addViewport(mCamera);
     mViewport->setBackgroundColour(colour(0.5, 0.5, 0.5));
 
-
-    ResourceManager::get_const_instance().addResourceLocationRecursive("media/");
     Ogre::ResourceGroupManager::getSingleton().initialiseAllResourceGroups();
     
     LOG("\t- All resources are loaded");
