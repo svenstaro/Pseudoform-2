@@ -76,6 +76,10 @@ void GraphicSystem::init()
     mCamera->setFarClipDistance(1000);
     mCamera->setAutoAspectRatio(true);
     mCamera->setFOVy(deg(90));
+
+    Ogre::SceneNode *camNode = mSceneMgr->getRootSceneNode()->createChildSceneNode("Node:Camera");
+    camNode->createChildSceneNode("Node:CameraPitch");
+    camNode->attachObject(mCamera);
     LOG("\t- Camera is set up");
 
     mViewport = mWindow->addViewport(mCamera);
