@@ -14,7 +14,7 @@ Object::Object(const string entityName, const string &entityMesh, const string &
     if (Ogre::ResourceGroupManager::getSingletonPtr()->resourceExists(res, entMesh))
     {
         Ogre::ResourceGroupManager::getSingleton().declareResource(entMesh, "Mesh:"+entMesh, res);
-        GraphicSystem::get_mutable_instance().getSceneMgr()->createEntity(entityName, entMesh);
+        GraphicSystem::get_mutable_instance().getSceneMgr()->createEntity(entityName, "Mesh:"+entMesh);
         GraphicSystem::get_mutable_instance().getSceneMgr()->getRootSceneNode()->createChildSceneNode("Node:" + mEntityName);
     }
     else
