@@ -2,6 +2,7 @@
 #define	ENGINE_HPP
 
 #include "Core/GameApplication.hpp"
+#include "Core/Systems.hpp"
 
 #include "Managers/ConfigManager.hpp"
 #include "Managers/LogManager.hpp"
@@ -18,6 +19,13 @@ namespace Engine
         ResourceManager &GetResource() { return ResourceManager::get_mutable_instance(); }
         EntityManager &GetEntity() { return EntityManager::get_mutable_instance(); }
         EventManager &GetEvent() { return EventManager::get_mutable_instance(); }
+    }
+
+    namespace Systems
+    {
+		GraphicSystem &GetGraphic() { return GraphicSystem::get_mutable_instance(); }
+		InputSystem &GetInput() { return InputSystem::get_mutable_instance(); }
+		GuiSystem &GetGui() { return GuiSystem::get_mutable_instance(); }
     }
 
     namespace World
