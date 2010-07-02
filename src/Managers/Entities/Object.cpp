@@ -33,3 +33,4 @@ void Object::setImage(const string& imgPath)
 
 
 void Object::_loadData() { }
+void Object::update(float elapsed) { }

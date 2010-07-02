@@ -20,6 +20,7 @@ class Entity : private boost::noncopyable
     public:
         virtual ~Entity();
         virtual void _loadData() = 0;  // From info-file
+        virtual void update(float elapsed) = 0;
 
         template<typename EventType>
         void AddBehavior(const string &eventName, const typename EventType::SignatureSlotType &eventSlot)

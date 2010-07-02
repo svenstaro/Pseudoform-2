@@ -17,6 +17,7 @@ class Object : public Entity
         Object(const string entityName, const string &entityMesh = "", const string &res = Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME);
         void setImage(const string& imgPath);
         void _loadData();
+        void update(float elapsed);
 };
 
 #endif	/* OBJECT_HPP */
