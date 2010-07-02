@@ -1,23 +1,10 @@
 #include "Managers/ResourceManager.hpp"
 
-void ResourceManager::addResourceLocationRecursive(Ogre::String path, Ogre::String group) const
+void ResourceManager::addResourceLocation(const string &resLocation, bool recursive, const string &resGroup) const
 {
-    Ogre::ResourceGroupManager::getSingleton().addResourceLocation(path, "FileSystem", group);
-
-    Ogre::Archive *arch = Ogre::ArchiveManager::getSingleton().load(path, "FileSystem");
-    Ogre::StringVectorPtr files = arch->find("*", true, true);
-    for (Ogre::StringVector::iterator iter = files->begin(); iter != files->end(); ++iter)
-    {
-        Ogre::String resource = path + "/" + *iter;
-        Ogre::ResourceGroupManager::getSingleton().addResourceLocation(resource, "FileSystem", group);
-    }
-
-    files = arch->find("*.zip", true, false);
-    for (Ogre::StringVector::iterator iter = files->begin(); iter != files->end(); ++iter)
-    {
-        Ogre::String resource = path + "/" + *iter;
-        Ogre::ResourceGroupManager::getSingleton().addResourceLocation(resource, "Zip", group);
-    }
+    Ogre::ResourceGroupManager::getSingleton().addResourceLocation(resLocation, "FileSystem", resGroup, recursive);
+    LOG(FORMAT("Resource with location '%1%' was loaded into group '%2%' with recursive flag '%3%'",
+            resLocation % resGroup % recursive));
 }
 
 void ResourceManager::unloadResource(Ogre::ResourceManager* resMgr, const std::string& resourceName)
