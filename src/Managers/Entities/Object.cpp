@@ -13,8 +13,8 @@ Object::Object(const string entityName, const string &entityMesh, const string &
     // Attaching new mesh (with name entMesh) to the entity
     if (Ogre::ResourceGroupManager::getSingletonPtr()->resourceExists(res, entMesh))
     {
-        Ogre::ResourceGroupManager::getSingleton().declareResource(entMesh, "Mesh:"+entMesh, res);
-        GraphicSystem::get_mutable_instance().getSceneMgr()->createEntity(entityName, "Mesh:"+entMesh);
+        Ogre::ResourceGroupManager::getSingleton().declareResource(entMesh, "Mesh", res);
+        GraphicSystem::get_mutable_instance().getSceneMgr()->createEntity(entityName, entMesh);
         GraphicSystem::get_mutable_instance().getSceneMgr()->getRootSceneNode()->createChildSceneNode("Node:" + mEntityName);
     }
     else
