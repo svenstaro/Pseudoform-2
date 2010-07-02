@@ -19,6 +19,7 @@ using namespace boost::serialization;
 
 // Define section
 #define CONNECT(EventType, EventName, FunctionPointer) EventManager::get_mutable_instance().connect<EventType>(EventName, bind(FunctionPointer, this, _1));
+#define CONNECT_SINGLE(EventType, EventName, FunctionPointer) EventManager::get_mutable_instance().connect<EventType>(EventName, FunctionPointer);
 #define SIGNAL(EventType, EventName, ...) EventManager::get_mutable_instance().get<EventType>(EventName)->Call(EventType::ArgsType(__VA_ARGS__));
 
 // TODO: Add function for removing listener from signal
