@@ -5,7 +5,7 @@
 #include "Managers/Events/SlotObject.hpp"
 
 // Event dependencies below
-#include <SFML/Window/Event.hpp>
+#include <SFML/Window.hpp>
 
 namespace Engine
 {
