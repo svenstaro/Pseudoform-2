@@ -22,7 +22,7 @@ void onKeyPressed(sf::Event::KeyEvent &eventData)
 		translation.x += fMove;
 
 	Ogre::SceneNode *camNode = Systems::GetGraphic().getSceneMgr()->getSceneNode("Node:Camera");
-	camNode->translate(camNode->getOrientation() * translation);
+	camNode->translate(camNode->getOrientation() * translation * World::GetElapsed());
 }
 
 int main() {
