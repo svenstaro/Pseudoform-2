@@ -1,7 +1,6 @@
 #include "Core/GameApplication.hpp"
 
-GameApplication::GameApplication():
-	mDt(0.0f)
+GameApplication::GameApplication()
 {
     mSystemsList.push_back(new GraphicSystem());
     mSystemsList.push_back(new InputSystem());
@@ -12,6 +11,7 @@ GameApplication::GameApplication():
     mAccumulator = 0.0f;
     mElapsed = 0.0f;
     mDrawn = false;
+    mDt = 1.f / 60.f;
 
     this->_init();
 
@@ -90,10 +90,15 @@ void GameApplication::_shutdown()
 
 void GameApplication::keyPressed(sf::Event::KeyEvent &eventData)
 {
-    if (eventData.Code == sf::Key::Escape) mRunning = false;
+	cout << "Game app key pressed\n";
+    if (eventData.Code == sf::Key::Escape)
+    {
+    	cout << "Esc is pressed";
+    	mRunning = false;
+    }
 }
 
 void GameApplication::mouseMoved(sf::Event::MouseMoveEvent& eventData)
 {
-    cout << FORMAT("New mouse coordinates: (%1%;%2%)\n", eventData.X % eventData.Y);
+    //cout << FORMAT("New mouse coordinates: (%1%;%2%)\n", eventData.X % eventData.Y);
 }

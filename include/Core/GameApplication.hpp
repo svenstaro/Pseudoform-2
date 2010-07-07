@@ -21,7 +21,7 @@ class GameApplication : public singleton<GameApplication>
 
         // Game update cycle
         sf::Clock mClock;
-        const float mDt;
+        float mDt;
         float mAccumulator;
         float mElapsed;
         bool mDrawn;
