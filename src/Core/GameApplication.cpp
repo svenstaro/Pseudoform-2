@@ -10,6 +10,7 @@ GameApplication::GameApplication():
     mRunning = false;
 
     mAccumulator = 0.0f;
+    mElapsed = 0.0f;
     mDrawn = false;
 
     this->_init();
@@ -21,6 +22,10 @@ GameApplication::GameApplication():
 GameApplication::~GameApplication() { }
 
 void GameApplication::setGameState(bool running) { mRunning = running; }
+const float GameApplication::getElapsed() const
+{
+	return mElapsed;
+}
 
 void GameApplication::_init()
 {
@@ -49,15 +54,15 @@ void GameApplication::_loop()
     {
         Ogre::WindowEventUtilities::messagePump();
 
-        float localElapsed = mClock.GetElapsedTime();
-        mAccumulator += localElapsed;
+        mElapsed = mClock.GetElapsedTime();
+        mAccumulator += mElapsed;
         mClock.Reset();
 
         while (mAccumulator >= mDt)
         {
             BOOST_FOREACH(ISystem &curSystem, mSystemsList)
             {
-                curSystem.update(localElapsed);
+                curSystem.update(mElapsed);
             }
 
             mAccumulator -= mDt;

@@ -23,6 +23,7 @@ class GameApplication : public singleton<GameApplication>
         sf::Clock mClock;
         const float mDt;
         float mAccumulator;
+        float mElapsed;
         bool mDrawn;
 
     public:
@@ -30,6 +31,7 @@ class GameApplication : public singleton<GameApplication>
         ~GameApplication();
 
         void setGameState(bool running);
+        const float getElapsed() const;
 
         void _init();
         void Start();
