@@ -32,6 +32,7 @@ namespace Engine
     {
         GameApplication &Application() { return GameApplication::get_mutable_instance(); }
         void setDimension(string &dimension) { Utils::get_mutable_instance().setDimension(dimension); }
+        const float GetElapsed() { return GameApplication::get_const_instance().getElapsed(); }
 
         Object *MakeObject(const string& entityName)
         {
