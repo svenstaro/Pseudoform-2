@@ -42,7 +42,7 @@ class GraphicSystem : public ISystem, public ISingleton<GraphicSystem>
 
         // Inherited from ISystem
         void init();
-        void update();
+        void update(float elapsed);
         std::string toString();
 };
 

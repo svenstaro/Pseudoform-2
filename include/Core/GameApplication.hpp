@@ -19,6 +19,11 @@ class GameApplication : public singleton<GameApplication>
         boost::ptr_vector<ISystem> mSystemsList;
         bool mRunning;
 
+        // Game update cycle
+        sf::Clock mClock;
+        const float mDt;
+        float mAccumulator;
+
     public:
         GameApplication();
         ~GameApplication();

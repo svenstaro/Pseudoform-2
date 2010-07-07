@@ -17,7 +17,7 @@ class GuiSystem : public ISystem, public singleton<GuiSystem>
 
         // Inherited from ISystem
         void init();
-        void update();
+        void update(float elapsed);
         std::string toString();
 };
 

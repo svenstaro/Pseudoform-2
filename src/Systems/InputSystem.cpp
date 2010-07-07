@@ -14,7 +14,7 @@ void InputSystem::init()
     LOG("\t- SFML window is created");
 }
 
-void InputSystem::update()
+void InputSystem::update(float elapsed)
 {
     sf::Event localEvent;
 

@@ -90,7 +90,7 @@ void GraphicSystem::init()
     LOG("\t- All resources are loaded");
 }
 
-void GraphicSystem::update()
+void GraphicSystem::update(float elapsed)
 {
     // ...
 }

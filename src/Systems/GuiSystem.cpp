@@ -6,7 +6,7 @@ GuiSystem::~GuiSystem() { }
 
 void GuiSystem::init() { }
 
-void GuiSystem::update() { }
+void GuiSystem::update(float elapsed) { }
 
 std::string GuiSystem::toString()
 {

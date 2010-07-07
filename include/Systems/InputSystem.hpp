@@ -28,7 +28,7 @@ class InputSystem : public ISystem, public singleton<InputSystem>
         
         // Inherited from ISystem
         void init();
-        void update();
+        void update(float elapsed);
         std::string toString();
 };
 
