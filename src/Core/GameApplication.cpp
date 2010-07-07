@@ -1,12 +1,16 @@
 #include "Core/GameApplication.hpp"
 
-GameApplication::GameApplication()
+GameApplication::GameApplication():
+	mDt(0.0f)
 {
     mSystemsList.push_back(new GraphicSystem());
     mSystemsList.push_back(new InputSystem());
     mSystemsList.push_back(new GuiSystem());
 
     mRunning = false;
+
+    mAccumulator = 0.0f;
+    mDrawn = false;
 
     this->_init();
 
@@ -45,12 +49,30 @@ void GameApplication::_loop()
     {
         Ogre::WindowEventUtilities::messagePump();
 
-        BOOST_FOREACH(ISystem &curSystem, mSystemsList)
+        float localElapsed = mClock.GetElapsedTime();
+        mAccumulator += localElapsed;
+        mClock.Reset();
+
+        while (mAccumulator >= mDt)
         {
-            curSystem.update();
+            BOOST_FOREACH(ISystem &curSystem, mSystemsList)
+            {
+                curSystem.update(localElapsed);
+            }
+
+            mAccumulator -= mDt;
+            mDrawn = false;
         }
 
-        if (!GraphicSystem::get_const_instance().getRoot()->renderOneFrame()) break;
+        if (mDrawn)
+        {
+        	sf::Sleep(mDt);
+        }
+        else
+        {
+        	if (!GraphicSystem::get_const_instance().getRoot()->renderOneFrame()) break;
+        	mDrawn = true;
+        }
     }
 
     this->_shutdown();

@@ -23,6 +23,7 @@ class GameApplication : public singleton<GameApplication>
         sf::Clock mClock;
         const float mDt;
         float mAccumulator;
+        bool mDrawn;
 
     public:
         GameApplication();
