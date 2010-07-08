@@ -14,6 +14,11 @@ void InputSystem::init()
     LOG("\t- SFML window is created");
 }
 
+const sf::Input &InputSystem::Handle() const
+{
+	return mInputWindow.GetInput();
+}
+
 void InputSystem::update(float elapsed)
 {
     sf::Event localEvent;

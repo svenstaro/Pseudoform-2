@@ -20,12 +20,12 @@ class InputSystem : public ISystem, public singleton<InputSystem>
         size_t mWindowHandle;
         sf::Window mInputWindow;
 
-        //SigKeyPressed mSigKeyPressed;
-
     public:
         InputSystem();
         ~InputSystem();
         
+        const sf::Input &Handle() const;
+
         // Inherited from ISystem
         void init();
         void update(float elapsed);
