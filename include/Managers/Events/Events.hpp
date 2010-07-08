@@ -26,6 +26,8 @@ namespace Engine
         NEW_EVENT(void (void), LostFocusEvent);
         NEW_EVENT(void (void), GainFocusEvent);
         NEW_EVENT(void (void), MouseEnteredEvent);
+
+        NEW_EVENT(void (void), GlobalUpdateEvent);
     }
 }
 
