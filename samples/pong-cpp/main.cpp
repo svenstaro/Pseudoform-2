@@ -9,20 +9,38 @@ const string sLogName = "pong.log";
 
 void onKeyPressed(sf::Event::KeyEvent &eventData)
 {
-	using namespace sf;
+    using namespace sf;
 
-	vec3 translation = vec3::ZERO;
-	if (eventData.Code == Key::W)
-		translation.z -= fMove;
-	else if (eventData.Code == Key::S)
-		translation.z += fMove;
-	else if (eventData.Code == Key::A)
-		translation.x -= fMove;
-	else if (eventData.Code == Key::D)
-		translation.x += fMove;
+    vec3 translation = vec3::ZERO;
 
-	Ogre::SceneNode *camNode = Systems::GetGraphic().getSceneMgr()->getSceneNode("Node:Camera");
-	camNode->translate(camNode->getOrientation() * translation * World::GetElapsed());
+    if (eventData.Code == Key::W)
+            translation.z -= fMove;
+    else if (eventData.Code == Key::S)
+            translation.z += fMove;
+    else if (eventData.Code == Key::A)
+            translation.x -= fMove;
+    else if (eventData.Code == Key::D)
+            translation.x += fMove;
+
+    Ogre::SceneNode *camNode = Systems::GetGraphic().getSceneMgr()->getSceneNode("Node:Camera");
+    camNode->translate(camNode->getOrientation() * translation * World::GetElapsed());
+}
+
+void onMouseMoved(sf::Event::MouseMoveEvent &eventData)
+{
+    deg rotX = deg(eventData.X * 0.013 * World::GetElapsed());
+    deg rotY = deg(eventData.Y * 0.013 * World::GetElapsed());
+
+    Ogre::SceneNode *camNode = Systems::GetGraphic().getSceneMgr()->getSceneNode("Node:Camera");
+    camNode->yaw(rotX);
+    camNode->pitch(rotY);
+}
+
+void onUpdated()
+{
+    //Systems::GetInput().Handle().ShowMouseCursor(false);
+    //Systems::GetInput().Handle().GetMouseX();
+    //Systems::GetGraphic().getWindow();
 }
 
 int main() {
@@ -50,6 +68,8 @@ int main() {
     Systems::GetGraphic().getSceneMgr()->getRootSceneNode()->createChildSceneNode()->attachObject(ent);
 
     CONNECT_SINGLE(Engine::Events::KeyEvent, "KeyPressed", &onKeyPressed);
+    CONNECT_SINGLE(Engine::Events::MouseMoveEvent, "MouseMoved", &onMouseMoved);
+    CONNECT_SINGLE(Engine::Events::GlobalUpdateEvent, "Updated", &onUpdated);
 
     World::Application().Start();
 
