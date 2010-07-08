@@ -19,6 +19,11 @@ const sf::Input &InputSystem::Handle() const
 	return mInputWindow.GetInput();
 }
 
+sf::Window &InputSystem::Window()
+{
+	return mInputWindow;
+}
+
 void InputSystem::update(float elapsed)
 {
     sf::Event localEvent;

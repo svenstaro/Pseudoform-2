@@ -25,6 +25,7 @@ class InputSystem : public ISystem, public singleton<InputSystem>
         ~InputSystem();
         
         const sf::Input &Handle() const;
+        sf::Window &Window();
 
         // Inherited from ISystem
         void init();
