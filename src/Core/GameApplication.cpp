@@ -41,9 +41,7 @@ void GameApplication::Start()
 {
     mRunning = true;
 
-    // Create game engine controllers
-    // Create world
-    // Load resource
+    SIGNAL(Engine::Events::GlobalInitEvent, "Inited");
 
     this->_loop();
 }
@@ -64,6 +62,7 @@ void GameApplication::_loop()
             {
                 curSystem.update(mElapsed);
             }
+            SIGNAL(Engine::Events::GlobalUpdateEvent, "Updated", );
 
             mAccumulator -= mDt;
             mDrawn = false;
@@ -75,7 +74,9 @@ void GameApplication::_loop()
         }
         else
         {
-        	if (!GraphicSystem::get_const_instance().getRoot()->renderOneFrame()) break;
+        	if (!GraphicSystem::get_const_instance().getRoot()->renderOneFrame())
+        		LOG("Something bad happened in the render cycle!");
+
         	mDrawn = true;
         }
     }
@@ -90,12 +91,7 @@ void GameApplication::_shutdown()
 
 void GameApplication::keyPressed(sf::Event::KeyEvent &eventData)
 {
-	cout << "Game app key pressed\n";
-    if (eventData.Code == sf::Key::Escape)
-    {
-    	cout << "Esc is pressed";
-    	mRunning = false;
-    }
+    if (eventData.Code == sf::Key::Escape)mRunning = false;
 }
 
 void GameApplication::mouseMoved(sf::Event::MouseMoveEvent& eventData)
