@@ -28,6 +28,7 @@ namespace Engine
         NEW_EVENT(void (void), MouseEnteredEvent);
 
         NEW_EVENT(void (void), GlobalUpdateEvent);
+        NEW_EVENT(void (void), GlobalInitEvent);
     }
 }
 

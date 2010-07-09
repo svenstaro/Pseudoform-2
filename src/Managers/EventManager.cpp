@@ -29,5 +29,7 @@ void EventManager::fillEventMap()
     mSignalAssociation["WindowLostFocus"] = LostFocusEvent();
     mSignalAssociation["WindowGainedFocus"] = GainFocusEvent();
     mSignalAssociation["WindowMouseEntered"] = MouseEnteredEvent();
+
     mSignalAssociation["Updated"] = GlobalUpdateEvent();
+    mSignalAssociation["Inited"] = GlobalInitEvent();
 }
