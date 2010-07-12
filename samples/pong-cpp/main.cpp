@@ -3,7 +3,7 @@
 using namespace std;
 using namespace Engine;
 
-const float fMove = 250;
+const float fMove = 350;
 const float fRotate = 0.13;
 const string sLogName = "pong.log";
 
@@ -28,22 +28,33 @@ void onKeyPressed(sf::Event::KeyEvent &eventData)
 
 void onMouseMoved(sf::Event::MouseMoveEvent &eventData)
 {
-    deg rotX = deg(eventData.X * 0.013 * World::GetElapsed());
-    deg rotY = deg(eventData.Y * 0.013 * World::GetElapsed());
-
     Ogre::SceneNode *camNode = Systems::GetGraphic().getSceneMgr()->getSceneNode("Node:Camera");
-    camNode->yaw(rotX);
-    camNode->pitch(rotY);
+
+    camNode->yaw(deg(fRotate * -eventData.X * World::GetElapsed()), Ogre::Node::TS_WORLD);
+    camNode->pitch(deg(fRotate * -eventData.Y * World::GetElapsed()), Ogre::Node::TS_LOCAL);
+}
+
+void onInited()
+{
+	using namespace World;
+	LOG(FORMAT("The size of the screen is (%1%; %2%)", GetWidth() % GetHeight()));
+	Systems::GetInput().Window()->SetCursorPosition(GetWidth()/2, GetHeight()/2);
+	Systems::GetInput().Window()->ShowMouseCursor(false);
 }
 
 void onUpdated()
 {
-    //Systems::GetInput().Handle().ShowMouseCursor(false);
-    //Systems::GetInput().Handle().GetMouseX();
-    //Systems::GetGraphic().getWindow();
+	// We need in this until we will not have script system
+	using namespace World;
+	Systems::GetInput().Window()->SetCursorPosition(GetWidth()/2, GetHeight()/2);
 }
 
 int main() {
+    CONNECT_SINGLE(Engine::Events::KeyEvent, "KeyPressed", &onKeyPressed);
+    CONNECT_SINGLE(Engine::Events::MouseMoveEvent, "MouseMoved", &onMouseMoved);
+    CONNECT_SINGLE(Engine::Events::GlobalUpdateEvent, "Updated", &onUpdated);
+    CONNECT_SINGLE(Engine::Events::GlobalInitEvent, "Inited", &onInited);
+
     Managers::GetLog().write("Adding new source location...", sLogName);
     Managers::GetResource().addResourceLocation("pong-media", true);
 
@@ -51,11 +62,8 @@ int main() {
     ogCamera->setPosition(vec3(0, 1000, 500));
     ogCamera->lookAt(vec3(0, 0, 0));
 
-    Ogre::Light *ogLight = Systems::GetGraphic().getSceneMgr()->createLight( "Light3" );
-    ogLight->setType( Ogre::Light::LT_DIRECTIONAL );
-    ogLight->setDiffuseColour( colour( .25, .25, 0 ) );
-    ogLight->setSpecularColour( colour( .25, .25, 0 ) );
-    ogLight->setDirection( vec3( 0, -1, 1 ) );
+    World::MakeLight("MainLight", Ogre::Light::LT_DIRECTIONAL, colour(.25, .25, 0), colour(.25, .25, 0));
+    World::GetLight("MainLight")->lightHandle()->setDirection( vec3(0, -1, 1) );
 
     World::MakeObject("background");
 
@@ -66,10 +74,6 @@ int main() {
 
     Ogre::Entity *ent = Systems::GetGraphic().getSceneMgr()->createEntity( "GroundEntity", "ground" );
     Systems::GetGraphic().getSceneMgr()->getRootSceneNode()->createChildSceneNode()->attachObject(ent);
-
-    CONNECT_SINGLE(Engine::Events::KeyEvent, "KeyPressed", &onKeyPressed);
-    CONNECT_SINGLE(Engine::Events::MouseMoveEvent, "MouseMoved", &onMouseMoved);
-    CONNECT_SINGLE(Engine::Events::GlobalUpdateEvent, "Updated", &onUpdated);
 
     World::Application().Start();
 

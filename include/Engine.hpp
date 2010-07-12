@@ -43,6 +43,23 @@ namespace Engine
         {
             return EntityManager::get_mutable_instance().GetObject(entityName);
         }
+
+        Light *MakeLight(const string& entityName, Ogre::Light::LightTypes lt = Ogre::Light::LT_POINT,
+        		colour diffuse = colour(1, 1, 1), colour specular = colour(1, 1, 1),
+        		float attenuation = 10, float power = 1)
+        {
+			Light *localTemp = EntityManager::get_mutable_instance().MakeLight(entityName);
+			localTemp->configure(lt, diffuse, specular, attenuation, power);
+			return localTemp;
+        }
+
+        Light *GetLight(const string &entityName)
+        {
+        	return EntityManager::get_mutable_instance().GetLight(entityName);
+        }
+
+        unsigned int GetWidth() { return Systems::GetGraphic().getWindow()->getWidth(); }
+        unsigned int GetHeight() { return Systems::GetGraphic().getWindow()->getHeight(); }
     }
 };
 
