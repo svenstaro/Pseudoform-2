@@ -12,6 +12,7 @@
 #include "Managers/LogManager.hpp"
 #include "Managers/Entities/Entity.hpp"
 #include "Managers/Entities/Object.hpp"
+#include "Managers/Entities/Light.hpp"
 
 using namespace boost::serialization;
 using namespace std;
@@ -22,9 +23,15 @@ class EntityManager : public singleton<EntityManager>
         boost::ptr_map<const string, Entity> mEntityList;
 
     public:
+        // Object entity
         Object *MakeObject(const string &entityName);
         Object *GetObject(const string &entityName);
 
+        // Light entity
+        Light *MakeLight(const string &entityName);
+        Light *GetLight(const string &entityName);
+
+        // Templated interface
         bool DeleteEntity(const string &entityName);
 
         // Predefined interface for all objects types
