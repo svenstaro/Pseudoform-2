@@ -38,15 +38,19 @@ void onInited()
 {
 	using namespace World;
 	LOG(FORMAT("The size of the screen is (%1%; %2%)", GetWidth() % GetHeight()));
-	Systems::GetInput().Window()->SetCursorPosition(GetWidth()/2, GetHeight()/2);
-	Systems::GetInput().Window()->ShowMouseCursor(false);
+
+	Systems::GetInput().Window().SetCursorPosition(GetWidth()/2, GetHeight()/2);
+	Systems::GetInput().Window().ShowMouseCursor(false);
 }
 
 void onUpdated()
 {
 	// We need in this until we will not have script system
 	using namespace World;
-	Systems::GetInput().Window()->SetCursorPosition(GetWidth()/2, GetHeight()/2);
+
+	int x = Systems::GetInput().Handle().GetMouseX();
+	int y = Systems::GetInput().Handle().GetMouseY();
+	cout << "Mouse: (" << x << ";" << y << ")";
 }
 
 int main() {
