@@ -2,6 +2,8 @@
 
 #include <iostream>
 
+template<> InputSystem* ISingleton<InputSystem>::mInstance = 0;
+
 InputSystem::InputSystem() { }
 
 InputSystem::~InputSystem() { }
@@ -10,25 +12,26 @@ void InputSystem::init()
 {
     GraphicSystem::get_const_instance().getWindow()->getCustomAttribute("WINDOW", &mWindowHandle);
     LOG("\t- Got window handle from ogre");
-    mInputWindow.Create(mWindowHandle);
+    mInputWindow = boost::shared_ptr<sf::Window>( new sf::Window(mWindowHandle) );
+    //mInputWindow->Create(mWindowHandle);
     LOG("\t- SFML window is created");
 }
 
-const sf::Input *InputSystem::Handle() const
+const sf::Input &InputSystem::Handle() const
 {
-	return &mInputWindow.GetInput();
+	return mInputWindow.get()->GetInput();
 }
 
-sf::Window *InputSystem::Window()
+sf::Window &InputSystem::Window()
 {
-	return &mInputWindow;
+	return *mInputWindow.get();
 }
 
 void InputSystem::update(float elapsed)
 {
     sf::Event localEvent;
 
-    while(mInputWindow.GetEvent(localEvent))
+    while(mInputWindow->GetEvent(localEvent))
     {
         using namespace Engine::Events;
         sf::Event::EventType type = localEvent.Type;

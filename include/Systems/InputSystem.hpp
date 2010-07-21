@@ -3,6 +3,7 @@
 
 #include "System.hpp"
 #include "Core/GameApplication.hpp"
+#include "Core/Singleton.hpp"
 #include "Managers/Events/Events.hpp"
 
 #include "Managers/LogManager.hpp"
@@ -11,21 +12,23 @@
 
 #include <SFML/Window.hpp>
 #include <boost/serialization/singleton.hpp>
+#include <boost/shared_ptr.hpp>
 
 using namespace boost::serialization;
 
-class InputSystem : public ISystem, public singleton<InputSystem>
+//class InputSystem : public ISystem, public singleton<InputSystem>
+class InputSystem : public ISystem, public ISingleton<InputSystem>
 {
     private:
         size_t mWindowHandle;
-        sf::Window mInputWindow;
+        boost::shared_ptr<sf::Window> mInputWindow;
 
     public:
         InputSystem();
         ~InputSystem();
         
-        const sf::Input *Handle() const;
-        sf::Window *Window();
+        const sf::Input &Handle() const;
+        sf::Window &Window();
 
         // Inherited from ISystem
         void init();
