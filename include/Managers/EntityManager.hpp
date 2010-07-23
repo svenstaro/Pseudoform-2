@@ -13,6 +13,7 @@
 #include "Managers/Entities/Entity.hpp"
 #include "Managers/Entities/Object.hpp"
 #include "Managers/Entities/Light.hpp"
+#include "Managers/Entities/Camera.hpp"
 
 using namespace boost::serialization;
 using namespace std;
@@ -30,6 +31,10 @@ class EntityManager : public singleton<EntityManager>
         // Light entity
         Light *MakeLight(const string &entityName);
         Light *GetLight(const string &entityName);
+
+        // Camera entity
+        Camera *MakeCamera(const string &cameraName);
+        Camera *GetCamera(const string &cameraName);
 
         // Templated interface
         bool DeleteEntity(const string &entityName);
