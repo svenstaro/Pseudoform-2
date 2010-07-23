@@ -14,13 +14,17 @@ void onKeyPressed(sf::Event::KeyEvent &eventData)
     vec3 translation = vec3::ZERO;
 
     if (eventData.Code == Key::W)
-            translation.z -= fMove;
+        translation.z -= fMove;
     else if (eventData.Code == Key::S)
-            translation.z += fMove;
+        translation.z += fMove;
     else if (eventData.Code == Key::A)
-            translation.x -= fMove;
+        translation.x -= fMove;
     else if (eventData.Code == Key::D)
-            translation.x += fMove;
+        translation.x += fMove;
+    else if (eventData.Code == Key::Q)
+    	translation.y += fMove;
+    else if (eventData.Code == Key::E)
+    	translation -= fMove;
 
     Ogre::SceneNode *camNode = World::GetCamera("MainCamera")->getNode();
     camNode->translate(camNode->getOrientation() * translation * World::GetElapsed());
