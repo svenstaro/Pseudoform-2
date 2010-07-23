@@ -32,10 +32,9 @@ void onMouseMoved(sf::Event::MouseMoveEvent &eventData)
 	int offsetY = eventData.Y - World::GetHeight()/2;
 
 	Ogre::SceneNode *camNode = World::GetCamera("MainCamera")->getNode();
-	Ogre::SceneNode *camPitchNode = World::GetCamera("MainCamera")->getPitchNode();
 
     camNode->yaw(deg(fRotate * -offsetX));
-    //camPitchNode->pitch(deg(fRotate * -offsetY));
+    camNode->getChild(0)->pitch(deg(fRotate * -offsetY));
 }
 
 void onInited()
