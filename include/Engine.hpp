@@ -58,6 +58,26 @@ namespace Engine
         	return EntityManager::get_mutable_instance().GetLight(entityName);
         }
 
+        Camera *MakeCamera(const string &cameraName, bool attachViewport = false, const float nearClip = 1, const float farClip = 1000,
+        		bool autoAR = true, const float FOV = 90, vec3 pos = vec3(0, 1000, 1000), vec3 lookAt = vec3(0, 0, 0))
+        {
+			Camera *localTemp = EntityManager::get_mutable_instance().MakeCamera(cameraName);
+			localTemp->configure(nearClip, farClip, autoAR, FOV, pos, lookAt);
+			if (attachViewport)
+			{
+				GraphicSystem &graphicHandle = GraphicSystem::get_mutable_instance();
+				Ogre::Viewport *view = graphicHandle.getViewport();
+				Ogre::Camera *cam = localTemp->cameraHandle();
+				view->setCamera(cam);
+			}
+			return localTemp;
+        }
+
+        Camera *GetCamera(const string &cameraName)
+        {
+        	return EntityManager::get_mutable_instance().GetCamera(cameraName);
+        }
+
         unsigned int GetWidth() { return Systems::GetGraphic().getWindow()->getWidth(); }
         unsigned int GetHeight() { return Systems::GetGraphic().getWindow()->getHeight(); }
     }
