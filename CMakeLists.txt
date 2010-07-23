@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 2.8.0)
 
 project(pseudoform)
 
-set(CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake-extras/${CMAKE_MODULE_PATH}")
+set(CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake-extras/")
 set(Boost_USE_STATIC_LIBS ON)
 set(Boost_USE_MULTITHREADED ON)
 find_package(SFML REQUIRED)
