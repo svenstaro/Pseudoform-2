@@ -1,4 +1,5 @@
 set(Pseudoform_srcs
+    Managers/Entities/Camera.cpp
     Managers/Entities/Light.cpp
     Managers/Entities/Object.cpp
     Managers/Entities/Entity.cpp
