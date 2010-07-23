@@ -9,12 +9,12 @@ set(Pseudoform_srcs
     Managers/LogManager.cpp
     Managers/ConfigManager.cpp
     Core/Utils.cpp
-	Core/GameApplication.cpp
-	Systems/GraphicSystem.cpp
-	Systems/PhysicSystem.cpp
-	Systems/InputSystem.cpp
-	Systems/GuiSystem.cpp
-	Systems/SoundSystem.cpp
+    Core/GameApplication.cpp
+    Systems/GraphicSystem.cpp
+    Systems/PhysicSystem.cpp
+    Systems/InputSystem.cpp
+    Systems/GuiSystem.cpp
+    Systems/SoundSystem.cpp
 )
 
 add_library(Pseudoform STATIC
@@ -26,4 +26,6 @@ target_link_libraries(Pseudoform
 	${SFML_LIBRARY}
 	${OGRE_LIBRARIES}
 	${BULLET_LIBRARIES}
+        ${MYGUI_LIBRARIES}
+        ${MYGUI_PLATFORM_LIBRARIES}
 )

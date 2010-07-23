@@ -2,12 +2,14 @@ cmake_minimum_required(VERSION 2.8.0)
 
 project(pseudoform)
 
-set(CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake-extras/;${CMAKE_MODULE_PATH}")
+set(CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake-extras/${CMAKE_MODULE_PATH}")
 set(Boost_USE_STATIC_LIBS ON)
 set(Boost_USE_MULTITHREADED ON)
 find_package(SFML REQUIRED)
 find_package(OGRE REQUIRED)
 find_package(Bullet REQUIRED)
+find_package(MyGUI REQUIRED)
+find_package(MyGUI_PLATFORM REQUIRED)
 find_package(Boost COMPONENTS filesystem system python date_time REQUIRED)
 
 add_definitions(-Wall)
@@ -21,6 +23,8 @@ include_directories(
 	${Boost_INCLUDE_DIRS}
 	${SFML_INCLUDE_DIRS}
 	${OGRE_INCLUDE_DIRS}
+        ${MYGUI_INCLUDE_DIR}
+        ${MYGUI_PLATFORM_INCLUDE_DIR}
 	${BULLET_INCLUDE_DIRS}
 )
 
