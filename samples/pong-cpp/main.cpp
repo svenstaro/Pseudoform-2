@@ -22,7 +22,7 @@ void onKeyPressed(sf::Event::KeyEvent &eventData)
     else if (eventData.Code == Key::D)
             translation.x += fMove;
 
-    Ogre::SceneNode *camNode = Systems::GetGraphic().getSceneMgr()->getSceneNode("Node:Camera");
+    Ogre::SceneNode *camNode = World::GetCamera("MainCamera")->getNode();
     camNode->translate(camNode->getOrientation() * translation * World::GetElapsed());
 }
 
@@ -31,11 +31,11 @@ void onMouseMoved(sf::Event::MouseMoveEvent &eventData)
 	int offsetX = eventData.X - World::GetWidth()/2;
 	int offsetY = eventData.Y - World::GetHeight()/2;
 
-    Ogre::SceneNode *camNode = Systems::GetGraphic().getSceneMgr()->getSceneNode("Node:Camera");
-    Ogre::SceneNode *camNodePitch = Systems::GetGraphic().getSceneMgr()->getSceneNode("Node:CameraPitch");
+	Ogre::SceneNode *camNode = World::GetCamera("MainCamera")->getNode();
+	Ogre::SceneNode *camPitchNode = World::GetCamera("MainCamera")->getPitchNode();
 
     camNode->yaw(deg(fRotate * -offsetX));
-    camNodePitch->pitch(deg(fRotate * -offsetY));
+    //camPitchNode->pitch(deg(fRotate * -offsetY));
 }
 
 void onInited()
@@ -64,22 +64,9 @@ int main() {
     Managers::GetLog().write("Adding new source location...", sLogName);
     Managers::GetResource().addResourceLocation("pong-media", true);
 
-    Ogre::Camera *ogCamera = Systems::GetGraphic().getCamera();
-    ogCamera->setPosition(vec3(0, 1000, 500));
-    ogCamera->lookAt(vec3(0, 0, 0));
-
-    World::MakeLight("MainLight", Ogre::Light::LT_DIRECTIONAL, colour(.25, .25, 0), colour(.25, .25, 0));
-    World::GetLight("MainLight")->lightHandle()->setDirection( vec3(0, -1, 1) );
-
-    World::MakeObject("background");
-
-    Ogre::Plane plane( vec3::UNIT_Y, 0 );
-    Ogre::MeshManager::getSingleton().createPlane("ground",
-    	Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME, plane,
-    	1500,1500,20,20,true,1,5,5,vec3::UNIT_Z);
-
-    Ogre::Entity *ent = Systems::GetGraphic().getSceneMgr()->createEntity( "GroundEntity", "ground" );
-    Systems::GetGraphic().getSceneMgr()->getRootSceneNode()->createChildSceneNode()->attachObject(ent);
+    World::MakeCamera("MainCamera", true);
+    World::MakeLight("MainLight", Ogre::Light::LT_DIRECTIONAL)->lightHandle()->setDirection( vec3(0, -1, 1) );
+    World::MakeObject("background")->setScale(vec3(100, 100, 100));
 
     World::Application().Start();
 
