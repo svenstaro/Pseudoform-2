@@ -14,6 +14,7 @@ class Entity : private boost::noncopyable
         string mEntityMesh;
         bool mDrawable;
 
+        // TODO: Move entity object to entity class only
         Ogre::Entity *mEntity;
         Ogre::SceneNode *mNode;
 
@@ -38,8 +39,8 @@ class Entity : private boost::noncopyable
         const string getMeshName() const;
         bool isDrawable() const;
 
-        Ogre::SceneNode &getNode() const;
-        Ogre::Entity &getEntity() const;
+        Ogre::SceneNode *getNode() const;
+        Ogre::Entity *getEntity() const;
         
         const vec3 &getPosition() const;
         const quat &getOrientation() const;

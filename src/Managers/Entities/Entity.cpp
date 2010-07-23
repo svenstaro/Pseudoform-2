@@ -17,13 +17,13 @@ bool Entity::isDrawable() const
     return mDrawable;
 }
 
-Ogre::SceneNode &Entity::getNode() const
+Ogre::SceneNode *Entity::getNode() const
 { 
-    return *mNode;
+    return mNode;
 }
-Ogre::Entity &Entity::getEntity() const
+Ogre::Entity *Entity::getEntity() const
 {
-    return *mEntity;
+    return mEntity;
 }
 
 const vec3 &Entity::getPosition() const
