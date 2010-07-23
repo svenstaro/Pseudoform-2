@@ -41,7 +41,7 @@ void GameApplication::Start()
 {
     mRunning = true;
 
-    SIGNAL(Engine::Events::GlobalInitEvent, "Inited");
+    SIGNAL(Engine::Events::GlobalInitEvent, "Inited", );
 
     this->_loop();
 }
@@ -91,7 +91,7 @@ void GameApplication::_shutdown()
 
 void GameApplication::keyPressed(sf::Event::KeyEvent &eventData)
 {
-    if (eventData.Code == sf::Key::Escape)mRunning = false;
+    if (eventData.Code == sf::Key::Escape) mRunning = false;
 }
 
 void GameApplication::mouseMoved(sf::Event::MouseMoveEvent& eventData)
