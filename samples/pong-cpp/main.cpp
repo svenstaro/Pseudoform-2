@@ -28,10 +28,14 @@ void onKeyPressed(sf::Event::KeyEvent &eventData)
 
 void onMouseMoved(sf::Event::MouseMoveEvent &eventData)
 {
-    Ogre::SceneNode *camNode = Systems::GetGraphic().getSceneMgr()->getSceneNode("Node:Camera");
+	int offsetX = eventData.X - World::GetWidth()/2;
+	int offsetY = eventData.Y - World::GetHeight()/2;
 
-    camNode->yaw(deg(fRotate * -eventData.X * World::GetElapsed()), Ogre::Node::TS_WORLD);
-    camNode->pitch(deg(fRotate * -eventData.Y * World::GetElapsed()), Ogre::Node::TS_LOCAL);
+    Ogre::SceneNode *camNode = Systems::GetGraphic().getSceneMgr()->getSceneNode("Node:Camera");
+    Ogre::SceneNode *camNodePitch = Systems::GetGraphic().getSceneMgr()->getSceneNode("Node:CameraPitch");
+
+    camNode->yaw(deg(fRotate * -offsetX));
+    camNodePitch->pitch(deg(fRotate * -offsetY));
 }
 
 void onInited()
@@ -48,9 +52,7 @@ void onUpdated()
 	// We need in this until we will not have script system
 	using namespace World;
 
-	int x = Systems::GetInput().Handle().GetMouseX();
-	int y = Systems::GetInput().Handle().GetMouseY();
-	cout << "Mouse: (" << x << ";" << y << ")";
+	Systems::GetInput().Window().SetCursorPosition(GetWidth()/2, GetHeight()/2);
 }
 
 int main() {
