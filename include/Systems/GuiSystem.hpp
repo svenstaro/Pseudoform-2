@@ -4,12 +4,20 @@
 #include "System.hpp"
 #include <boost/serialization/singleton.hpp>
 
+#include "Systems/GraphicSystem.hpp"
+#include "Managers/LogManager.hpp"
+#include "Managers/ResourceManager.hpp"
+
+#include "MyGUI.h"
+#include "MyGUI_OgrePlatform.h"
+
 using namespace boost::serialization;
 
 class GuiSystem : public ISystem, public singleton<GuiSystem>
 {
     private:
-        // MyGui ....
+		MyGUI::Gui *mGUI;
+		MyGUI::OgrePlatform *mPlatform;
 
     public:
         GuiSystem();
