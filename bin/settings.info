@@ -24,3 +24,9 @@ engine
 {
 	logFilename "Engine.log"
 }
+
+resources
+{
+    MediaFolder "pong-media/"
+    MyGUI "pong-media/GUI"
+}
