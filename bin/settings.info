@@ -28,5 +28,8 @@ engine
 resources
 {
     MediaFolder "pong-media/"
-    MyGUI "pong-media/GUI"
+    MediaFolder1 "pong-media/Fonts"
+    MediaFolder2 "pong-media/Materials"
+    MediaFolder3 "pong-media/Entities"
+    MyGUI "pong-media/MyGUI"
 }
