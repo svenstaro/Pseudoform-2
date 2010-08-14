@@ -32,6 +32,7 @@ float Camera::getRotateStep() { return mRotate; }
 void Camera::setMoveStep(float step) { mMove = step; }
 void Camera::setRotateStep(float step) { mRotate = step; }
 
+string Camera::type() { return "camera"; }
 void Camera::_loadData() { }
 void Camera::update(float elapsed) { }
 

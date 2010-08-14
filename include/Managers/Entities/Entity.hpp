@@ -5,6 +5,12 @@
 #include "Systems/GraphicSystem.hpp"
 #include "Core/Types.hpp"
 
+#include <boost/property_tree/ptree.hpp>
+#include <boost/property_tree/info_parser.hpp>
+#include <boost/foreach.hpp>
+#include <boost/algorithm/string.hpp>
+
+using boost::property_tree::ptree;
 using namespace std;
 
 class Entity : private boost::noncopyable
@@ -20,8 +26,10 @@ class Entity : private boost::noncopyable
 
     public:
         virtual ~Entity();
+        void _defaultLoader(string EntityName);
         virtual void _loadData() = 0;  // From info-file
         virtual void update(float elapsed) = 0;
+        virtual string type() = 0;
 
         template<typename EventType>
         void AddBehavior(const string &eventName, const typename EventType::SignatureSlotType &eventSlot)

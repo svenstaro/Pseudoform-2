@@ -2,6 +2,8 @@
 
 Light::Light(const string entityName)
 {
+	_defaultLoader(entityName);	// Loading from info file
+
 	Ogre::SceneManager *sceneMgr = GraphicSystem::get_const_instance().getSceneMgr();
 
 	mLight = sceneMgr->createLight("Light:" + entityName);
@@ -35,5 +37,6 @@ colour Light::getSpecular() { return mLight->getSpecularColour(); }
 float Light::getRadius() { return mLight->getAttenuationRange(); }
 float Light::getPower() { return mLight->getPowerScale(); }
 
+string Light::type() { return "light"; }
 void Light::_loadData() { }
 void Light::update(float elapsed) { }

@@ -34,6 +34,6 @@ void Object::setImage(const string& imgPath)
     GraphicSystem::get_mutable_instance().getSceneMgr()->getEntity(mEntityName)->setMaterial(textureMat);
 }
 
-
+string Object::type() { return "object"; }
 void Object::_loadData() { }
 void Object::update(float elapsed) { }

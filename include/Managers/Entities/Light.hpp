@@ -2,6 +2,7 @@
 #define LIGHT_HPP_
 
 #include "Managers/EventManager.hpp"
+#include "Managers/ResourceManager.hpp"
 #include "Systems/GraphicSystem.hpp"
 #include "Core/Types.hpp"
 
@@ -32,6 +33,7 @@ class Light : public Entity
         float getRadius();
         float getPower();
 
+        string type();
         void _loadData();
         void update(float elapsed);
 };

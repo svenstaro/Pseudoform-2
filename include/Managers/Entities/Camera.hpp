@@ -45,6 +45,7 @@ class Camera : public Entity
 		void onMouseMoved(sf::Event::MouseMoveEvent &eventData);
 
         void _loadData();
+        string type();
         void update(float elapsed);
 };
 
