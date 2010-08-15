@@ -3,6 +3,7 @@ set(Pseudoform_srcs
     Managers/Entities/Light.cpp
     Managers/Entities/Object.cpp
     Managers/Entities/Entity.cpp
+    Managers/StateManager.cpp
     Managers/EventManager.cpp
     Managers/EntityManager.cpp
     Managers/ResourceManager.cpp
@@ -26,6 +27,6 @@ target_link_libraries(Pseudoform
 	${SFML_LIBRARY}
 	${OGRE_LIBRARIES}
 	${BULLET_LIBRARIES}
-        ${MYGUI_LIBRARIES}
-        ${MYGUI_PLATFORM_LIBRARIES}
+    ${MYGUI_LIBRARIES}
+    ${MYGUI_PLATFORM_LIBRARIES}
 )
