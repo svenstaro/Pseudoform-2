@@ -39,6 +39,7 @@ void InputSystem::update(float elapsed)
         // Key events -----------------------------------------------------------------------------
         if (localEvent.Type == sf::Event::KeyPressed) {
             SIGNAL(KeyEvent, "KeyPressed", localEvent.Key);
+            // TODO: find key text in SFML. Replace zero with that value!
             GuiSystem::get_mutable_instance().getGui()->injectKeyPress(MyGUI::KeyCode::Enum(localEvent.Key.Code), 0);
 
         } else if (type == sf::Event::KeyReleased) {
