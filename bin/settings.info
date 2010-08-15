@@ -18,6 +18,8 @@ window
 
 	paramFSAA "0"
 	paramVSYNC "false"
+
+    showCursor "false"
 }
 
 engine
