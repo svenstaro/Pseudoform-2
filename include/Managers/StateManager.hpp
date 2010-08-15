@@ -7,6 +7,7 @@
 
 #include "Managers/LogManager.hpp"
 
+using namespace boost;
 using namespace std;
 
 class State
@@ -21,13 +22,15 @@ class State
 class StateManager : public singleton<ConfigManager>
 {
 	private:
-		boost::ptr_vector<State> mStates;
-		boost::shared_ptr<State> mActiveState;
+		ptr_vector<State> mStates;
+		shared_ptr<State> mActiveState;
 
 		~StateManager();
 
 	public:
 		void push(const State &state);
+		State *getActiveState();
+
 		State *pop();
 };
 

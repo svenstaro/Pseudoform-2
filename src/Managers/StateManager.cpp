@@ -19,3 +19,7 @@ State *StateManager::pop()
 	mStates.pop_back();				// And remove it from list
 }
 
+State *StateManager::getActiveState()
+{
+	return mActiveState.get();
+}
