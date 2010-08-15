@@ -9,6 +9,7 @@
 
 #include "Managers/LogManager.hpp"
 #include "Managers/EventManager.hpp"
+#include "Managers/StateManager.hpp"
 
 #include <boost/ptr_container/ptr_vector.hpp>
 #include <boost/format.hpp>
