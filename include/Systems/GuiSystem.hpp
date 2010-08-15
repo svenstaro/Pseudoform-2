@@ -3,6 +3,7 @@
 
 #include "System.hpp"
 #include <boost/serialization/singleton.hpp>
+#include "Core/Singleton.hpp"
 
 #include "Systems/GraphicSystem.hpp"
 #include "Managers/LogManager.hpp"
@@ -13,7 +14,7 @@
 
 using namespace boost::serialization;
 
-class GuiSystem : public ISystem, public singleton<GuiSystem>
+class GuiSystem : public ISystem, public ISingleton<GuiSystem>
 {
     private:
 		MyGUI::Gui *mGUI;
@@ -22,6 +23,8 @@ class GuiSystem : public ISystem, public singleton<GuiSystem>
     public:
         GuiSystem();
         ~GuiSystem();
+
+        MyGUI::Gui *getGui() const { return mGUI; }
 
         // Inherited from ISystem
         void init();
