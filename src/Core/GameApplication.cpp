@@ -41,6 +41,9 @@ void GameApplication::Start()
 {
     mRunning = true;
 
+    bool showCursor = CONFIG("window.showCursor", bool, false);
+    InputSystem::get_mutable_instance().Window().ShowMouseCursor(showCursor);
+
     SIGNAL(Engine::Events::GlobalInitEvent, "Inited", );
 
     this->_loop();
