@@ -70,6 +70,7 @@ void Camera::onInited()
 			// ...
 
 		break;
+		case Camera::DONT_USE: break;
 	}
 }
 
@@ -89,6 +90,7 @@ void Camera::onUpdated()
 			// ...
 
 		break;
+		case Camera::DONT_USE: break;
 	}
 }
 
@@ -124,6 +126,7 @@ void Camera::onKeyPressed(sf::Event::KeyEvent &eventData)
 			// ...
 
 		break;
+		case Camera::DONT_USE: break;
 	}
 }
 
@@ -153,5 +156,6 @@ void Camera::onMouseMoved(sf::Event::MouseMoveEvent &eventData)
 			// ...
 
 		break;
+		case Camera::DONT_USE: break;
 	}
 }
