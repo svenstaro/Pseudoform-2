@@ -8,8 +8,7 @@ GameApplication::GameApplication()
 
     mRunning = false;
 
-    mAccumulator = 0.0f;
-    mElapsed = 0.0f;
+    mAccumulator = mElapsed = mFrameRate = 0.0f;
     mDrawn = false;
     mDt = 1.f / 60.f;
 
@@ -21,10 +20,8 @@ GameApplication::GameApplication()
 GameApplication::~GameApplication() { }
 
 void GameApplication::setGameState(bool running) { mRunning = running; }
-const float GameApplication::getElapsed() const
-{
-	return mElapsed;
-}
+const float GameApplication::getElapsed() const { return mElapsed; }
+const float GameApplication::getFPS() const { return mFrameRate; }
 
 void GameApplication::_init()
 {
@@ -57,6 +54,8 @@ void GameApplication::_loop()
         mElapsed = mClock.GetElapsedTime();
         mAccumulator += mElapsed;
         mClock.Reset();
+
+        mFrameRate = 1.f / mElapsed;
 
         while (mAccumulator >= mDt)
         {

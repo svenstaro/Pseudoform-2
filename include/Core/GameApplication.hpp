@@ -25,6 +25,7 @@ class GameApplication : public singleton<GameApplication>
         float mDt;
         float mAccumulator;
         float mElapsed;
+        float mFrameRate;
         bool mDrawn;
 
     public:
@@ -33,6 +34,7 @@ class GameApplication : public singleton<GameApplication>
 
         void setGameState(bool running);
         const float getElapsed() const;
+        const float getFPS() const;
 
         void _init();
         void Start();
