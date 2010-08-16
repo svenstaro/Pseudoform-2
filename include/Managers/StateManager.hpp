@@ -13,10 +13,10 @@ using namespace std;
 
 class State
 {
-	public:
-		virtual ~State() { }
-		virtual void update() = 0;
-		virtual void shutdown() = 0;
+    public:
+        virtual ~State() { }
+        virtual void update() = 0;
+        virtual void shutdown() = 0;
 };
 
 typedef shared_ptr<State> StatePtr;
@@ -24,18 +24,22 @@ typedef deque<StatePtr> StateDeque;
 
 class StateManager : public singleton<StateManager>
 {
-	private:
-		StateDeque mStates;
-		StatePtr mActiveState;
+    private:
+        StateDeque mStates;
+        StatePtr mActiveState;
 
-	public:
-		~StateManager();
+        bool mAdvanceState;
 
-		void push(State *state);
-		void update();
+    public:
+        StateManager();
+        ~StateManager();
 
-		State *getActiveState();
-		State *pop();
+        void push(State *state);
+        void update();
+        void setAdvanceState(bool advance);
+
+        State *getActiveState();
+        State *pop();
 };
 
 #endif /* _STATE_MANAGER_HPP_ */

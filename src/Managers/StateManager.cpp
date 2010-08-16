@@ -12,12 +12,19 @@ void StateManager::update()
     mStates.back().get()->update();
 }
 
+StateManager::StateManager(): mAdvanceState(false) { }
+
 StateManager::~StateManager()
 {
     while (!mStates.empty())
     {
         mStates.pop_back();
     }
+}
+
+void StateManager::setAdvanceState(bool advance)
+{
+    mAdvanceState = advance;
 }
 
 State *StateManager::pop()
