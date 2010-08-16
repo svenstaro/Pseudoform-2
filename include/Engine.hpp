@@ -19,13 +19,14 @@ namespace Engine
         ResourceManager &GetResource() { return ResourceManager::get_mutable_instance(); }
         EntityManager &GetEntity() { return EntityManager::get_mutable_instance(); }
         EventManager &GetEvent() { return EventManager::get_mutable_instance(); }
+        StateManager &GetState() { return StateManager::get_mutable_instance(); }
     }
 
     namespace Systems
     {
-		GraphicSystem &GetGraphic() { return GraphicSystem::get_mutable_instance(); }
-		InputSystem &GetInput() { return InputSystem::get_mutable_instance(); }
-		GuiSystem &GetGui() { return GuiSystem::get_mutable_instance(); }
+        GraphicSystem &GetGraphic() { return GraphicSystem::get_mutable_instance(); }
+        InputSystem &GetInput() { return InputSystem::get_mutable_instance(); }
+        GuiSystem &GetGui() { return GuiSystem::get_mutable_instance(); }
     }
 
     namespace World
@@ -45,38 +46,38 @@ namespace Engine
         }
 
         Light *MakeLight(const string& entityName, Ogre::Light::LightTypes lt = Ogre::Light::LT_POINT,
-        		colour diffuse = colour(1, 1, 1), colour specular = colour(1, 1, 1),
-        		float attenuation = 10, float power = 1)
+                colour diffuse = colour(1, 1, 1), colour specular = colour(1, 1, 1),
+                float attenuation = 10, float power = 1)
         {
-			Light *localTemp = EntityManager::get_mutable_instance().MakeLight(entityName);
-			localTemp->configure(lt, diffuse, specular, attenuation, power);
-			return localTemp;
+            Light *localTemp = EntityManager::get_mutable_instance().MakeLight(entityName);
+            localTemp->configure(lt, diffuse, specular, attenuation, power);
+            return localTemp;
         }
 
         Light *GetLight(const string &entityName)
         {
-        	return EntityManager::get_mutable_instance().GetLight(entityName);
+            return EntityManager::get_mutable_instance().GetLight(entityName);
         }
 
         Camera *MakeCamera(const string &cameraName, bool attachViewport = false, Camera::CameraType camType = Camera::DONT_USE,
-        		const float nearClip = 1, const float farClip = 1000,
-        		bool autoAR = true, const float FOV = 90, vec3 pos = vec3(0, 1000, 1000), vec3 lookAt = vec3(0, 0, 0))
+                const float nearClip = 1, const float farClip = 1000,
+                bool autoAR = true, const float FOV = 90, vec3 pos = vec3(0, 1000, 1000), vec3 lookAt = vec3(0, 0, 0))
         {
-			Camera *localTemp = EntityManager::get_mutable_instance().MakeCamera(cameraName);
-			localTemp->configure(nearClip, farClip, autoAR, FOV, pos, lookAt);
-			if (attachViewport)
-			{
-				GraphicSystem::get_mutable_instance().getViewport()->setCamera(localTemp->cameraHandle());
-			}
+            Camera *localTemp = EntityManager::get_mutable_instance().MakeCamera(cameraName);
+            localTemp->configure(nearClip, farClip, autoAR, FOV, pos, lookAt);
+            if (attachViewport)
+            {
+                GraphicSystem::get_mutable_instance().getViewport()->setCamera(localTemp->cameraHandle());
+            }
 
-			localTemp->setCameraType(camType);
+            localTemp->setCameraType(camType);
 
-			return localTemp;
+            return localTemp;
         }
 
         Camera *GetCamera(const string &cameraName)
         {
-        	return EntityManager::get_mutable_instance().GetCamera(cameraName);
+            return EntityManager::get_mutable_instance().GetCamera(cameraName);
         }
 
         unsigned int GetWidth() { return Systems::GetGraphic().getWindow()->getWidth(); }
