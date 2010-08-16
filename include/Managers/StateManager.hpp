@@ -31,9 +31,11 @@ class StateManager : public singleton<StateManager>
 
 	public:
 		~StateManager();
-		void push(State *state);
-		State *getActiveState();
 
+		void push(State *state);
+		void update();
+
+		State *getActiveState();
 		State *pop();
 };
 

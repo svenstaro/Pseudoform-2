@@ -65,7 +65,7 @@ void GameApplication::_loop()
                 curSystem.update(mElapsed);
             }
             SIGNAL(Engine::Events::GlobalUpdateEvent, "Updated", );
-            StateManager::get_mutable_instance().getActiveState()->update();
+            StateManager::get_mutable_instance().update();
 
             mAccumulator -= mDt;
             mDrawn = false;
