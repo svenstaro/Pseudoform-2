@@ -16,7 +16,6 @@ GameApplication::GameApplication()
     this->_init();
 
     CONNECT(Engine::Events::KeyEvent, "KeyPressed", &GameApplication::keyPressed);
-    CONNECT(Engine::Events::MouseMoveEvent, "MouseMoved", &GameApplication::mouseMoved);
 }
 
 GameApplication::~GameApplication() { }
