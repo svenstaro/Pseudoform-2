@@ -84,13 +84,22 @@ void GraphicSystem::init()
     mViewport = mWindow->addViewport(mCamera);
     mViewport->setBackgroundColour(colour(0.5, 0.5, 0.5));
 
-    std::vector<std::string> resourcesList = ConfigManager::get_mutable_instance().getListValue("resources");
-    BOOST_FOREACH(std::string &location, resourcesList)
+    try
     {
-    	Ogre::ResourceGroupManager::getSingleton().addResourceLocation(location, "FileSystem", "General", true);
-    }
+        std::vector<std::string> resourcesList = ConfigManager::get_mutable_instance().getListValue("resources");
+        BOOST_FOREACH(std::string &location, resourcesList)
+        {
+            Ogre::ResourceGroupManager::getSingleton().addResourceLocation(location, "FileSystem", "General", true);
+        }
 
-    Ogre::ResourceGroupManager::getSingleton().initialiseAllResourceGroups();
+        Ogre::ResourceGroupManager::getSingleton().initialiseAllResourceGroups();
+    }
+    catch (Ogre::Exception &e)
+    {
+        std::string msg = e.getFullDescription();
+        std::cerr << msg << std::endl;
+        exit (-1);
+    }
     
     LOG("\t- All resources are loaded");
 }
