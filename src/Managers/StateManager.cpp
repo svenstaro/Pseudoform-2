@@ -9,7 +9,9 @@ void StateManager::push(State *state)
 void StateManager::update()
 {
     if (mStates.empty()) LOG("[State Manager → update] There aren't any states now. Maybe, you didn't push one.");
-    mStates.back().get()->update();
+    if (mActiveState.get() == NULL) this->pop();
+
+    mActiveState.get()->update();
 }
 
 StateManager::StateManager(): mAdvanceState(false) { }
@@ -33,6 +35,8 @@ State *StateManager::pop()
 
     mActiveState = mStates.back();	// Store pointer for next state to use
     mStates.pop_back();				// And remove it from list
+
+    LOG(FORMAT("[State Manager → pop] Activating '%1%' game state", mActiveState.get()->type()));
 
     return mActiveState.get();
 }

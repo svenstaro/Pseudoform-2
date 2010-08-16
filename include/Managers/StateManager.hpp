@@ -5,6 +5,7 @@
 #include <boost/foreach.hpp>
 #include <boost/ptr_container/ptr_vector.hpp>
 
+#include "Core/Utils.hpp"
 #include "Managers/LogManager.hpp"
 #include <deque>
 
@@ -17,6 +18,7 @@ class State
         virtual ~State() { }
         virtual void update() = 0;
         virtual void shutdown() = 0;
+        virtual string type() = 0;
 };
 
 typedef shared_ptr<State> StatePtr;
