@@ -10,6 +10,7 @@ class MenuState : public State
             Systems::GetGui().loadLayout("Pseudoform.layout");
         }
 
+        string type() { return "MenuState"; }
         void update() {}
         void shutdown() {}
 };
@@ -23,6 +24,7 @@ class GameState : public State
             World::MakeObject("background")->setScale(vec3(100, 100, 100));
         }
 
+        string type() { return "GameState"; }
         void update() {}
         void shutdown() {}
 };
