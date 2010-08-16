@@ -66,6 +66,7 @@ void GameApplication::_loop()
                 curSystem.update(mElapsed);
             }
             SIGNAL(Engine::Events::GlobalUpdateEvent, "Updated", );
+            StateManager::get_mutable_instance().getActiveState()->update();
 
             mAccumulator -= mDt;
             mDrawn = false;
@@ -95,9 +96,4 @@ void GameApplication::_shutdown()
 void GameApplication::keyPressed(sf::Event::KeyEvent &eventData)
 {
     if (eventData.Code == sf::Key::Escape) mRunning = false;
-}
-
-void GameApplication::mouseMoved(sf::Event::MouseMoveEvent& eventData)
-{
-    //cout << FORMAT("New mouse coordinates: (%1%;%2%)\n", eventData.X % eventData.Y);
 }
