@@ -6,6 +6,7 @@
 #include <boost/ptr_container/ptr_vector.hpp>
 
 #include "Managers/LogManager.hpp"
+#include <deque>
 
 using namespace boost;
 using namespace std;
@@ -19,16 +20,18 @@ class State
 		virtual void shutdown() = 0;
 };
 
-class StateManager : public singleton<ConfigManager>
+typedef shared_ptr<State> StatePtr;
+typedef deque<StatePtr> StateDeque;
+
+class StateManager : public singleton<StateManager>
 {
 	private:
-		ptr_vector<State> mStates;
-		shared_ptr<State> mActiveState;
-
-		~StateManager();
+		StateDeque mStates;
+		StatePtr mActiveState;
 
 	public:
-		void push(const State &state);
+		~StateManager();
+		void push(const StatePtr &state);
 		State *getActiveState();
 
 		State *pop();

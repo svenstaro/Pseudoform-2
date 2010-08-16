@@ -1,8 +1,8 @@
 #include "Managers/StateManager.hpp"
 
-void StateManager::push(const State &state)
+void StateManager::push(const StatePtr &state)
 {
-	mStates->push_back(state);
+	mStates.push_back(state);
 }
 
 StateManager::~StateManager()
