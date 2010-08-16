@@ -24,6 +24,7 @@ class State
 typedef shared_ptr<State> StatePtr;
 typedef deque<StatePtr> StateDeque;
 
+#define READY_TO_ADVANCE() StateManager::get_mutable_instance().setAdvanceState(true);
 class StateManager : public singleton<StateManager>
 {
     private:
