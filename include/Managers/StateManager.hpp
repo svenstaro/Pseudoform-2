@@ -31,7 +31,7 @@ class StateManager : public singleton<StateManager>
 
 	public:
 		~StateManager();
-		void push(const StatePtr &state);
+		void push(State *state);
 		State *getActiveState();
 
 		State *pop();

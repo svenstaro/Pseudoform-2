@@ -1,9 +1,9 @@
 #include "Managers/StateManager.hpp"
 #include "Managers/LogManager.hpp"
 
-void StateManager::push(const StatePtr &state)
+void StateManager::push(State *state)
 {
-	mStates.push_back(state);
+	mStates.push_back(StatePtr(state));
 }
 
 StateManager::~StateManager()
