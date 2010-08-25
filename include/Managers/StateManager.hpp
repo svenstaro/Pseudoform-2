@@ -16,6 +16,7 @@ class State
 {
     public:
         virtual ~State() { }
+        virtual void init() = 0;
         virtual void update() = 0;
         virtual void shutdown() = 0;
         virtual string type() = 0;

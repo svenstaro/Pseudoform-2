@@ -1,5 +1,4 @@
 #include "Managers/StateManager.hpp"
-#include "Managers/LogManager.hpp"
 
 void StateManager::push(State *state)
 {
@@ -41,12 +40,12 @@ void StateManager::setAdvanceState(bool advance)
 State *StateManager::pop()
 {
     if (mStates.empty()) LOG_META("There aren't any states now. Maybe, you didn't push one.");
-    if (mStates.empty()) return StatePtr().get();
 
     mActiveState = mStates.front();	// Store pointer for next state to use
     mStates.pop_front();     		// And remove it from list
 
     LOG_META(FORMAT(" Activating '%1%'", mActiveState.get()->type()));
+    mActiveState.get()->init();
 
     return mActiveState.get();
 }
