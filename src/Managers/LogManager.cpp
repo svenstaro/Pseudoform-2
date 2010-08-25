@@ -15,11 +15,6 @@ void LogManager::_forceLog(const string& logPath)
     }
 }
 
-string LogManager::getCurrentTime(){
-    ptime time = microsec_clock::local_time();
-    return to_simple_string(time);
-}
-
 void LogManager::setDefaultLog(const string& logPath)
 {
     mDefaultPath = logPath;
@@ -52,10 +47,12 @@ void LogManager::write(const string& message, const string logFile, const string
     this->_forceLog(workPath);
 
     string comand = "";
+    string time = boost::posix_time::to_simple_string(Utils::get_const_instance().getCurrentTime());
+
     if (metaSignature != "")
     {
     	string signature = _cleanSignature(metaSignature);
-    	comand += getCurrentTime() + " : [";
+    	comand += time + " : [";
     	comand += signature;
     	comand += "]\n[Message] ";
     	comand += message;
@@ -63,7 +60,7 @@ void LogManager::write(const string& message, const string logFile, const string
     }
     else
     {
-    	comand += getCurrentTime() + "\t: " + message + "\n";
+    	comand += time + "\t: " + message + "\n";
     }
 
     mLogHandle.open(workPath.c_str(), fstream::app | fstream::ate);

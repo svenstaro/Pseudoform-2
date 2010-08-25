@@ -4,6 +4,7 @@
 #include <boost/serialization/singleton.hpp>
 #include <boost/format.hpp>
 #include "boost/date_time/posix_time/posix_time.hpp"
+#include <boost/date_time/posix_time/posix_time_types.hpp>
 #include <boost/signals2.hpp>
 
 #include <Ogre.h>
@@ -32,7 +33,7 @@ class Utils : public singleton<Utils>
 
         const string getDimension() const;
         void setDimension(string &d);
-        ptime getCurrentTime();
+        ptime getCurrentTime() const;
 };
 
 #endif

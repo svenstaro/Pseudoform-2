@@ -15,9 +15,9 @@ void Utils::setDimension(string& d)
     }
 }
 
-ptime Utils::getCurrentTime()
+ptime Utils::getCurrentTime() const
 {
-	return second_clock::local_time();
+	return microsec_clock::local_time();
 }
 
 const string Utils::getDimension() const
