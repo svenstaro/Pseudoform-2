@@ -25,12 +25,14 @@ const float GameApplication::getFPS() const { return floor(mFrameRate+0.5); }
 
 void GameApplication::_init()
 {
+	LOG_NOFORMAT("\t\t\t\t|||||||||||||||||||||||||||| Systems initialization ||||||||||||||||||||||||||||\n\n");
     BOOST_FOREACH(ISystem &curSystem, mSystemsList)
     {
-        LOG(FORMAT("--------------- Start initializating of `%1%` system", curSystem.toString()));
+        LOG(FORMAT("--------------- Start initialization of `%1%` system", curSystem.toString()));
         curSystem.init();
-        LOG(FORMAT("--------------- Initializating of `%1%` is finished\n", curSystem.toString()));
+        LOG(FORMAT("--------------- Initialization of `%1%` is finished\n", curSystem.toString()));
     }
+	LOG_NOFORMAT("\t\t\t\t||||||||||||||||||||||||||||||| Game initialization ||||||||||||||||||||||||||||||\n\n");
 }
 
 void GameApplication::Start()
@@ -39,6 +41,7 @@ void GameApplication::Start()
 
     SIGNAL(Engine::Events::GlobalInitEvent, "Inited", );
 
+	LOG_NOFORMAT("\n\t\t\t\t|||||||||||||||||||||||||||||||||| Game Loop |||||||||||||||||||||||||||||||||||||\n\n");
     this->_loop();
 }
 
