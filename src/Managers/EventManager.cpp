@@ -12,15 +12,16 @@ void EventManager::fillEventMap()
     mSignalAssociation["KeyPressed"] = KeyEvent();
     mSignalAssociation["KeyReleased"] = KeyEvent();
 
-    mSignalAssociation["Resized"] = SizeEvent();
-    mSignalAssociation["TextEntered"] = TextEvent();
+    //mSignalAssociation["Resized"] = SizeEvent();
+    //mSignalAssociation["TextEntered"] = TextEvent();
 
     mSignalAssociation["MouseButtonPressed"] = MouseButtonEvent();
     mSignalAssociation["MouseButtonReleased"] = MouseButtonEvent();
 
     mSignalAssociation["MouseMoved"] = MouseMoveEvent();
-    mSignalAssociation["MouseWheelMoved"] = MouseWheelEvent();
+    //mSignalAssociation["MouseWheelMoved"] = MouseWheelEvent();
 
+    /*
     mSignalAssociation["JoyButtonPressed"] = JoyButtonEvent();
     mSignalAssociation["JoyButtonReleased"] = JoyButtonEvent();
     mSignalAssociation["JoyMoved"] = JoyMoveEvent();
@@ -29,6 +30,7 @@ void EventManager::fillEventMap()
     mSignalAssociation["WindowLostFocus"] = LostFocusEvent();
     mSignalAssociation["WindowGainedFocus"] = GainFocusEvent();
     mSignalAssociation["WindowMouseEntered"] = MouseEnteredEvent();
+     */
 
     mSignalAssociation["Updated"] = GlobalUpdateEvent();
     mSignalAssociation["Inited"] = GlobalInitEvent();
