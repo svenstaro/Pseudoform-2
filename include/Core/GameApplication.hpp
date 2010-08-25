@@ -14,6 +14,8 @@
 #include <boost/ptr_container/ptr_vector.hpp>
 #include <boost/format.hpp>
 
+#include <SFML/Window.hpp>
+
 class GameApplication : public singleton<GameApplication>
 {
     protected:
@@ -42,7 +44,7 @@ class GameApplication : public singleton<GameApplication>
         void _shutdown();
 
         // Slots
-        void keyPressed(sf::Event::KeyEvent &eventData);
+        void keyPressed(const OIS::KeyEvent &e);
 };
 
 #endif
