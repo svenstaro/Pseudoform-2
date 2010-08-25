@@ -3,8 +3,11 @@ cmake_minimum_required(VERSION 2.8.0)
 project(pseudoform)
 
 set(CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake-extras/")
+
 set(Boost_USE_STATIC_LIBS ON)
 set(Boost_USE_MULTITHREADED ON)
+
+find_package(OIS REQUIRED)
 find_package(SFML REQUIRED)
 find_package(OGRE REQUIRED)
 find_package(Bullet REQUIRED)
@@ -26,6 +29,7 @@ include_directories(
         ${MYGUI_INCLUDE_DIR}
         ${MYGUI_PLATFORM_INCLUDE_DIR}
 	${BULLET_INCLUDE_DIRS}
+        ${OIS_INCLUDE_DIRS}
 )
 
 add_subdirectory("${CMAKE_SOURCE_DIR}/src/")
