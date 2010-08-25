@@ -9,7 +9,7 @@ class MenuState : public State
 		MyGUI::VectorWidgetPtr mListWidgets;
 
     public:
-        MenuState() {
+        void init() {
             mListWidgets = Systems::GetGui().loadLayout("Pseudoform.layout");
 
             MyGUI::StaticImagePtr button = Systems::GetGui().handle()->findWidget<MyGUI::StaticImage>("ButtonPlay");
@@ -42,7 +42,8 @@ class MenuState : public State
 class GameState : public State
 {
     public:
-        GameState() {
+        void init() {
+        	cout << "in Game state init function!";
             World::MakeCamera("MenuCamera", true, Camera::FREE);
             World::MakeLight("MainLight", Ogre::Light::LT_DIRECTIONAL)->lightHandle()->setDirection(vec3(0, -1, 1));
             World::MakeObject("background")->setScale(vec3(100, 100, 100));
