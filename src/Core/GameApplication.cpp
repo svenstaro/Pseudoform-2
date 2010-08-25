@@ -21,7 +21,7 @@ GameApplication::~GameApplication() { }
 
 void GameApplication::setGameState(bool running) { mRunning = running; }
 const float GameApplication::getElapsed() const { return mElapsed; }
-const float GameApplication::getFPS() const { return mFrameRate; }
+const float GameApplication::getFPS() const { return floor(mFrameRate+0.5); }
 
 void GameApplication::_init()
 {
@@ -36,9 +36,6 @@ void GameApplication::_init()
 void GameApplication::Start()
 {
     mRunning = true;
-
-    bool showCursor = CONFIG("window.showCursor", bool, false);
-    InputSystem::get_mutable_instance().Window().ShowMouseCursor(showCursor);
 
     SIGNAL(Engine::Events::GlobalInitEvent, "Inited", );
 
@@ -72,14 +69,14 @@ void GameApplication::_loop()
 
         if (mDrawn)
         {
-        	sf::Sleep(mDt);
+            sf::Sleep(mDt);
         }
         else
         {
-        	if (!GraphicSystem::get_const_instance().getRoot()->renderOneFrame())
-        		LOG("Something bad happened in the render cycle!");
+            if (!GraphicSystem::get_const_instance().getRoot()->renderOneFrame())
+                LOG("Something bad happened in the render cycle!");
 
-        	mDrawn = true;
+            mDrawn = true;
         }
     }
 
@@ -91,7 +88,7 @@ void GameApplication::_shutdown()
     mSystemsList.clear();
 }
 
-void GameApplication::keyPressed(sf::Event::KeyEvent &eventData)
+void GameApplication::keyPressed(const OIS::KeyEvent &e)
 {
-    if (eventData.Code == sf::Key::Escape) mRunning = false;
+	if (e.key == OIS::KC_ESCAPE) mRunning = false;
 }
