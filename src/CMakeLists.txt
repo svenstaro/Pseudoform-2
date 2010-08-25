@@ -23,10 +23,11 @@ add_library(Pseudoform STATIC
 )
 
 target_link_libraries(Pseudoform
-	${Boost_LIBRARIES}
-	${SFML_LIBRARY}
-	${OGRE_LIBRARIES}
-	${BULLET_LIBRARIES}
+    ${Boost_LIBRARIES}
+    ${SFML_LIBRARY}
+    ${OGRE_LIBRARIES}
+    ${BULLET_LIBRARIES}
     ${MYGUI_LIBRARIES}
     ${MYGUI_PLATFORM_LIBRARIES}
+    ${OIS_LIBRARIES}
 )

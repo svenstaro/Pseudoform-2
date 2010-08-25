@@ -8,27 +8,42 @@
 
 #include "Managers/LogManager.hpp"
 #include "Managers/EventManager.hpp"
-#include "Managers/EventManager.hpp"
 
-#include <SFML/Window.hpp>
 #include <boost/serialization/singleton.hpp>
 #include <boost/shared_ptr.hpp>
 
-using namespace boost::serialization;
+#include <OISMouse.h>
+#include <OISKeyboard.h>
+#include <OISInputManager.h>
 
-//class InputSystem : public ISystem, public singleton<InputSystem>
-class InputSystem : public ISystem, public ISingleton<InputSystem>
+using namespace boost::serialization;
+using namespace Engine;
+
+class InputSystem : public ISystem, public ISingleton<InputSystem>, public OIS::KeyListener, public OIS::MouseListener
 {
     private:
         size_t mWindowHandle;
-        boost::shared_ptr<sf::Window> mInputWindow;
+
+        OIS::Mouse *mMouse;
+        OIS::Keyboard *mKeyboard;
+
+        OIS::InputManager *mInputSystem;
+
+	    bool keyPressed(const OIS::KeyEvent &e);
+	    bool keyReleased(const OIS::KeyEvent &e);
+
+	    bool mouseMoved(const OIS::MouseEvent &e);
+	    bool mousePressed(const OIS::MouseEvent &e, OIS::MouseButtonID id);
+	    bool mouseReleased(const OIS::MouseEvent &e, OIS::MouseButtonID id);
 
     public:
         InputSystem();
         ~InputSystem();
-        
-        const sf::Input &Handle() const;
-        sf::Window &Window();
+
+        OIS::Mouse* getMouse( );
+	    OIS::Keyboard* getKeyboard();
+
+        void setWindowExtents(int width, int height);
 
         // Inherited from ISystem
         void init();

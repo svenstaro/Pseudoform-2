@@ -4,87 +4,139 @@
 
 template<> InputSystem* ISingleton<InputSystem>::mInstance = 0;
 
-InputSystem::InputSystem() { }
+bool InputSystem::keyPressed(const OIS::KeyEvent &e)
+{
+	SIGNAL(Events::KeyEvent, "KeyPressed", e);
+	GuiSystem::get_mutable_instance().getGui()->injectKeyPress(MyGUI::KeyCode::Enum(e.key), e.text);
+    return true;
+}
 
-InputSystem::~InputSystem() { }
+bool InputSystem::keyReleased(const OIS::KeyEvent &e)
+{
+	SIGNAL(Events::KeyEvent, "KeyReleased", e);
+	GuiSystem::get_mutable_instance().getGui()->injectKeyRelease(MyGUI::KeyCode::Enum(e.key));
+    return true;
+}
+
+bool InputSystem::mouseMoved(const OIS::MouseEvent &e)
+{
+	SIGNAL(Events::MouseMoveEvent, "MouseMoved", e);
+	GuiSystem::get_mutable_instance().getGui()->injectMouseMove(e.state.X.abs, e.state.Y.abs, e.state.Z.abs);
+    return true;
+}
+
+bool InputSystem::mousePressed(const OIS::MouseEvent &e, OIS::MouseButtonID id)
+{
+	SIGNAL(Events::MouseButtonEvent, "MouseButtonPressed", e, id);
+	GuiSystem::get_mutable_instance().getGui()->injectMousePress(e.state.X.abs, e.state.Y.abs, MyGUI::MouseButton::Enum(id));
+    return true;
+}
+
+bool InputSystem::mouseReleased(const OIS::MouseEvent &e, OIS::MouseButtonID id)
+{
+	SIGNAL(Events::MouseButtonEvent, "MouseButtonReleased", e, id);
+	GuiSystem::get_mutable_instance().getGui()->injectMouseRelease(e.state.X.abs, e.state.Y.abs, MyGUI::MouseButton::Enum(id));
+    return true;
+}
+
+InputSystem::InputSystem():
+    mMouse(0),
+    mKeyboard(0),
+    mInputSystem(0) { }
+
+InputSystem::~InputSystem()
+{
+    if( mInputSystem ) {
+        if( mMouse ) {
+            mInputSystem->destroyInputObject(mMouse);
+            mMouse = 0;
+        }
+
+        if( mKeyboard ) {
+            mInputSystem->destroyInputObject(mKeyboard);
+            mKeyboard = 0;
+        }
+
+        mInputSystem->destroyInputSystem(mInputSystem);
+        mInputSystem = 0;
+    }
+}
 
 void InputSystem::init()
 {
     GraphicSystem::get_const_instance().getWindow()->getCustomAttribute("WINDOW", &mWindowHandle);
-    LOG("\t- Got window handle from ogre");
-    mInputWindow = boost::shared_ptr<sf::Window>( new sf::Window(mWindowHandle) );
-    //mInputWindow->Create(mWindowHandle);
-    LOG("\t- SFML window is created");
-}
+    LOG("\t- Got window handle from Ogre");
 
-const sf::Input &InputSystem::Handle() const
-{
-	return mInputWindow.get()->GetInput();
-}
+    if( !mInputSystem )
+    {
+        OIS::ParamList paramList;
+        std::ostringstream windowHndStr;
 
-sf::Window &InputSystem::Window()
-{
-	return *mInputWindow.get();
+        windowHndStr << (unsigned int)mWindowHandle;
+        paramList.insert(std::make_pair(std::string("WINDOW"), windowHndStr.str()));
+
+		paramList.insert(std::make_pair(std::string("w32_mouse"), std::string("DISCL_FOREGROUND" )));
+		paramList.insert(std::make_pair(std::string("w32_mouse"), std::string("DISCL_NONEXCLUSIVE")));
+
+		bool showCursor = CONFIG("window.showCursor", bool, false);
+		if (!showCursor)
+		{
+			LOG("\t- Input system will be in foreground mode");
+			#if defined OIS_WIN32_PLATFORM
+				paramList.insert(std::make_pair(std::string("w32_mouse"), std::string("DISCL_FOREGROUND" )));
+				paramList.insert(std::make_pair(std::string("w32_mouse"), std::string("DISCL_NONEXCLUSIVE")));
+				paramList.insert(std::make_pair(std::string("w32_keyboard"), std::string("DISCL_FOREGROUND")));
+				paramList.insert(std::make_pair(std::string("w32_keyboard"), std::string("DISCL_NONEXCLUSIVE")));
+			#elif defined OIS_LINUX_PLATFORM
+				paramList.insert(std::make_pair(std::string("x11_mouse_grab"), std::string("false")));
+				paramList.insert(std::make_pair(std::string("x11_mouse_hide"), std::string("false")));
+				paramList.insert(std::make_pair(std::string("x11_keyboard_grab"), std::string("false")));
+				paramList.insert(std::make_pair(std::string("XAutoRepeatOn"), std::string("true")));
+			#endif
+		}
+
+        mInputSystem = OIS::InputManager::createInputSystem( paramList );
+        LOG("\t- Input system is created");
+
+        mKeyboard = static_cast<OIS::Keyboard*>( mInputSystem->createInputObject( OIS::OISKeyboard, true ) );
+        mKeyboard->setEventCallback( this );
+        LOG("\t- Keyboard created and configured");
+
+        mMouse = static_cast<OIS::Mouse*>( mInputSystem->createInputObject( OIS::OISMouse, true ) );
+        mMouse->setEventCallback( this );
+        LOG("\t- Mouse created and configured");
+
+        // Get window size
+        unsigned int width, height, depth;
+        int left, top;
+        GraphicSystem::get_const_instance().getWindow()->getMetrics(width, height, depth, left, top);
+
+        this->setWindowExtents(width, height);
+        LOG("\t- Window size have been appeared for input region");
+    }
 }
 
 void InputSystem::update(float elapsed)
 {
-    sf::Event localEvent;
+    if(mMouse)
+        mMouse->capture();
 
-    while(mInputWindow->GetEvent(localEvent))
-    {
-        using namespace Engine::Events;
-        sf::Event::EventType type = localEvent.Type;
-        
-        // Key events -----------------------------------------------------------------------------
-        if (localEvent.Type == sf::Event::KeyPressed) {
-            SIGNAL(KeyEvent, "KeyPressed", localEvent.Key);
-            // TODO: find key text in SFML. Replace zero with that value!
-            GuiSystem::get_mutable_instance().getGui()->injectKeyPress(MyGUI::KeyCode::Enum(localEvent.Key.Code), 0);
+    if(mKeyboard)
+        mKeyboard->capture();
+}
 
-        } else if (type == sf::Event::KeyReleased) {
-            SIGNAL(KeyEvent, "KeyReleased", localEvent.Key);
-            GuiSystem::get_mutable_instance().getGui()->injectKeyRelease(MyGUI::KeyCode::Enum(localEvent.Key.Code));
+OIS::Mouse* InputSystem::getMouse() {
+    return mMouse;
+}
 
-        // Mouse events --------------------------------------------------------------------------
-        } else if (type == sf::Event::MouseButtonPressed) {
-            SIGNAL(MouseButtonEvent, "MouseButtonPressed", localEvent.MouseButton);
-            GuiSystem::get_mutable_instance().getGui()->injectMousePress(localEvent.MouseButton.X, localEvent.MouseButton.Y, MyGUI::MouseButton::Enum(localEvent.MouseButton.Button));
+OIS::Keyboard* InputSystem::getKeyboard() {
+    return mKeyboard;
+}
 
-        } else if (type == sf::Event::MouseButtonReleased) {
-            SIGNAL(MouseButtonEvent, "MouseButtonReleased", localEvent.MouseButton);
-            GuiSystem::get_mutable_instance().getGui()->injectMouseRelease(localEvent.MouseButton.X, localEvent.MouseButton.Y, MyGUI::MouseButton::Enum(localEvent.MouseButton.Button));
-
-        } else if (type == sf::Event::MouseMoved) {
-            SIGNAL(MouseMoveEvent, "MouseMoved", localEvent.MouseMove);
-            GuiSystem::get_mutable_instance().getGui()->injectMouseMove(localEvent.MouseMove.X, localEvent.MouseMove.Y, 0);
-
-        } else if (type == sf::Event::MouseWheelMoved) {
-            SIGNAL(MouseWheelEvent, "MouseWheelMoved", localEvent.MouseWheel);
-
-        // Joy events ----------------------------------------------------------------------------
-        } else if (type == sf::Event::JoyButtonPressed) {
-            SIGNAL(JoyButtonEvent, "JoyButtonPressed", localEvent.JoyButton);
-        } else if (type == sf::Event::JoyButtonReleased) {
-            SIGNAL(JoyButtonEvent, "JoyButtonReleased", localEvent.JoyButton);
-        } else if (type == sf::Event::JoyMoved) {
-            SIGNAL(JoyMoveEvent, "JoyMoved", localEvent.JoyMove);
-
-        // Window events -------------------------------------------------------------------------
-        } else if (type == sf::Event::Resized) {
-            SIGNAL(SizeEvent, "Resized", localEvent.Size);
-        } else if (type == sf::Event::TextEntered) {
-            SIGNAL(TextEvent, "TextEntered", localEvent.Text);
-        } else if (type == sf::Event::Closed) {
-            SIGNAL(CloseEvent, "WindowClosed", );
-        } else if (type == sf::Event::LostFocus) {
-            SIGNAL(LostFocusEvent, "WindowLostFocus", );
-        } else if (type == sf::Event::GainedFocus) {
-            SIGNAL(GainFocusEvent, "WindowGainedFocus", );
-        } else if (type == sf::Event::MouseEntered) {
-            SIGNAL(MouseEnteredEvent, "WindowMouseEntered", );
-        }
-    }
+void InputSystem::setWindowExtents( int width, int height ) {
+    const OIS::MouseState &mouseState = mMouse->getMouseState();
+    mouseState.width  = width;
+    mouseState.height = height;
 }
 
 std::string InputSystem::toString()
