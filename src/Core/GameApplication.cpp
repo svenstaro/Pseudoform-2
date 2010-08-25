@@ -25,14 +25,19 @@ const float GameApplication::getFPS() const { return floor(mFrameRate+0.5); }
 
 void GameApplication::_init()
 {
-	LOG_NOFORMAT("\t\t\t\t|||||||||||||||||||||||||||| Systems initialization ||||||||||||||||||||||||||||\n\n");
+	LOG_NOFORMAT("Systems initialization:\n=======================\n\n");
+	Utils::get_mutable_instance().writeTimestamp();
+
     BOOST_FOREACH(ISystem &curSystem, mSystemsList)
     {
         LOG(FORMAT("--------------- Start initialization of `%1%` system", curSystem.toString()));
         curSystem.init();
         LOG(FORMAT("--------------- Initialization of `%1%` is finished\n", curSystem.toString()));
     }
-	LOG_NOFORMAT("\t\t\t\t||||||||||||||||||||||||||||||| Game initialization ||||||||||||||||||||||||||||||\n\n");
+
+    LOG_NOFORMAT("Finished in: [" + Utils::get_mutable_instance().getTimeDifference() + "]\n\n");
+	LOG_NOFORMAT("Game initialization:\n====================\n\n");
+	Utils::get_mutable_instance().writeTimestamp();
 }
 
 void GameApplication::Start()
@@ -41,7 +46,10 @@ void GameApplication::Start()
 
     SIGNAL(Engine::Events::GlobalInitEvent, "Inited", );
 
-	LOG_NOFORMAT("\n\t\t\t\t|||||||||||||||||||||||||||||||||| Game Loop |||||||||||||||||||||||||||||||||||||\n\n");
+    LOG_NOFORMAT("\nFinished in: [" + Utils::get_mutable_instance().getTimeDifference() + "]\n");
+	LOG_NOFORMAT("\nGame Loop:\n==========\n\n");
+	Utils::get_mutable_instance().writeTimestamp();
+
     this->_loop();
 }
 
@@ -88,6 +96,7 @@ void GameApplication::_loop()
 
 void GameApplication::_shutdown()
 {
+    LOG_NOFORMAT("\nFinished in: [" + Utils::get_mutable_instance().getTimeDifference() + "]\n");
     mSystemsList.clear();
 }
 
