@@ -41,8 +41,8 @@ class Camera : public Entity
 
 		void onInited();
 		void onUpdated();
-		void onKeyPressed(sf::Event::KeyEvent &eventData);
-		void onMouseMoved(sf::Event::MouseMoveEvent &eventData);
+		void onKeyPressed(const OIS::KeyEvent &e);
+		void onMouseMoved(const OIS::MouseEvent &e);
 
         void _loadData();
         string type();

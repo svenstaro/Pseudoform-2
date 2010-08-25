@@ -57,9 +57,9 @@ void Camera::onInited()
 	switch(mCameraType)
 	{
 		case Camera::FREE:
-			InputSystem::get_mutable_instance().Window().SetCursorPosition(WIDTH/2, HEIGHT/2);
+			//InputSystem::get_mutable_instance().Window().SetCursorPosition(WIDTH/2, HEIGHT/2);
 			cout << "On inited, cursor position set: " << WIDTH/2 << "; " << HEIGHT/2 << "\n";
-			InputSystem::get_mutable_instance().Window().ShowMouseCursor(false);
+			//InputSystem::get_mutable_instance().Window().ShowMouseCursor(false);
 
 		break;
 		case Camera::ATTACHED:
@@ -79,7 +79,7 @@ void Camera::onUpdated()
 	switch(mCameraType)
 	{
 		case Camera::FREE:
-			InputSystem::get_mutable_instance().Window().SetCursorPosition(WIDTH/2, HEIGHT/2);
+			//InputSystem::get_mutable_instance().Window().SetCursorPosition(WIDTH/2, HEIGHT/2);
 
 		break;
 		case Camera::ATTACHED:
@@ -94,7 +94,7 @@ void Camera::onUpdated()
 	}
 }
 
-void Camera::onKeyPressed(sf::Event::KeyEvent &eventData)
+void Camera::onKeyPressed(const OIS::KeyEvent &e)
 {
 	using namespace sf;
 	vec3 translation = vec3::ZERO;
@@ -102,17 +102,17 @@ void Camera::onKeyPressed(sf::Event::KeyEvent &eventData)
 	switch(mCameraType)
 	{
 		case Camera::FREE:
-			if (eventData.Code == Key::W)
+			if (e.key == OIS::KC_W)
 			    translation.z -= mMove;
-			else if (eventData.Code == Key::S)
+			else if (e.key == OIS::KC_S)
 			    translation.z += mMove;
-			else if (eventData.Code == Key::A)
+			else if (e.key == OIS::KC_A)
 			    translation.x -= mMove;
-			else if (eventData.Code == Key::D)
+			else if (e.key == OIS::KC_D)
 			    translation.x += mMove;
-			else if (eventData.Code == Key::Q)
+			else if (e.key == OIS::KC_Q)
 				translation.y += mMove;
-			else if (eventData.Code == Key::E)
+			else if (e.key == OIS::KC_E)
 				translation -= mMove;
 
 			mNode->translate(mNode->getOrientation() * translation * GameApplication::get_const_instance().getElapsed());
@@ -130,7 +130,7 @@ void Camera::onKeyPressed(sf::Event::KeyEvent &eventData)
 	}
 }
 
-void Camera::onMouseMoved(sf::Event::MouseMoveEvent &eventData)
+void Camera::onMouseMoved(const OIS::MouseEvent &e)
 {
 	int offsetX = 0;
 	int offsetY = 0;
@@ -141,8 +141,8 @@ void Camera::onMouseMoved(sf::Event::MouseMoveEvent &eventData)
 	switch(mCameraType)
 	{
 		case Camera::FREE:
-			offsetX = eventData.X - centerX;
-			offsetY = eventData.Y - centerY;
+			offsetX = e.state.X.rel - centerX;
+			offsetY = e.state.Y.rel - centerY;
 
 		    mNode->yaw(deg(mRotate * -offsetX));
 		    mPitchNode->pitch(deg(mRotate * -offsetY));
