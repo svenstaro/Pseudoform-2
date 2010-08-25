@@ -39,7 +39,7 @@ string LogManager::_cleanSignature(const string &signature)
 	return result;
 }
 
-void LogManager::write(const string& message, const string logFile, const string metaSignature)
+void LogManager::write(const string& message, const string logFile, const string metaSignature, bool formatString)
 {
     string workPath = mDefaultPath;
     if (logFile != "") workPath = logFile;
@@ -49,18 +49,25 @@ void LogManager::write(const string& message, const string logFile, const string
     string comand = "";
     string time = boost::posix_time::to_simple_string(Utils::get_const_instance().getCurrentTime());
 
-    if (metaSignature != "")
+    if (formatString)
     {
-    	string signature = _cleanSignature(metaSignature);
-    	comand += time + " : [";
-    	comand += signature;
-    	comand += "]\n[Message] ";
-    	comand += message;
-    	comand += "\n---------------------------------------------------------\n";
+	    if (metaSignature != "")
+	    {
+	    	string signature = _cleanSignature(metaSignature);
+	    	comand += time + " : [";
+	    	comand += signature;
+	    	comand += "]\n[Message] ";
+	    	comand += message;
+	    	comand += "\n---------------------------------------------------------\n";
+	    }
+	    else
+	    {
+	    	comand += time + "\t: " + message + "\n";
+	    }
     }
     else
     {
-    	comand += time + "\t: " + message + "\n";
+    	comand = message;
     }
 
     mLogHandle.open(workPath.c_str(), fstream::app | fstream::ate);

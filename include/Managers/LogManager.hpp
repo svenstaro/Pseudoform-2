@@ -3,7 +3,6 @@
 
 #include <boost/serialization/singleton.hpp>
 #include <boost/filesystem.hpp>
-
 #include "Core/Utils.hpp"
 
 #include <vector>
@@ -16,6 +15,7 @@ using namespace std;
 #define LOG(message) LogManager::get_mutable_instance().write(message, "", "")
 #define LOG_META(message) LogManager::get_mutable_instance().write(message, "", __PRETTY_FUNCTION__)
 #define LOG_FILE(message, fileName) LogManager::get_mutable_instance().write(message, fileName)
+#define LOG_NOFORMAT(message) LogManager::get_mutable_instance().write(message, "", "", false);
 
 class LogManager : public singleton<LogManager>
 {
@@ -31,7 +31,7 @@ class LogManager : public singleton<LogManager>
         LogManager();
         
         void setDefaultLog(const string &logPath);
-        void write(const string &message, const string logFile = "", const string metaSignature = "");
+        void write(const string &message, const string logFile = "", const string metaSignature = "", bool formatString = true);
 };
 
 #endif
