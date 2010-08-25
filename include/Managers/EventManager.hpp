@@ -38,7 +38,7 @@ class EventManager : public singleton<EventManager>
         template<typename EventType>
         signals2::connection connect(const string signalName, const typename EventType::SignatureSlotType  &eventSlot)
         {
-            LOG(FORMAT("[Event System → connect] Connecting new slot for '%1%' signal", signalName));
+            LOG_META(FORMAT("Connecting new slot for '%1%' signal", signalName));
             return get<EventType>(signalName)->Connect(eventSlot);
         }
 
@@ -47,7 +47,7 @@ class EventManager : public singleton<EventManager>
         {
             if (mSignalAssociation.count(signalName) == 0)
             {
-                LOG(FORMAT("[Event System → get] Wrong assign for the signal '%1%' because it doesn`t exist!",
+                LOG_META(FORMAT("Wrong assign for the signal '%1%' because it doesn`t exist!",
                     signalName));
                 return NULL;
             }
@@ -57,11 +57,11 @@ class EventManager : public singleton<EventManager>
                 return &any_cast<EventType&>(mSignalAssociation.at(signalName));
             } catch(bad_any_cast &e)
             {
-                LOG(FORMAT("[Event System → get] Can`t make casting of type '%1%' into signal '%2%' signature with type '%3%'!",
+                LOG_META(FORMAT("Can`t make casting of type '%1%' into signal '%2%' signature with type '%3%'!",
                         typeid(EventType).name() % signalName % mSignalAssociation[signalName].type().name()));
             } catch(...)
             {
-                LOG(FORMAT("[Event System → get] Something wrong happend with getting signal %1%", signalName));
+                LOG_META(FORMAT("Something wrong happend with getting signal %1%", signalName));
             }
             return NULL;
         }
@@ -71,7 +71,7 @@ class EventManager : public singleton<EventManager>
         {
             if (mSignalAssociation.count(signalName) != 0)
             {
-                LOG(FORMAT("[Event System → create] Can`t make new signal with name '%1%' because it's already exist!",
+                LOG_META(FORMAT("Can`t make new signal with name '%1%' because it's already exist!",
                     signalName));
             }
 
@@ -80,11 +80,11 @@ class EventManager : public singleton<EventManager>
                 mSignalAssociation[signalName] = EventType();
             } catch(bad_any_cast &e)
             {
-                LOG(FORMAT("[Event System → create] Can`t make casting from type '%1%' into signal '%2%' signature!",
+                LOG_META(FORMAT("Can`t make casting from type '%1%' into signal '%2%' signature!",
                         typeid(EventType).name() % signalName));
             } catch(...)
             {
-                LOG(FORMAT("[Event System → create] Something wrong happend with making new signal %1%", signalName));
+                LOG_META(FORMAT("Something wrong happend with making new signal %1%", signalName));
             }
         }
 };

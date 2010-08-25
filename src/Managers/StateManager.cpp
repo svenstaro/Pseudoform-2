@@ -8,13 +8,13 @@ void StateManager::push(State *state)
 
 void StateManager::update()
 {
-    if (mStates.empty()) LOG("[State Manager → update] There aren't any states now. Maybe, you didn't push one.");
+    if (mStates.empty()) LOG_META("There aren't any states now. Maybe, you didn't push one.");
     if (mActiveState.get() == NULL) this->pop();
 
     if (mAdvanceState)
     {
         mActiveState.get()->shutdown();
-        LOG(FORMAT("[State Manager → update] Exiting from '%1%'", mActiveState.get()->type()));
+        LOG_META(FORMAT(" Exiting from '%1%'", mActiveState.get()->type()));
         setAdvanceState(false);
         this->pop();
     }
@@ -46,13 +46,13 @@ State *StateManager::pop()
     mActiveState = mStates.front();	// Store pointer for next state to use
     mStates.pop_front();     		// And remove it from list
 
-    LOG(FORMAT("[State Manager → pop] Activating '%1%'", mActiveState.get()->type()));
+    LOG_META(FORMAT(" Activating '%1%'", mActiveState.get()->type()));
 
     return mActiveState.get();
 }
 
 State *StateManager::getActiveState()
 {
-    if (mActiveState.get() == NULL) LOG("[State Manager → getActiveState] There aren't any active state. Maybe, you didn't push one.");
+    if (mActiveState.get() == NULL) LOG_META("There aren't any active state. Maybe, you didn't push one.");
     return mActiveState.get();
 }

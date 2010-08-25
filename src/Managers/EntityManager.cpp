@@ -35,7 +35,7 @@ bool EntityManager::DeleteEntity(const string& entityName)
 {
     if (mEntityList.count(entityName) == 0)
     {
-        LOG(FORMAT("Can`t delete entity '%1%', because it doesn`t exsist!", entityName));
+        LOG_META(FORMAT("Can`t delete entity '%1%', because it doesn`t exsist!", entityName));
         return false;
     }
     mEntityList.erase(entityName);

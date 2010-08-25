@@ -20,7 +20,7 @@ vector<string> ConfigManager::getListValue(const string& key, const string& ownC
     vector<string> listValues;
     ptree workTree;
 
-    if (key == "") LOG("Trying to get config value of empty key!");
+    if (key == "") LOG_META("Trying to get config value of empty key!");
     if (ownConfig != "")
     {
         _forcePtree(ownConfig);

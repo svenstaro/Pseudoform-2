@@ -25,14 +25,48 @@ void LogManager::setDefaultLog(const string& logPath)
     mDefaultPath = logPath;
 }
 
-void LogManager::write(const string& message, const string logFile)
+string LogManager::_cleanSignature(const string &signature)
+{
+	// Remove template stuff from signature. The string like: "type Class::function(arguments) [with ...]"
+	// The goal is to make that string: Class::Function()
+	// We really don't need arguments list and template insertion
+	string result = signature;
+
+	// Remove function return type
+	int typePosition = result.find(" ");
+	result = result.erase(0, typePosition+1); // Now we have "Class::function(arguments) [with ...]"
+
+	// Remove function arguments and template stuff
+	int argPosition = result.find("(");
+	result = result.erase(argPosition);     // Now we have "Class::function"
+	result += "()";
+
+	return result;
+}
+
+void LogManager::write(const string& message, const string logFile, const string metaSignature)
 {
     string workPath = mDefaultPath;
     if (logFile != "") workPath = logFile;
 
     this->_forceLog(workPath);
 
+    string comand = "";
+    if (metaSignature != "")
+    {
+    	string signature = _cleanSignature(metaSignature);
+    	comand += getCurrentTime() + " : [";
+    	comand += signature;
+    	comand += "]\n[Message] ";
+    	comand += message;
+    	comand += "\n---------------------------------------------------------\n";
+    }
+    else
+    {
+    	comand += getCurrentTime() + "\t: " + message + "\n";
+    }
+
     mLogHandle.open(workPath.c_str(), fstream::app | fstream::ate);
-    mLogHandle << getCurrentTime() + "\t: " + message + "\n";
+    mLogHandle << comand;
     mLogHandle.close();
 }

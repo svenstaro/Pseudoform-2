@@ -14,7 +14,10 @@ using namespace boost::serialization;
 using namespace std;
 using namespace boost::posix_time;
 
-#define LOG(message) LogManager::get_mutable_instance().write(message)
+#define LOG(message) LogManager::get_mutable_instance().write(message, "", "")
+#define LOG_META(message) LogManager::get_mutable_instance().write(message, "", __PRETTY_FUNCTION__)
+#define LOG_FILE(message, fileName) LogManager::get_mutable_instance().write(message, fileName)
+
 class LogManager : public singleton<LogManager>
 {
     protected:
@@ -24,12 +27,13 @@ class LogManager : public singleton<LogManager>
 
         string getCurrentTime();
         void _forceLog(const string &logPath);
+        string _cleanSignature(const string &signature);
 
     public:
         LogManager();
         
         void setDefaultLog(const string &logPath);
-        void write(const string &message, const string logFile = "");
+        void write(const string &message, const string logFile = "", const string metaSignature = "");
 };
 
 #endif

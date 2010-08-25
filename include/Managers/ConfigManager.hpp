@@ -30,7 +30,7 @@ class ConfigManager : public singleton<ConfigManager>
         template<typename T>
         T getValue(const string &key, const T &defaultValue = T(), const string &ownConfig = "")
         {
-            if (key == "") LOG("Trying to get config value of empty key!");
+            if (key == "") LOG_META("Trying to get config value of empty key!");
             if (ownConfig != "")
             {
                 _forcePtree(ownConfig);

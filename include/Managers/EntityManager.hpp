@@ -45,7 +45,7 @@ class EntityManager : public singleton<EntityManager>
         {
             if (mEntityList.count(entityName) != 0)
             {
-                LOG(FORMAT("Can`t make entity with name '%1%' because it's already exsists!", entityName));
+                LOG_META(FORMAT("Can`t make entity with name '%1%' because it's already exsists!", entityName));
                 return NULL;
             }
 
@@ -58,7 +58,7 @@ class EntityManager : public singleton<EntityManager>
         {
             if (mEntityList.count(entityName) == 0)
             {
-                LOG(FORMAT("Can`t get entity '%1%', because it doesn`t exsist!", entityName));
+                LOG_META(FORMAT("Can`t get entity '%1%', because it doesn`t exsist!", entityName));
                 return NULL;
             }
 
