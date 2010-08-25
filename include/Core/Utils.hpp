@@ -6,10 +6,11 @@
 #include "boost/date_time/posix_time/posix_time.hpp"
 #include <boost/date_time/posix_time/posix_time_types.hpp>
 #include <boost/signals2.hpp>
+#include <boost/algorithm/string.hpp>
 
 #include <Ogre.h>
 
-#include <boost/algorithm/string.hpp>
+#include "Managers/LogManager.hpp"
 
 using namespace std;
 using namespace boost;
@@ -23,6 +24,7 @@ class Utils : public singleton<Utils>
 {
     protected:
         string mDimension;
+        ptime mTimeStamp;
 
         void createPlane(Ogre::Mesh *newMesh);
         void createSphere(Ogre::Mesh *newMesh);
@@ -34,6 +36,10 @@ class Utils : public singleton<Utils>
         const string getDimension() const;
         void setDimension(string &d);
         ptime getCurrentTime() const;
+
+        // For time measuring
+        void writeTimestamp();
+        string getTimeDifference();
 };
 
 #endif

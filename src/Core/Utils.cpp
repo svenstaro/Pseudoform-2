@@ -17,7 +17,7 @@ void Utils::setDimension(string& d)
 
 ptime Utils::getCurrentTime() const
 {
-	return microsec_clock::local_time();
+    return microsec_clock::local_time();
 }
 
 const string Utils::getDimension() const
@@ -25,10 +25,26 @@ const string Utils::getDimension() const
     return mDimension;
 }
 
+void Utils::writeTimestamp()
+{
+    mTimeStamp = getCurrentTime();
+}
+
+string Utils::getTimeDifference()
+{
+	// If we don't call writeTimestamp before this function
+	if (mTimeStamp.is_not_a_date_time()) LOG("You are trying to get time difference but you have to call writeTimestamp first!");
+
+	time_duration result = getCurrentTime() - mTimeStamp;
+	mTimeStamp = ptime(not_a_date_time);
+
+	return to_simple_string(result);
+}
+
 void Utils::createPlane(Ogre::Mesh *newMesh)
 {
     using namespace Ogre;
-    
+
     SubMesh* sub = newMesh->createSubMesh();
     float vertices[32] = {
             -100, -100, 0,	// pos
@@ -85,7 +101,7 @@ void Utils::createPlane(Ogre::Mesh *newMesh)
 void Utils::createSphere(Ogre::Mesh *newMesh)
 {
     using namespace Ogre;
-    
+
     SubMesh *pSphereVertex = newMesh->createSubMesh();
 
     const int NUM_SEGMENTS = 16;
