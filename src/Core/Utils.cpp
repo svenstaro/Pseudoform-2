@@ -15,6 +15,11 @@ void Utils::setDimension(string& d)
     }
 }
 
+ptime Utils::getCurrentTime()
+{
+	return second_clock::local_time();
+}
+
 const string Utils::getDimension() const
 {
     return mDimension;

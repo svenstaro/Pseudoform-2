@@ -3,6 +3,7 @@
 
 #include <boost/serialization/singleton.hpp>
 #include <boost/format.hpp>
+#include "boost/date_time/posix_time/posix_time.hpp"
 #include <boost/signals2.hpp>
 
 #include <Ogre.h>
@@ -12,6 +13,7 @@
 using namespace std;
 using namespace boost;
 using namespace boost::serialization;
+using namespace boost::posix_time;
 
 #define FORMAT(parentString, params) (boost::format(parentString) % params).str()
 #define NEW_EVENT(Signature, Name) typedef SlotObject< signals2::signal<Signature> > Name;
@@ -30,6 +32,7 @@ class Utils : public singleton<Utils>
 
         const string getDimension() const;
         void setDimension(string &d);
+        ptime getCurrentTime();
 };
 
 #endif
