@@ -8,7 +8,6 @@ void StateManager::push(State *state)
 
 void StateManager::update()
 {
-    if (mStates.empty()) LOG_META("There aren't any states now. Maybe, you didn't push one.");
     if (mActiveState.get() == NULL) this->pop();
 
     if (mAdvanceState)
@@ -41,6 +40,7 @@ void StateManager::setAdvanceState(bool advance)
 
 State *StateManager::pop()
 {
+    if (mStates.empty()) LOG_META("There aren't any states now. Maybe, you didn't push one.");
     if (mStates.empty()) return StatePtr().get();
 
     mActiveState = mStates.front();	// Store pointer for next state to use

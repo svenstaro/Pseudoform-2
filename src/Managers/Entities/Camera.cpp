@@ -57,9 +57,6 @@ void Camera::onInited()
 	switch(mCameraType)
 	{
 		case Camera::FREE:
-			//InputSystem::get_mutable_instance().Window().SetCursorPosition(WIDTH/2, HEIGHT/2);
-			cout << "On inited, cursor position set: " << WIDTH/2 << "; " << HEIGHT/2 << "\n";
-			//InputSystem::get_mutable_instance().Window().ShowMouseCursor(false);
 
 		break;
 		case Camera::ATTACHED:
@@ -79,7 +76,6 @@ void Camera::onUpdated()
 	switch(mCameraType)
 	{
 		case Camera::FREE:
-			//InputSystem::get_mutable_instance().Window().SetCursorPosition(WIDTH/2, HEIGHT/2);
 
 		break;
 		case Camera::ATTACHED:
@@ -132,20 +128,11 @@ void Camera::onKeyPressed(const OIS::KeyEvent &e)
 
 void Camera::onMouseMoved(const OIS::MouseEvent &e)
 {
-	int offsetX = 0;
-	int offsetY = 0;
-
-	int centerX = WIDTH/2;
-	int centerY = HEIGHT/2;
-
 	switch(mCameraType)
 	{
 		case Camera::FREE:
-			offsetX = e.state.X.rel - centerX;
-			offsetY = e.state.Y.rel - centerY;
-
-		    mNode->yaw(deg(mRotate * -offsetX));
-		    mPitchNode->pitch(deg(mRotate * -offsetY));
+			mNode->yaw(deg(-mRotate * e.state.X.rel), Ogre::Node::TS_WORLD);
+			mPitchNode->pitch(deg(-mRotate * e.state.Y.rel), Ogre::Node::TS_LOCAL);
 
 		break;
 		case Camera::ATTACHED:
