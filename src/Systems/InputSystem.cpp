@@ -7,35 +7,35 @@ template<> InputSystem* ISingleton<InputSystem>::mInstance = 0;
 bool InputSystem::keyPressed(const OIS::KeyEvent &e)
 {
 	SIGNAL(Events::KeyEvent, "KeyPressed", e);
-	GuiSystem::get_mutable_instance().getGui()->injectKeyPress(MyGUI::KeyCode::Enum(e.key), e.text);
+	GuiSystem::get_mutable_instance().handle()->injectKeyPress(MyGUI::KeyCode::Enum(e.key), e.text);
     return true;
 }
 
 bool InputSystem::keyReleased(const OIS::KeyEvent &e)
 {
 	SIGNAL(Events::KeyEvent, "KeyReleased", e);
-	GuiSystem::get_mutable_instance().getGui()->injectKeyRelease(MyGUI::KeyCode::Enum(e.key));
+	GuiSystem::get_mutable_instance().handle()->injectKeyRelease(MyGUI::KeyCode::Enum(e.key));
     return true;
 }
 
 bool InputSystem::mouseMoved(const OIS::MouseEvent &e)
 {
 	SIGNAL(Events::MouseMoveEvent, "MouseMoved", e);
-	GuiSystem::get_mutable_instance().getGui()->injectMouseMove(e.state.X.abs, e.state.Y.abs, e.state.Z.abs);
+	GuiSystem::get_mutable_instance().handle()->injectMouseMove(e.state.X.abs, e.state.Y.abs, e.state.Z.abs);
     return true;
 }
 
 bool InputSystem::mousePressed(const OIS::MouseEvent &e, OIS::MouseButtonID id)
 {
 	SIGNAL(Events::MouseButtonEvent, "MouseButtonPressed", e, id);
-	GuiSystem::get_mutable_instance().getGui()->injectMousePress(e.state.X.abs, e.state.Y.abs, MyGUI::MouseButton::Enum(id));
+	GuiSystem::get_mutable_instance().handle()->injectMousePress(e.state.X.abs, e.state.Y.abs, MyGUI::MouseButton::Enum(id));
     return true;
 }
 
 bool InputSystem::mouseReleased(const OIS::MouseEvent &e, OIS::MouseButtonID id)
 {
 	SIGNAL(Events::MouseButtonEvent, "MouseButtonReleased", e, id);
-	GuiSystem::get_mutable_instance().getGui()->injectMouseRelease(e.state.X.abs, e.state.Y.abs, MyGUI::MouseButton::Enum(id));
+	GuiSystem::get_mutable_instance().handle()->injectMouseRelease(e.state.X.abs, e.state.Y.abs, MyGUI::MouseButton::Enum(id));
     return true;
 }
 

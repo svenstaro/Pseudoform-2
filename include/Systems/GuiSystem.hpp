@@ -24,7 +24,7 @@ class GuiSystem : public ISystem, public ISingleton<GuiSystem>
         GuiSystem();
         ~GuiSystem();
 
-        MyGUI::Gui *getGui() const { return mGUI; }
+        MyGUI::Gui *handle() const { return mGUI; }
         // TODO: Check whether resource name is in list
         void loadLayout(const string &name) { MyGUI::LayoutManager::getInstance().load(name); }
 

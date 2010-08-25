@@ -9,13 +9,13 @@ class MenuState : public State
         MenuState() {
             Systems::GetGui().loadLayout("Pseudoform.layout");
 
-            MyGUI::StaticImagePtr button = Systems::GetGui().getGui()->findWidget<MyGUI::StaticImage>("ButtonPlay");
+            MyGUI::StaticImagePtr button = Systems::GetGui().handle()->findWidget<MyGUI::StaticImage>("ButtonPlay");
             button->eventMouseButtonClick = MyGUI::newDelegate(this, &MenuState::ButtoPlayClicked);
         }
 
         void update()
         {
-        	MyGUI::StaticTextPtr fps = Systems::GetGui().getGui()->findWidget<MyGUI::StaticText>("FPS");
+        	MyGUI::StaticTextPtr fps = Systems::GetGui().handle()->findWidget<MyGUI::StaticText>("FPS");
         	float fpsCount = GameApplication::get_const_instance().getFPS();
 
         	fps->setCaption("FPS:" + boost::lexical_cast<string>(fpsCount));
