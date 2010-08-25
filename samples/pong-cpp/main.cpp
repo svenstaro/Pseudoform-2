@@ -5,9 +5,12 @@ using namespace Engine;
 
 class MenuState : public State
 {
+	private:
+		MyGUI::VectorWidgetPtr mListWidgets;
+
     public:
         MenuState() {
-            Systems::GetGui().loadLayout("Pseudoform.layout");
+            mListWidgets = Systems::GetGui().loadLayout("Pseudoform.layout");
 
             MyGUI::StaticImagePtr button = Systems::GetGui().handle()->findWidget<MyGUI::StaticImage>("ButtonPlay");
             button->eventMouseButtonClick = MyGUI::newDelegate(this, &MenuState::ButtoPlayClicked);
@@ -22,13 +25,17 @@ class MenuState : public State
         }
 
         string type() { return "MenuState"; }
-        void shutdown() {}
+        void shutdown()
+        {
+        	Systems::GetGui().unloadLayout(mListWidgets);
+        }
 
         // MyGUI Handlers
         void ButtoPlayClicked(MyGUI::WidgetPtr _sender)
         {
         	// Change game state here ...
         	std::cout << "Achtung! Button is clicked";
+        	READY_TO_ADVANCE();
         }
 };
 
@@ -36,8 +43,8 @@ class GameState : public State
 {
     public:
         GameState() {
-            World::MakeCamera("MenuCamera", true, Camera::DONT_USE);
-            World::MakeLight("MainLight", Ogre::Light::LT_DIRECTIONAL)->lightHandle()->setDirection( vec3(0, -1, 1) );
+            World::MakeCamera("MenuCamera", true, Camera::FREE);
+            World::MakeLight("MainLight", Ogre::Light::LT_DIRECTIONAL)->lightHandle()->setDirection(vec3(0, -1, 1));
             World::MakeObject("background")->setScale(vec3(100, 100, 100));
         }
 
