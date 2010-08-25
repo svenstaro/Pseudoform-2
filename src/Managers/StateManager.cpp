@@ -43,8 +43,8 @@ State *StateManager::pop()
 {
     if (mStates.empty()) return StatePtr().get();
 
-    mActiveState = mStates.back();	// Store pointer for next state to use
-    mStates.pop_back();				// And remove it from list
+    mActiveState = mStates.front();	// Store pointer for next state to use
+    mStates.pop_front();     		// And remove it from list
 
     LOG(FORMAT("[State Manager → pop] Activating '%1%'", mActiveState.get()->type()));
 
