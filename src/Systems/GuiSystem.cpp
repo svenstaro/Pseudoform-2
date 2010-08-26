@@ -34,3 +34,13 @@ std::string GuiSystem::toString()
 {
     return "GuiSystem";
 }
+void GuiSystem::loadLayout(const string &name)
+{
+	// TODO: [GuiSystem::loadLayout] Check the name is already in map!
+	mWidgetLayouts[name] = MyGUI::LayoutManager::getInstance().load(name);
+}
+
+void GuiSystem::unloadLayout(const string &name)
+{
+	MyGUI::LayoutManager::getInstance().unloadLayout(mWidgetLayouts[name]);
+}

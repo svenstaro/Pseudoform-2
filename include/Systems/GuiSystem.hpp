@@ -12,7 +12,10 @@
 #include "MyGUI.h"
 #include "MyGUI_OgrePlatform.h"
 
+#include <map>
+
 using namespace boost::serialization;
+using namespace std;
 
 class GuiSystem : public ISystem, public ISingleton<GuiSystem>
 {
@@ -20,14 +23,16 @@ class GuiSystem : public ISystem, public ISingleton<GuiSystem>
 		MyGUI::Gui *mGUI;
 		MyGUI::OgrePlatform *mPlatform;
 
+		map<string, MyGUI::VectorWidgetPtr> mWidgetLayouts;
+
     public:
         GuiSystem();
         ~GuiSystem();
 
         MyGUI::Gui *handle() const { return mGUI; }
-        // TODO: Check whether resource name is in list
-        MyGUI::VectorWidgetPtr &loadLayout(const string &name) { return MyGUI::LayoutManager::getInstance().load(name); }
-        void unloadLayout(MyGUI::VectorWidgetPtr &widgets) { MyGUI::LayoutManager::getInstance().unloadLayout(widgets); }
+
+        void loadLayout(const string &name);
+        void unloadLayout(const string &name);
 
         // Inherited from ISystem
         void init();
