@@ -14,7 +14,12 @@ GameApplication::GameApplication()
 
     this->_init();
 
+    mStatsVisible = false;
+
     CONNECT(Engine::Events::KeyEvent, "KeyPressed", &GameApplication::keyPressed);
+
+    // TODO: Connect when statistic is shown
+    CONNECT0(Engine::Events::GlobalUpdateEvent, "Updated", &GameApplication::showStats);
 }
 
 GameApplication::~GameApplication() { }
@@ -103,4 +108,35 @@ void GameApplication::_shutdown()
 void GameApplication::keyPressed(const OIS::KeyEvent &e)
 {
 	if (e.key == OIS::KC_ESCAPE) mRunning = false;
+
+	if (e.key == OIS::KC_I)
+	{
+		if (InputSystem::get_mutable_instance().getKeyboard()->isModifierDown(OIS::Keyboard::Ctrl))
+		{
+			mStatsVisible = !mStatsVisible;
+
+			if (mStatsVisible)
+				GuiSystem::get_mutable_instance().loadLayout("Statistic.layout");
+			else
+				GuiSystem::get_mutable_instance().unloadLayout("Statistic.layout");
+		}
+	}
+}
+
+void GameApplication::showStats()
+{
+	if (mStatsVisible)
+	{
+		using namespace MyGUI;
+
+		string fps = boost::lexical_cast<string>(getFPS());
+		string batches = boost::lexical_cast<string>(GraphicSystem::get_mutable_instance().getWindow()->getBatchCount());
+		string triangles = boost::lexical_cast<string>(GraphicSystem::get_mutable_instance().getWindow()->getTriangleCount());
+
+		Gui *handle = GuiSystem::get_mutable_instance().handle();
+
+		handle->findWidget<Widget>("fps_statistic")->setCaption("#FFFFFF fps: #ffe1bd" + fps);
+		handle->findWidget<Widget>("batches_statistic")->setCaption("#FFFFFF batches: #ffe1bd" + batches);
+		handle->findWidget<Widget>("triangles_statistic")->setCaption("#FFFFFF triangles: #ffe1bd" + triangles);
+	}
 }

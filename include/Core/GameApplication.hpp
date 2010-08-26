@@ -30,6 +30,8 @@ class GameApplication : public singleton<GameApplication>
         float mFrameRate;
         bool mDrawn;
 
+        bool mStatsVisible;
+
     public:
         GameApplication();
         ~GameApplication();
@@ -37,6 +39,8 @@ class GameApplication : public singleton<GameApplication>
         void setGameState(bool running);
         const float getElapsed() const;
         const float getFPS() const;
+
+        void showStats();
 
         void _init();
         void Start();
