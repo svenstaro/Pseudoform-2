@@ -31,6 +31,7 @@ class GameApplication : public singleton<GameApplication>
         bool mDrawn;
 
         bool mStatsVisible;
+        boost::signals2::connection mStatsUpdate;
 
     public:
         GameApplication();

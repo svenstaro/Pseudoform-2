@@ -17,9 +17,6 @@ GameApplication::GameApplication()
     mStatsVisible = false;
 
     CONNECT(Engine::Events::KeyEvent, "KeyPressed", &GameApplication::keyPressed);
-
-    // TODO: Connect when statistic is shown
-    CONNECT0(Engine::Events::GlobalUpdateEvent, "Updated", &GameApplication::showStats);
 }
 
 GameApplication::~GameApplication() { }
@@ -116,9 +113,15 @@ void GameApplication::keyPressed(const OIS::KeyEvent &e)
 			mStatsVisible = !mStatsVisible;
 
 			if (mStatsVisible)
+			{
 				GuiSystem::get_mutable_instance().loadLayout("Statistic.layout");
+				mStatsUpdate = CONNECT0(Engine::Events::GlobalUpdateEvent, "Updated", &GameApplication::showStats);
+			}
 			else
+			{
+				if (mStatsUpdate.connected()) mStatsUpdate.disconnect();
 				GuiSystem::get_mutable_instance().unloadLayout("Statistic.layout");
+			}
 		}
 	}
 }
