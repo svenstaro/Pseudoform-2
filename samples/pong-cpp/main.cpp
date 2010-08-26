@@ -5,37 +5,30 @@ using namespace Engine;
 
 class MenuState : public State
 {
-	private:
-		MyGUI::VectorWidgetPtr mListWidgets;
+    private:
+        MyGUI::StaticImagePtr mPlayButton;
 
     public:
         void init() {
-            mListWidgets = Systems::GetGui().loadLayout("Pseudoform.layout");
+            Systems::GetGui().loadLayout("Pseudoform.layout");
 
-            MyGUI::StaticImagePtr button = Systems::GetGui().handle()->findWidget<MyGUI::StaticImage>("ButtonPlay");
-            button->eventMouseButtonClick = MyGUI::newDelegate(this, &MenuState::ButtoPlayClicked);
+            mPlayButton = Systems::GetGui().handle()->findWidget<MyGUI::StaticImage>("ButtonPlay");
+            mPlayButton->eventMouseButtonClick = MyGUI::newDelegate(this, &MenuState::ButtoPlayClicked);
         }
 
-        void update()
-        {
-        	MyGUI::StaticTextPtr fps = Systems::GetGui().handle()->findWidget<MyGUI::StaticText>("FPS");
-        	float fpsCount = GameApplication::get_const_instance().getFPS();
-
-        	fps->setCaption("FPS:" + boost::lexical_cast<string>(fpsCount));
-        }
+        void update() {}
 
         string type() { return "MenuState"; }
         void shutdown()
         {
-        	Systems::GetGui().unloadLayout(mListWidgets);
+            Systems::GetGui().unloadLayout("Pseudoform.layout");
         }
 
         // MyGUI Handlers
         void ButtoPlayClicked(MyGUI::WidgetPtr _sender)
         {
-        	// Change game state here ...
-        	std::cout << "Achtung! Button is clicked";
-        	READY_TO_ADVANCE();
+            // Change game state here ...
+            READY_TO_ADVANCE();
         }
 };
 
@@ -43,7 +36,6 @@ class GameState : public State
 {
     public:
         void init() {
-        	cout << "in Game state init function!";
             World::MakeCamera("MenuCamera", true, Camera::FREE);
             World::MakeLight("MainLight", Ogre::Light::LT_DIRECTIONAL)->lightHandle()->setDirection(vec3(0, -1, 1));
             World::MakeObject("background")->setScale(vec3(100, 100, 100));
