@@ -4,6 +4,7 @@
 #include "Managers/EventManager.hpp"
 #include "Systems/GraphicSystem.hpp"
 #include "Core/Types.hpp"
+#include "Core/Utils.hpp"
 
 #include <boost/property_tree/ptree.hpp>
 #include <boost/property_tree/info_parser.hpp>
@@ -23,6 +24,8 @@ class Entity : private boost::noncopyable
         // TODO: Move entity object to entity class only
         Ogre::Entity *mEntity;
         Ogre::SceneNode *mNode;
+
+        float *parseArguments(const string &argName);
 
     public:
         virtual ~Entity();
@@ -58,7 +61,7 @@ class Entity : private boost::noncopyable
         void setMeshName(const string &meshPath);
         void setDrawable(bool state);
         
-        void setMaterial(const string &matName, const string &group = "");
+        void setMaterial(const string &matName, const string &group = Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME);
         void setPosition(const vec3 pos = vec3());
         void setRotation(const quat rot = quat());
         void setScale(const vec3 scale = vec3());

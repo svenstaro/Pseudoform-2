@@ -73,32 +73,58 @@ void Entity::setScale(const vec3 scale)
 
 // =============================================================================
 // Settings loader
+float *Entity::parseArguments(const string &argName)
+{
+	std::vector<std::string> storage;
+	float *data = new float[3];
+	unsigned int counter = 0;
+
+	boost::split(storage, argName, boost::is_any_of("\t, "));
+
+	BOOST_FOREACH(string element, storage)
+	{
+		if (element != "")
+		{
+			data[counter] = boost::lexical_cast<float>(element);
+			counter++;
+		}
+	}
+	return data;
+}
+
 void Entity::_defaultLoader(string entityName)
 {
 	mEntityName = entityName;
 
 	string mediaPath = CONFIG("resources.MediaFolder", string, "Media");
-	cout << "Got media path: " + mediaPath << "; Entity name is: " << mEntityName << "Entity type: " + this->type() << "\n";
-	Ogre::ResourceGroupManager::getSingleton().addResourceLocation(mediaPath + "Entities/" +  mEntityName,
-			"FileSystem", "General", true);
+	string entityData = mediaPath + "Entities/" + mEntityName;
+
+	if (!boost::filesystem::exists(entityData))
+	{
+		LOG_META(FORMAT("There isn't media-folder for the entity with `%1%` name", entityName));
+		return;
+	}
+
+	Ogre::ResourceGroupManager::getSingleton().addResourceLocation(entityData, "FileSystem", "General", true);
 
 	ptree tree_handle;
 	read_info(mediaPath + "Entities/" +  mEntityName + "/init.info", tree_handle);
 
 	setDrawable( tree_handle.get<bool>("common_settigns.visible", true) );
-	setName( tree_handle.get<string>("ncommon_settigns.ame", mEntityName) );
-	cout << tree_handle.get<string>("common_settigns.material");
-	//setMaterial( tree_handle.get<string>("common_settigns.material") );
+	setName( tree_handle.get<string>("common_settigns.name", mEntityName) );
 
 	string position = tree_handle.get<string>("common_settigns.position", "0, 0, 0");
 	string orientation = tree_handle.get<string>("common_settigns.orientation", "0, 0, 0");
 	string scale = tree_handle.get<string>("common_settigns.scale", "1, 1, 1");
 
-	std::vector<std::string> storage;
-	boost::split(storage, position, boost::is_any_of("\t, "));
+	float *storage = parseArguments(position);
+	this->setPosition(vec3(storage[0], storage[1], storage[2]));
 
-	BOOST_FOREACH(string element, storage)
-	{
-		cout << element << "\n";
-	}
+	storage = parseArguments(orientation);
+	this->setRotation(quat(storage[0], storage[1], storage[2]));
+
+	storage = parseArguments(scale);
+	this->setScale(vec3(storage[0], storage[1], storage[2]));
+
+	delete []storage;
 }
