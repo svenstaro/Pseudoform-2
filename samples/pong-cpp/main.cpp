@@ -5,22 +5,15 @@ using namespace Engine;
 
 class MenuState : public State
 {
-    private:
-        MyGUI::StaticImagePtr mPlayButton;
-
     public:
         void init() {
             Systems::GetGui().loadLayout("Pseudoform.layout");
 
-            mPlayButton = Systems::GetGui().handle()->findWidget<MyGUI::StaticImage>("ButtonPlay");
-            mPlayButton->eventMouseButtonClick = MyGUI::newDelegate(this, &MenuState::ButtoPlayClicked);
+            World::findWidget<MyGUI::StaticImage>("ButtonPlay")->eventMouseButtonClick =
+            		MyGUI::newDelegate(this, &MenuState::ButtoPlayClicked);
         }
 
-        void update() {}
-
-        string type() { return "MenuState"; }
-        void shutdown()
-        {
+        void shutdown() {
             Systems::GetGui().unloadLayout("Pseudoform.layout");
         }
 
@@ -30,6 +23,9 @@ class MenuState : public State
             // Change game state here ...
             READY_TO_ADVANCE();
         }
+
+        void update() {}
+        string type() { return "MenuState"; }
 };
 
 class GameState : public State

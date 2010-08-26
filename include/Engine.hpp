@@ -82,6 +82,12 @@ namespace Engine
 
         unsigned int GetWidth() { return Systems::GetGraphic().getWindow()->getWidth(); }
         unsigned int GetHeight() { return Systems::GetGraphic().getWindow()->getHeight(); }
+
+        template<typename WidgetType>
+        WidgetType *findWidget(const string &name)
+        {
+        	return GuiSystem::get_mutable_instance().handle()->findWidget<WidgetType>(name);
+        }
     }
 };
 
