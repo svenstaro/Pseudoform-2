@@ -72,5 +72,6 @@ void LogManager::write(const string& message, const string logFile, const string
 
     mLogHandle.open(workPath.c_str(), fstream::app | fstream::ate);
     mLogHandle << comand;
+    cout << comand;
     mLogHandle.close();
 }
