@@ -46,6 +46,8 @@ void GameApplication::Start()
 {
     mRunning = true;
 
+    Utils::get_mutable_instance().setMediaPath(CONFIG("resources.MediaFolder", string, "Media"));
+
     SIGNAL(Engine::Events::GlobalInitEvent, "Inited", );
 
     LOG_NOFORMAT("\nFinished in: [" + Utils::get_mutable_instance().getTimeDifference() + "]\n");
