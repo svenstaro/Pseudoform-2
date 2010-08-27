@@ -17,6 +17,7 @@ GameApplication::GameApplication()
     mStatsVisible = false;
 
     CONNECT(Engine::Events::KeyEvent, "KeyPressed", &GameApplication::keyPressed);
+    CONNECT2(Events::ClosingEvent, "WindowClosing", &GameApplication::WindowClosing);
 }
 
 GameApplication::~GameApplication() { }
@@ -104,9 +105,17 @@ void GameApplication::_shutdown()
     mSystemsList.clear();
 }
 
+void GameApplication::WindowClosing(Ogre::RenderWindow *rw, bool &shouldClose)
+{
+    if(shouldClose){
+        LOG("Clicked on [X] -> closing");
+        mRunning = false;
+    }
+}
+
 void GameApplication::keyPressed(const OIS::KeyEvent &e)
 {
-	if (e.key == OIS::KC_ESCAPE) mRunning = false;
+	//if (e.key == OIS::KC_ESCAPE) mRunning = false; //Game wants it
 
 	if (e.key == OIS::KC_I)
 	{

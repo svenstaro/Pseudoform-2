@@ -28,6 +28,9 @@ namespace Engine
         NEW_EVENT(void (void), GainFocusEvent);
         NEW_EVENT(void (void), MouseEnteredEvent);
      */
+        NEW_EVENT(void (Ogre::RenderWindow *rw, bool &shouldClose), ClosingEvent);
+        NEW_EVENT(void (Ogre::RenderWindow *rw), WindowEvent);
+
     	NEW_EVENT(void (const OIS::KeyEvent &e), KeyEvent);
     	NEW_EVENT(void (const OIS::MouseEvent &e, const OIS::MouseButtonID &id), MouseButtonEvent);
     	NEW_EVENT(void (const OIS::MouseEvent &ed), MouseMoveEvent);

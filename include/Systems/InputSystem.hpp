@@ -16,10 +16,13 @@
 #include <OISKeyboard.h>
 #include <OISInputManager.h>
 
+#include <OgreWindowEventUtilities.h>
+
 using namespace boost::serialization;
 using namespace Engine;
 
-class InputSystem : public ISystem, public ISingleton<InputSystem>, public OIS::KeyListener, public OIS::MouseListener
+class InputSystem : public ISystem, public ISingleton<InputSystem>, public OIS::KeyListener, public OIS::MouseListener,
+                    public Ogre::WindowEventListener
 {
     private:
         size_t mWindowHandle;
@@ -35,6 +38,12 @@ class InputSystem : public ISystem, public ISingleton<InputSystem>, public OIS::
 	    bool mouseMoved(const OIS::MouseEvent &e);
 	    bool mousePressed(const OIS::MouseEvent &e, OIS::MouseButtonID id);
 	    bool mouseReleased(const OIS::MouseEvent &e, OIS::MouseButtonID id);
+
+	    bool windowClosing (Ogre::RenderWindow *rw);
+	    void windowMoved (Ogre::RenderWindow *rw);
+	    void windowResized (Ogre::RenderWindow *rw);
+	    void windowClosed (Ogre::RenderWindow *rw);
+	    void windowFocusChanged (Ogre::RenderWindow *rw);
 
     public:
         InputSystem();

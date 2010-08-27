@@ -39,6 +39,33 @@ bool InputSystem::mouseReleased(const OIS::MouseEvent &e, OIS::MouseButtonID id)
     return true;
 }
 
+bool InputSystem::windowClosing (Ogre::RenderWindow *rw)
+{
+    bool ret = true;
+    SIGNAL(Events::ClosingEvent, "WindowClosing", rw, ret);
+    return ret;
+}
+
+void InputSystem::windowClosed (Ogre::RenderWindow *rw)
+{
+    SIGNAL(Events::WindowEvent, "WindowClosed", rw);
+}
+
+void InputSystem::windowMoved (Ogre::RenderWindow *rw)
+{
+    SIGNAL(Events::WindowEvent, "WindowMoved", rw);
+}
+
+void InputSystem::windowResized (Ogre::RenderWindow *rw)
+{
+    SIGNAL(Events::WindowEvent, "WindowResized", rw);
+}
+
+void InputSystem::windowFocusChanged (Ogre::RenderWindow *rw)
+{
+    SIGNAL(Events::WindowEvent, "WindowFocusChanged", rw);
+}
+
 InputSystem::InputSystem():
     mMouse(0),
     mKeyboard(0),
@@ -66,6 +93,8 @@ void InputSystem::init()
 {
     GraphicSystem::get_const_instance().getWindow()->getCustomAttribute("WINDOW", &mWindowHandle);
     LOG("\t- Got window handle from Ogre");
+
+    Ogre::WindowEventUtilities::addWindowEventListener(GraphicSystem::get_const_instance().getWindow(),this);
 
     if( !mInputSystem )
     {

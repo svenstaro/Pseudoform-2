@@ -50,6 +50,7 @@ class GameApplication : public singleton<GameApplication>
 
         // Slots
         void keyPressed(const OIS::KeyEvent &e);
+        void WindowClosing(Ogre::RenderWindow *rw, bool &shouldClose);
 };
 
 #endif

@@ -32,6 +32,12 @@ void EventManager::fillEventMap()
     mSignalAssociation["WindowMouseEntered"] = MouseEnteredEvent();
      */
 
+    mSignalAssociation["WindowClosing"] = ClosingEvent();
+    mSignalAssociation["WindowMoved"] = WindowEvent();
+    mSignalAssociation["WindowResized"] = WindowEvent();
+    mSignalAssociation["WindowClosed"] = WindowEvent();
+    mSignalAssociation["WindowFocusChanged"] = WindowEvent();
+
     mSignalAssociation["Updated"] = GlobalUpdateEvent();
     mSignalAssociation["Inited"] = GlobalInitEvent();
 }

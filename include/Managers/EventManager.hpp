@@ -20,7 +20,7 @@ using namespace boost::serialization;
 // Define section
 #define CONNECT0(EventType, EventName, FunctionPointer) EventManager::get_mutable_instance().connect<EventType>(EventName, bind(FunctionPointer, this));
 #define CONNECT(EventType, EventName, FunctionPointer) EventManager::get_mutable_instance().connect<EventType>(EventName, bind(FunctionPointer, this, _1));
-#define CONNECT2(EventType, EventName, FunctionPointer) EventManager::get_mutable_instance().connect<EventType>(EventName, bind(FunctionPointer, this, _1, _1));
+#define CONNECT2(EventType, EventName, FunctionPointer) EventManager::get_mutable_instance().connect<EventType>(EventName, bind(FunctionPointer, this, _1, _2));
 #define CONNECT_SINGLE(EventType, EventName, FunctionPointer) EventManager::get_mutable_instance().connect<EventType>(EventName, FunctionPointer);
 #define SIGNAL(EventType, EventName, ...) EventManager::get_mutable_instance().get<EventType>(EventName)->Call(EventType::ArgsType(__VA_ARGS__));
 
@@ -51,7 +51,7 @@ class EventManager : public singleton<EventManager>
                     signalName));
                 return NULL;
             }
-            
+
             try
             {
                 return &any_cast<EventType&>(mSignalAssociation.at(signalName));
@@ -65,7 +65,7 @@ class EventManager : public singleton<EventManager>
             }
             return NULL;
         }
-        
+
         template<typename EventType>
         void create(const string &signalName)
         {
