@@ -44,7 +44,7 @@ class GameState : public State
             		colour(0, 0, 1.0), colour(0, 0, 1.0))->lightHandle()->setDirection(vec3(-1, -1, 0));
             World::GetLight("SpotLight")->lightHandle()->setPosition(vec3(300, 300, 0));
 
-            //World::MakeObject("ErrorObject");
+            World::MakeObject("ErrorObject");
         }
 
         string type() { return "GameState"; }
