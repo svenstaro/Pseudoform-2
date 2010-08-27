@@ -45,7 +45,7 @@ void Camera::setCameraType(CameraType type)
 
 	if (type != Camera::DONT_USE)
 	{
-		CONNECT(Engine::Events::KeyEvent, "KeyPressed", &Camera::onKeyPressed)
+		//CONNECT(Engine::Events::KeyEvent, "KeyPressed", &Camera::onKeyPressed) //we don't need this anymore
 	    CONNECT(Engine::Events::MouseMoveEvent, "MouseMoved", &Camera::onMouseMoved);
 	    CONNECT0(Engine::Events::GlobalUpdateEvent, "Updated", &Camera::onUpdated);
 	    CONNECT0(Engine::Events::GlobalInitEvent, "Inited", &Camera::onInited);
@@ -73,10 +73,26 @@ void Camera::onInited()
 
 void Camera::onUpdated()
 {
+    using namespace sf;
+	vec3 translation = vec3::ZERO;
+    OIS::Keyboard *keyboard = InputSystem::get_mutable_instance().getKeyboard();
 	switch(mCameraType)
 	{
 		case Camera::FREE:
+            if (keyboard->isKeyDown(OIS::KC_W)) //smoother movement instead of using the keyPressed-Callback method
+			    translation.z -= mMove;
+			else if (keyboard->isKeyDown(OIS::KC_S))
+			    translation.z += mMove;
+			if (keyboard->isKeyDown(OIS::KC_A))
+			    translation.x -= mMove;
+			else if (keyboard->isKeyDown(OIS::KC_D))
+			    translation.x += mMove;
+			if (keyboard->isKeyDown(OIS::KC_Q))
+				translation.y += mMove;
+			else if (keyboard->isKeyDown(OIS::KC_E))
+				translation.y -= mMove;
 
+            mNode->translate(mNode->getOrientation() * translation * GameApplication::get_const_instance().getElapsed());
 		break;
 		case Camera::ATTACHED:
 			// ...
