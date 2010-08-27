@@ -140,7 +140,9 @@ void Entity::_defaultLoader(const string &entityName)
 	// Orientation
 	argName = tree_handle.get<string>("common_settigns.orientation", "1, 1, 1");
 	if (parseArguments("orientation", argName, storage, parseStorage))
-		setRotation(quat(1, storage[0], storage[1], storage[2]));
+		setRotation(quat(Ogre::Degree(storage[0]), Ogre::Vector3::UNIT_X) *
+                    quat(Ogre::Degree(storage[1]), Ogre::Vector3::UNIT_Y) *
+                    quat(Ogre::Degree(storage[2]), Ogre::Vector3::UNIT_Z));
 
 	// Scale
 	argName = tree_handle.get<string>("common_settigns.scale", "1, 1, 1");
