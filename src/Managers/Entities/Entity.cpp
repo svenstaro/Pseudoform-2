@@ -58,73 +58,80 @@ void Entity::setMaterial(const string &matName, const string &group)
 { 
     mEntity->setMaterialName(matName, group);
 }
-void Entity::setPosition(const vec3 pos)
+void Entity::setPosition(const vec3 &pos)
 {
     mNode->setPosition(pos);
 }
-void Entity::setRotation(const quat rot)
+void Entity::setRotation(const quat &rot)
 { 
     mNode->setOrientation(rot);
 }
-void Entity::setScale(const vec3 scale)
+void Entity::setScale(const vec3 &scale)
 { 
     mNode->setScale(scale);
 }
 
 // =============================================================================
 // Settings loader
-float *Entity::parseArguments(const string &argName)
+bool Entity::parseArguments(const string &argData, float *outData, vector<string> &storage)
 {
-	std::vector<std::string> storage;
-	float *data = new float[3];
+	memset(outData, 0, sizeof(float)*3);
+	storage.clear();
 	unsigned int counter = 0;
 
-	boost::split(storage, argName, boost::is_any_of("\t, "));
+	// The default value should be taken
+	if (argData.find("Default") != string::npos) return false;
+
+	boost::split(storage, argData, boost::is_any_of("\t, "));
 
 	BOOST_FOREACH(string element, storage)
 	{
 		if (element != "")
 		{
-			data[counter] = boost::lexical_cast<float>(element);
+			outData[counter] = boost::lexical_cast<float>(element);
 			counter++;
 		}
 	}
-	return data;
+
+	return true;
 }
 
-void Entity::_defaultLoader(string entityName)
+void Entity::_declareEntityResources()
 {
-	mEntityName = entityName;
-
-	string mediaPath = CONFIG("resources.MediaFolder", string, "Media");
-	string entityData = mediaPath + "Entities/" + mEntityName;
+	string entityData = Utils::get_const_instance().getMediaPath() + "Entities/" + mEntityName;
 
 	if (!boost::filesystem::exists(entityData))
 	{
-		LOG_META(FORMAT("There isn't media-folder for the entity with `%1%` name", entityName));
-		return;
+		LOG_META(FORMAT("There isn't media-folder for the entity with `%1%` name", mEntityName));
 	}
-
 	Ogre::ResourceGroupManager::getSingleton().addResourceLocation(entityData, "FileSystem", "General", true);
+}
 
+void Entity::_defaultLoader(const string &entityName)
+{
 	ptree tree_handle;
-	read_info(mediaPath + "Entities/" +  mEntityName + "/init.info", tree_handle);
+	read_info(Utils::get_const_instance().getMediaPath() + "Entities/" +  mEntityName + "/init.info", tree_handle);
 
 	setDrawable( tree_handle.get<bool>("common_settigns.visible", true) );
 	setName( tree_handle.get<string>("common_settigns.name", mEntityName) );
 
-	string position = tree_handle.get<string>("common_settigns.position", "0, 0, 0");
-	string orientation = tree_handle.get<string>("common_settigns.orientation", "0, 0, 0");
-	string scale = tree_handle.get<string>("common_settigns.scale", "1, 1, 1");
+	string argName;
+	vector<string> parseStorage;
+	float storage[3];
+	memset(storage, 0, sizeof(float)*3);
 
-	float *storage = parseArguments(position);
-	this->setPosition(vec3(storage[0], storage[1], storage[2]));
+	// Position
+	argName = tree_handle.get<string>("common_settigns.position", "0, 0, 0");
+	if (parseArguments(argName, storage, parseStorage))
+		setPosition(vec3(storage[0], storage[1], storage[2]));
 
-	storage = parseArguments(orientation);
-	this->setRotation(quat(storage[0], storage[1], storage[2]));
+	// Orientation
+	argName = tree_handle.get<string>("common_settigns.orientation", "1, 1, 1");
+	if (parseArguments(argName, storage, parseStorage))
+		setRotation(quat(storage[0], storage[1], storage[2]));
 
-	storage = parseArguments(scale);
-	this->setScale(vec3(storage[0], storage[1], storage[2]));
-
-	delete []storage;
+	// Scale
+	argName = tree_handle.get<string>("common_settigns.scale", "1, 1, 1");
+	if (parseArguments(argName, storage, parseStorage))
+		setScale(vec3(storage[0], storage[1], storage[2]));
 }

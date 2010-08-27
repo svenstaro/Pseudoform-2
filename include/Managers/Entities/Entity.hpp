@@ -25,12 +25,14 @@ class Entity : private boost::noncopyable
         Ogre::Entity *mEntity;
         Ogre::SceneNode *mNode;
 
-        float *parseArguments(const string &argName);
+        bool parseArguments(const string &argData, float *outData, vector<string> &storage);
+
+        void _defaultLoader(const string &EntityName); // Predefined loading of common settings
+        void _declareEntityResources();				   // Parsing resources of new entity
+        virtual void _loadData() = 0;  				   // Loading entity type-derived settings
 
     public:
         virtual ~Entity();
-        void _defaultLoader(string EntityName);
-        virtual void _loadData() = 0;  // From info-file
         virtual void update(float elapsed) = 0;
         virtual string type() = 0;
 
@@ -62,9 +64,9 @@ class Entity : private boost::noncopyable
         void setDrawable(bool state);
         
         void setMaterial(const string &matName, const string &group = Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME);
-        void setPosition(const vec3 pos = vec3());
-        void setRotation(const quat rot = quat());
-        void setScale(const vec3 scale = vec3());
+        void setPosition(const vec3 &pos = vec3());
+        void setRotation(const quat &rot = quat());
+        void setScale(const vec3 &scale = vec3());
 };
 
 
