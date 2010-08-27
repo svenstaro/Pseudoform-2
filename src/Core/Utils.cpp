@@ -20,6 +20,16 @@ ptime Utils::getCurrentTime() const
     return microsec_clock::local_time();
 }
 
+const string Utils::getMediaPath() const
+{
+	return mMediaPath;
+}
+
+void Utils::setMediaPath(const string &path)
+{
+	mMediaPath = path;
+}
+
 const string Utils::getDimension() const
 {
     return mDimension;

@@ -23,6 +23,7 @@ using namespace boost::posix_time;
 class Utils : public singleton<Utils>
 {
     protected:
+		string mMediaPath;
         string mDimension;
         ptime mTimeStamp;
 
@@ -33,9 +34,12 @@ class Utils : public singleton<Utils>
         Utils() : mDimension("2D") { }
         ~Utils() { }
 
+        const string getMediaPath() const;
         const string getDimension() const;
         void setDimension(string &d);
         ptime getCurrentTime() const;
+
+        void setMediaPath(const string &path);
 
         // For time measuring
         void writeTimestamp();
