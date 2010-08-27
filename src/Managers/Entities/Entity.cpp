@@ -103,12 +103,19 @@ void Entity::_declareEntityResources()
 	if (!boost::filesystem::exists(entityData))
 	{
 		LOG_META(FORMAT("There isn't media-folder for the entity with `%1%` name", mEntityName));
+		mHasMediaFolder = false;
 	}
-	Ogre::ResourceGroupManager::getSingleton().addResourceLocation(entityData, "FileSystem", "General", true);
+	else
+	{
+		Ogre::ResourceGroupManager::getSingleton().addResourceLocation(entityData, "FileSystem", "General", true);
+		mHasMediaFolder = true;
+	}
 }
 
 void Entity::_defaultLoader(const string &entityName)
 {
+	if (!mHasMediaFolder) return;
+
 	ptree tree_handle;
 	read_info(Utils::get_const_instance().getMediaPath() + "Entities/" +  mEntityName + "/init.info", tree_handle);
 

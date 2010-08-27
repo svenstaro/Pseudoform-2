@@ -20,12 +20,13 @@ class Entity : private boost::noncopyable
         string mEntityName;
         string mEntityMesh;
         bool mDrawable;
+        bool mHasMediaFolder;
 
         // TODO: Move entity object to entity class only
         Ogre::Entity *mEntity;
         Ogre::SceneNode *mNode;
 
-        bool parseArguments(const string &argData, float *outData, vector<string> &storage);
+        bool parseArguments(const string &argName, float *outData, vector<string> &storage);
 
         void _defaultLoader(const string &EntityName); // Predefined loading of common settings
         void _declareEntityResources();				   // Parsing resources of new entity
