@@ -2,7 +2,8 @@
 
 Light::Light(const string entityName)
 {
-	_defaultLoader(entityName);	// Loading from info file
+	mEntityName = entityName;
+	_declareEntityResources();
 
 	Ogre::SceneManager *sceneMgr = GraphicSystem::get_const_instance().getSceneMgr();
 
@@ -10,6 +11,8 @@ Light::Light(const string entityName)
 
 	mNode = sceneMgr->getRootSceneNode()->createChildSceneNode("Node:" + entityName);
 	mNode->attachObject(mLight);
+
+	_defaultLoader(entityName);
 }
 
 void Light::configure(Ogre::Light::LightTypes lt,

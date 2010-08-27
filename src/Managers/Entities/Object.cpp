@@ -5,7 +5,8 @@
 
 Object::Object(const string entityName, const string &entityMesh, const string &res)
 {
-    mEntityName = entityName;
+	mEntityName = entityName;
+	_declareEntityResources();
 
     string entMesh = entityName + ".mesh";
     if (entityMesh != "") entMesh = entityMesh;
@@ -22,8 +23,10 @@ Object::Object(const string entityName, const string &entityMesh, const string &
     }
     else
     {
-        LOG(FORMAT("Mesh with name '%1%' doesn`t exist in resources list!", entMesh));
+        LOG_META(FORMAT("Mesh with name '%1%' doesn`t exist in resources list!", entMesh));
     }
+
+    _defaultLoader(entityName);
 }
 
 void Object::setImage(const string& imgPath)
