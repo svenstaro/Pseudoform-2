@@ -26,7 +26,7 @@ class Entity : private boost::noncopyable
         Ogre::Entity *mEntity;
         Ogre::SceneNode *mNode;
 
-        bool parseArguments(const string &argName, float *outData, vector<string> &storage);
+        bool parseArguments(const string &argName, const string &argData, float *outData, vector<string> &storage);
 
         void _defaultLoader(const string &EntityName); // Predefined loading of common settings
         void _declareEntityResources();				   // Parsing resources of new entity

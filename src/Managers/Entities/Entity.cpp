@@ -73,17 +73,18 @@ void Entity::setScale(const vec3 &scale)
 
 // =============================================================================
 // Settings loader
-bool Entity::parseArguments(const string &argData, float *outData, vector<string> &storage)
+bool Entity::parseArguments(const string &argName, const string &argData, float *outData, vector<string> &storage)
 {
 	memset(outData, 0, sizeof(float)*3);
 	storage.clear();
-	unsigned int counter = 0;
+	unsigned short counter = 0;
+
+	LOG_NOFORMAT(FORMAT("\t\t `%1%` ­— `%2%`\n", argName % argData));
 
 	// The default value should be taken
 	if (argData.find("Default") != string::npos) return false;
 
 	boost::split(storage, argData, boost::is_any_of("\t, "));
-
 	BOOST_FOREACH(string element, storage)
 	{
 		if (element != "")
@@ -98,6 +99,8 @@ bool Entity::parseArguments(const string &argData, float *outData, vector<string
 
 void Entity::_declareEntityResources()
 {
+	LOG(FORMAT("Loading new entity `%1%`", mEntityName));
+
 	string entityData = Utils::get_const_instance().getMediaPath() + "Entities/" + mEntityName;
 
 	if (!boost::filesystem::exists(entityData))
@@ -116,6 +119,8 @@ void Entity::_defaultLoader(const string &entityName)
 {
 	if (!mHasMediaFolder) return;
 
+	LOG_NOFORMAT("\tDumping information, parsed from file:\n");
+
 	ptree tree_handle;
 	read_info(Utils::get_const_instance().getMediaPath() + "Entities/" +  mEntityName + "/init.info", tree_handle);
 
@@ -129,16 +134,16 @@ void Entity::_defaultLoader(const string &entityName)
 
 	// Position
 	argName = tree_handle.get<string>("common_settigns.position", "0, 0, 0");
-	if (parseArguments(argName, storage, parseStorage))
+	if (parseArguments("position", argName, storage, parseStorage))
 		setPosition(vec3(storage[0], storage[1], storage[2]));
 
 	// Orientation
 	argName = tree_handle.get<string>("common_settigns.orientation", "1, 1, 1");
-	if (parseArguments(argName, storage, parseStorage))
+	if (parseArguments("orientation", argName, storage, parseStorage))
 		setRotation(quat(storage[0], storage[1], storage[2]));
 
 	// Scale
 	argName = tree_handle.get<string>("common_settigns.scale", "1, 1, 1");
-	if (parseArguments(argName, storage, parseStorage))
+	if (parseArguments("scale", argName, storage, parseStorage))
 		setScale(vec3(storage[0], storage[1], storage[2]));
 }
