@@ -45,14 +45,14 @@ class EntityManager : public singleton<EntityManager>
         {
             if (mEntityList.count(entityName) != 0)
             {
-                LOG_META(FORMAT("Can`t make entity with name '%1%' because it's already exsists!", entityName));
+                LOG_META(FORMAT("Can`t make entity with name '%1%' because it already exsists!", entityName));
                 return NULL;
             }
 
             mEntityList.insert(entityName, new EntityType(entityName));
             return dynamic_cast<EntityType*>(&mEntityList.at(entityName));
         }
-        
+
         template<typename EntityType>
         EntityType *GetEntity(const string &entityName)
         {
