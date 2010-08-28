@@ -21,6 +21,9 @@ using namespace boost::posix_time;
 #define FORMAT(parentString, params) (boost::format(parentString) % params).str()
 #define NEW_EVENT(Signature, Name) typedef SlotObject< signals2::signal<Signature> > Name;
 
+// Check the location exists
+#define LOCATION(path) Utils::get_mutable_instance().checkLocation(path);
+
 #define utils (Utils::get_mutable_instance())
 #define utilsConst (Utils::get_const_instance())
 
@@ -38,6 +41,7 @@ class Utils : public singleton<Utils>
         Utils() : mDimension("2D") { }
         ~Utils() { }
 
+        string checkLocation(const string &path);
         const string getMediaPath() const;
         const string getDimension() const;
         void setDimension(string &d);

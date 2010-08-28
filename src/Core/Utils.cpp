@@ -40,6 +40,16 @@ void Utils::writeTimestamp()
     mTimeStamp = getCurrentTime();
 }
 
+string Utils::checkLocation(const string &path)
+{
+	if (!boost::filesystem::exists(path))
+	{
+		LOG(FORMAT("The path `%1%` isn't valid!", path));
+	}
+
+	return path;
+}
+
 string Utils::getTimeDifference()
 {
 	// If we don't call writeTimestamp before this function
