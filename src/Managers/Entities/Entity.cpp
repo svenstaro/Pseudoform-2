@@ -101,7 +101,7 @@ void Entity::_declareEntityResources()
 {
 	LOG(FORMAT("Loading new entity `%1%`", mEntityName));
 
-	string entityData = Utils::get_const_instance().getMediaPath() + "Entities/" + mEntityName;
+	string entityData = utilsConst.getMediaPath() + "Entities/" + mEntityName;
 
 	if (!boost::filesystem::exists(entityData))
 	{
@@ -122,7 +122,7 @@ void Entity::_defaultLoader(const string &entityName)
 	LOG_NOFORMAT("\tDumping information, parsed from file:\n");
 
 	ptree tree_handle;
-	read_info(Utils::get_const_instance().getMediaPath() + "Entities/" +  mEntityName + "/init.info", tree_handle);
+	read_info(utilsConst.getMediaPath() + "Entities/" +  mEntityName + "/init.info", tree_handle);
 
 	setDrawable( tree_handle.get<bool>("common_settigns.visible", true) );
 	setName( tree_handle.get<string>("common_settigns.name", mEntityName) );

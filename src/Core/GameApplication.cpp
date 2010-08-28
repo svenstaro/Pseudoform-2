@@ -29,7 +29,7 @@ const float GameApplication::getFPS() const { return floor(mFrameRate+0.5); }
 void GameApplication::_init()
 {
 	LOG_NOFORMAT("Systems initialization:\n=======================\n\n");
-	Utils::get_mutable_instance().writeTimestamp();
+	utils.writeTimestamp();
 
     BOOST_FOREACH(ISystem &curSystem, mSystemsList)
     {
@@ -38,22 +38,22 @@ void GameApplication::_init()
         LOG(FORMAT("--------------- Initialization of `%1%` is finished\n", curSystem.toString()));
     }
 
-    LOG_NOFORMAT("Finished in: [" + Utils::get_mutable_instance().getTimeDifference() + "]\n\n");
+    LOG_NOFORMAT("Finished in: [" + utils.getTimeDifference() + "]\n\n");
 	LOG_NOFORMAT("Game initialization:\n====================\n\n");
-	Utils::get_mutable_instance().writeTimestamp();
+	utils.writeTimestamp();
 }
 
 void GameApplication::Start()
 {
     mRunning = true;
 
-    Utils::get_mutable_instance().setMediaPath(CONFIG("resources.MediaFolder", string, "Media"));
+    utils.setMediaPath(CONFIG("resources.MediaFolder", string, "Media"));
 
     SIGNAL(Engine::Events::GlobalInitEvent, "Inited", );
 
-    LOG_NOFORMAT("\nFinished in: [" + Utils::get_mutable_instance().getTimeDifference() + "]\n");
+    LOG_NOFORMAT("\nFinished in: [" + utils.getTimeDifference() + "]\n");
 	LOG_NOFORMAT("\nGame Loop:\n==========\n\n");
-	Utils::get_mutable_instance().writeTimestamp();
+	utils.writeTimestamp();
 
     this->_loop();
 }
@@ -77,7 +77,7 @@ void GameApplication::_loop()
                 curSystem.update(mElapsed);
             }
             SIGNAL(Engine::Events::GlobalUpdateEvent, "Updated", );
-            StateManager::get_mutable_instance().update();
+            stateManager.update();
 
             mAccumulator -= mDt;
             mDrawn = false;
@@ -89,7 +89,7 @@ void GameApplication::_loop()
         }
         else
         {
-            if (!GraphicSystem::get_const_instance().getRoot()->renderOneFrame())
+            if (!graphicSystem.getRoot()->renderOneFrame())
                 LOG("Something bad happened in the render cycle!");
 
             mDrawn = true;
@@ -101,7 +101,7 @@ void GameApplication::_loop()
 
 void GameApplication::_shutdown()
 {
-    LOG_NOFORMAT("\nFinished in: [" + Utils::get_mutable_instance().getTimeDifference() + "]\n");
+    LOG_NOFORMAT("\nFinished in: [" + utils.getTimeDifference() + "]\n");
     mSystemsList.clear();
 }
 
@@ -119,19 +119,19 @@ void GameApplication::keyPressed(const OIS::KeyEvent &e)
 
 	if (e.key == OIS::KC_I)
 	{
-		if (InputSystem::get_mutable_instance().getKeyboard()->isModifierDown(OIS::Keyboard::Ctrl))
+		if (inputSystem.getKeyboard()->isModifierDown(OIS::Keyboard::Ctrl))
 		{
 			mStatsVisible = !mStatsVisible;
 
 			if (mStatsVisible)
 			{
-				GuiSystem::get_mutable_instance().loadLayout("Statistic.layout");
+				guiSystem.loadLayout("Statistic.layout");
 				mStatsUpdate = CONNECT0(Engine::Events::GlobalUpdateEvent, "Updated", &GameApplication::showStats);
 			}
 			else
 			{
 				if (mStatsUpdate.connected()) mStatsUpdate.disconnect();
-				GuiSystem::get_mutable_instance().unloadLayout("Statistic.layout");
+				guiSystem.unloadLayout("Statistic.layout");
 			}
 		}
 	}
@@ -144,10 +144,10 @@ void GameApplication::showStats()
 		using namespace MyGUI;
 
 		string fps = boost::lexical_cast<string>(getFPS());
-		string batches = boost::lexical_cast<string>(GraphicSystem::get_mutable_instance().getWindow()->getBatchCount());
-		string triangles = boost::lexical_cast<string>(GraphicSystem::get_mutable_instance().getWindow()->getTriangleCount());
+		string batches = boost::lexical_cast<string>(graphicSystem.getWindow()->getBatchCount());
+		string triangles = boost::lexical_cast<string>(graphicSystem.getWindow()->getTriangleCount());
 
-		Gui *handle = GuiSystem::get_mutable_instance().handle();
+		Gui *handle = guiSystem.handle();
 
 		handle->findWidget<Widget>("fps_statistic")->setCaption("#FFFFFF fps: #ffe1bd" + fps);
 		handle->findWidget<Widget>("batches_statistic")->setCaption("#FFFFFF batches: #ffe1bd" + batches);

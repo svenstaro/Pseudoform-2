@@ -19,7 +19,7 @@ void GuiSystem::init()
 {
 	mPlatform = new MyGUI::OgrePlatform();
 	LOG("\t- Platform object is created");
-	mPlatform->initialise(GraphicSystem::get_const_instance().getWindow(), GraphicSystem::get_const_instance().getSceneMgr());
+	mPlatform->initialise(graphicSystemConst.getWindow(), graphicSystemConst.getSceneMgr());
 	LOG("\t- Platform is initialised");
 
 	mGUI = new MyGUI::Gui();

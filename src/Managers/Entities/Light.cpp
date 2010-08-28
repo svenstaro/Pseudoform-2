@@ -5,7 +5,7 @@ Light::Light(const string entityName)
 	mEntityName = entityName;
 	_declareEntityResources();
 
-	Ogre::SceneManager *sceneMgr = GraphicSystem::get_const_instance().getSceneMgr();
+	Ogre::SceneManager *sceneMgr = graphicSystemConst.getSceneMgr();
 
 	mLight = sceneMgr->createLight("Light:" + entityName);
 

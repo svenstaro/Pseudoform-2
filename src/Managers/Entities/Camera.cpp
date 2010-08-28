@@ -2,7 +2,7 @@
 
 Camera::Camera(const string entityName)
 {
-	Ogre::SceneManager *sceneMgr = GraphicSystem::get_const_instance().getSceneMgr();
+	Ogre::SceneManager *sceneMgr = graphicSystemConst.getSceneMgr();
 
     mEntityName = entityName;
 
@@ -26,7 +26,7 @@ void Camera::loadFromFile(const string &filename, const string &res)
         //Ogre::ResourceGroupManager::getSingleton().declareResource(entMesh, "Mesh", res);
 
         ptree tree_handle;
-        read_info(Utils::get_const_instance().getMediaPath() + "Entities/" +  filename + "/init.info", tree_handle);
+        read_info(utilsConst.getMediaPath() + "Entities/" +  filename + "/init.info", tree_handle);
 
         float fov = tree_handle.get<float>("type_settings.fov", 90);
         float nearClip = tree_handle.get<float>("type_settings.nearClip", 1);
@@ -35,7 +35,7 @@ void Camera::loadFromFile(const string &filename, const string &res)
         configure(nearClip, farClip, autoAR, fov);
         bool attachVP = tree_handle.get<bool>("type_settings.attachVP", true);
         if(attachVP)
-            GraphicSystem::get_mutable_instance().getViewport()->setCamera(mCamera);
+            graphicSystem.getViewport()->setCamera(mCamera);
         string type = tree_handle.get<string>("type_settings.cam_type", "DONT_USE");
         if(type == "DONT_USE")
             setCameraType(Camera::DONT_USE);
@@ -74,8 +74,8 @@ string Camera::type() { return "camera"; }
 void Camera::_loadData() { }
 void Camera::update(float elapsed) { }
 
-#define WIDTH GraphicSystem::get_mutable_instance().getWindow()->getWidth()
-#define HEIGHT GraphicSystem::get_mutable_instance().getWindow()->getHeight()
+#define WIDTH  graphicSystem.getWindow()->getWidth()
+#define HEIGHT graphicSystem.getWindow()->getHeight()
 
 void Camera::setCameraType(CameraType type)
 {
@@ -113,7 +113,7 @@ void Camera::onUpdated()
 {
     using namespace sf;
 	vec3 translation = vec3::ZERO;
-    OIS::Keyboard *keyboard = InputSystem::get_mutable_instance().getKeyboard();
+    OIS::Keyboard *keyboard = inputSystem.getKeyboard();
 	switch(mCameraType)
 	{
 		case Camera::FREE:
@@ -130,7 +130,7 @@ void Camera::onUpdated()
 			else if (keyboard->isKeyDown(OIS::KC_E))
 				translation.y -= mMove;
 
-            mNode->translate(mNode->getOrientation() * translation * GameApplication::get_const_instance().getElapsed());
+            mNode->translate(mNode->getOrientation() * translation * gameApplicationConst.getElapsed());
 		break;
 		case Camera::ATTACHED:
 			// ...
@@ -165,7 +165,7 @@ void Camera::onKeyPressed(const OIS::KeyEvent &e)
 			else if (e.key == OIS::KC_E)
 				translation -= mMove;
 
-			mNode->translate(mNode->getOrientation() * translation * GameApplication::get_const_instance().getElapsed());
+			mNode->translate(mNode->getOrientation() * translation * gameApplicationConst.getElapsed());
 
 		break;
 		case Camera::ATTACHED:

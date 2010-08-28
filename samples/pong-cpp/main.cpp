@@ -7,14 +7,14 @@ class MenuState : public State
 {
     public:
         void init() {
-            Systems::GetGui().loadLayout("Pseudoform.layout");
+            guiSystem.loadLayout("Pseudoform.layout");
 
             World::findWidget<MyGUI::StaticImage>("ButtonPlay")->eventMouseButtonClick =
             		MyGUI::newDelegate(this, &MenuState::ButtoPlayClicked);
         }
 
         void shutdown() {
-            Systems::GetGui().unloadLayout("Pseudoform.layout");
+            guiSystem.unloadLayout("Pseudoform.layout");
         }
 
         // MyGUI Handlers
@@ -59,10 +59,10 @@ class GameState : public State
 
 int main()
 {
-    Managers::GetState().push(new(MenuState));
-    Managers::GetState().push(new(GameState));
+    stateManager.push(new(MenuState));
+    stateManager.push(new(GameState));
 
-    World::Application().Start();
+    gameApplication.Start();
 
     return 0;
 }

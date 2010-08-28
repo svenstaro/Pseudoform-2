@@ -52,6 +52,6 @@ State *StateManager::pop()
 
 State *StateManager::getActiveState()
 {
-    if (mActiveState.get() == NULL) LOG_META("There aren't any active state. Maybe, you didn't push one.");
+    if (mActiveState.get() == NULL) LOG_META("There is no active state. Maybe, you didn't push one.");
     return mActiveState.get();
 }

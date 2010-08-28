@@ -33,7 +33,7 @@ namespace Engine
     {
         GameApplication &Application() { return GameApplication::get_mutable_instance(); }
         void setDimension(string &dimension) { Utils::get_mutable_instance().setDimension(dimension); }
-        const float GetElapsed() { return GameApplication::get_const_instance().getElapsed(); }
+        const float GetElapsed() { return gameApplicationConst.getElapsed(); }
 /*
         Object *MakeObject(const string& entityName)
         {
@@ -87,8 +87,8 @@ namespace Engine
             return EntityManager::get_mutable_instance().GetCamera(cameraName);
         }
 */
-        unsigned int GetWidth() { return Systems::GetGraphic().getWindow()->getWidth(); }
-        unsigned int GetHeight() { return Systems::GetGraphic().getWindow()->getHeight(); }
+        unsigned int GetWidth() { return graphicSystem.getWindow()->getWidth(); }
+        unsigned int GetHeight() { return graphicSystem.getWindow()->getHeight(); }
 
         template<typename WidgetType>
         WidgetType *findWidget(const string &name)

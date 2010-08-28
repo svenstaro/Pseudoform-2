@@ -39,7 +39,7 @@ void GraphicSystem::init()
 
     LOG("\t- All plugins are loaded");
 
-    std::vector<std::string> pluginsList = ConfigManager::get_mutable_instance().getListValue("ogre.plugins");
+    std::vector<std::string> pluginsList = configManager.getListValue("ogre.plugins");
     BOOST_FOREACH(std::string &plugin, pluginsList)
     {
         mRoot->loadPlugin(pluginsDir + plugin);
@@ -86,7 +86,7 @@ void GraphicSystem::init()
 
     try
     {
-        std::vector<std::string> resourcesList = ConfigManager::get_mutable_instance().getListValue("resources");
+        std::vector<std::string> resourcesList = configManager.getListValue("resources");
         BOOST_FOREACH(std::string &location, resourcesList)
         {
             Ogre::ResourceGroupManager::getSingleton().addResourceLocation(location, "FileSystem", "General", true);
@@ -100,7 +100,7 @@ void GraphicSystem::init()
         std::cerr << msg << std::endl;
         exit (-1);
     }
-    
+
     LOG("\t- All resources are loaded");
 }
 

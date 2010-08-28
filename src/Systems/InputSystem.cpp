@@ -7,35 +7,35 @@ template<> InputSystem* ISingleton<InputSystem>::mInstance = 0;
 bool InputSystem::keyPressed(const OIS::KeyEvent &e)
 {
 	SIGNAL(Events::KeyEvent, "KeyPressed", e);
-	GuiSystem::get_mutable_instance().handle()->injectKeyPress(MyGUI::KeyCode::Enum(e.key), e.text);
+	guiSystem.handle()->injectKeyPress(MyGUI::KeyCode::Enum(e.key), e.text);
     return true;
 }
 
 bool InputSystem::keyReleased(const OIS::KeyEvent &e)
 {
 	SIGNAL(Events::KeyEvent, "KeyReleased", e);
-	GuiSystem::get_mutable_instance().handle()->injectKeyRelease(MyGUI::KeyCode::Enum(e.key));
+	guiSystem.handle()->injectKeyRelease(MyGUI::KeyCode::Enum(e.key));
     return true;
 }
 
 bool InputSystem::mouseMoved(const OIS::MouseEvent &e)
 {
 	SIGNAL(Events::MouseMoveEvent, "MouseMoved", e);
-	GuiSystem::get_mutable_instance().handle()->injectMouseMove(e.state.X.abs, e.state.Y.abs, e.state.Z.abs);
+	guiSystem.handle()->injectMouseMove(e.state.X.abs, e.state.Y.abs, e.state.Z.abs);
     return true;
 }
 
 bool InputSystem::mousePressed(const OIS::MouseEvent &e, OIS::MouseButtonID id)
 {
 	SIGNAL(Events::MouseButtonEvent, "MouseButtonPressed", e, id);
-	GuiSystem::get_mutable_instance().handle()->injectMousePress(e.state.X.abs, e.state.Y.abs, MyGUI::MouseButton::Enum(id));
+	guiSystem.handle()->injectMousePress(e.state.X.abs, e.state.Y.abs, MyGUI::MouseButton::Enum(id));
     return true;
 }
 
 bool InputSystem::mouseReleased(const OIS::MouseEvent &e, OIS::MouseButtonID id)
 {
 	SIGNAL(Events::MouseButtonEvent, "MouseButtonReleased", e, id);
-	GuiSystem::get_mutable_instance().handle()->injectMouseRelease(e.state.X.abs, e.state.Y.abs, MyGUI::MouseButton::Enum(id));
+	guiSystem.handle()->injectMouseRelease(e.state.X.abs, e.state.Y.abs, MyGUI::MouseButton::Enum(id));
     return true;
 }
 
@@ -91,10 +91,10 @@ InputSystem::~InputSystem()
 
 void InputSystem::init()
 {
-    GraphicSystem::get_const_instance().getWindow()->getCustomAttribute("WINDOW", &mWindowHandle);
+    graphicSystemConst.getWindow()->getCustomAttribute("WINDOW", &mWindowHandle);
     LOG("\t- Got window handle from Ogre");
 
-    Ogre::WindowEventUtilities::addWindowEventListener(GraphicSystem::get_const_instance().getWindow(),this);
+    Ogre::WindowEventUtilities::addWindowEventListener(graphicSystemConst.getWindow(),this);
 
     if( !mInputSystem )
     {
@@ -138,7 +138,7 @@ void InputSystem::init()
         // Get window size
         unsigned int width, height, depth;
         int left, top;
-        GraphicSystem::get_const_instance().getWindow()->getMetrics(width, height, depth, left, top);
+        graphicSystemConst.getWindow()->getMetrics(width, height, depth, left, top);
 
         this->setWindowExtents(width, height);
         LOG("\t- Window size have been appeared for input region");

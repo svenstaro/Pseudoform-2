@@ -47,7 +47,7 @@ void LogManager::write(const string& message, const string logFile, const string
     this->_forceLog(workPath);
 
     string comand = "";
-    string time = boost::posix_time::to_simple_string(Utils::get_const_instance().getCurrentTime());
+    string time = boost::posix_time::to_simple_string(utilsConst.getCurrentTime());
 
     if (formatString)
     {
