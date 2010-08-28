@@ -33,7 +33,10 @@ class GameState : public State
 {
     public:
         void init() {
-            World::MakeCamera("MenuCamera", true, Camera::FREE);
+            //World::MakeCamera("MenuCamera", true, Camera::FREE);
+            Camera *cam = World::MakeCamera("MainCamera", "MainCamera");
+            //GraphicSystem::get_mutable_instance().getViewport()->setCamera(cam->cameraHandle());
+            //cam->setCameraType(Camera::FREE);
             //World::MakeLight("MainLight", Ogre::Light::LT_DIRECTIONAL)->lightHandle()->setDirection(vec3(0, 100, 0));
 
             World::MakeLight("PointLight", Ogre::Light::LT_POINT,
