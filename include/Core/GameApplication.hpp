@@ -16,6 +16,9 @@
 
 #include <SFML/Window.hpp>
 
+#define gameApplication (GameApplication::get_mutable_instance())
+#define gameApplicationConst (GameApplication::get_const_instance())
+
 class GameApplication : public singleton<GameApplication>
 {
     protected:

@@ -17,8 +17,12 @@ using namespace boost;
 using namespace boost::serialization;
 using namespace boost::posix_time;
 
+// Make formatted string. Usage: FORMAT("some %1% string %2%", firstArg % secondArg);
 #define FORMAT(parentString, params) (boost::format(parentString) % params).str()
 #define NEW_EVENT(Signature, Name) typedef SlotObject< signals2::signal<Signature> > Name;
+
+#define utils (Utils::get_mutable_instance())
+#define utilsConst (Utils::get_const_instance())
 
 class Utils : public singleton<Utils>
 {
