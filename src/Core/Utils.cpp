@@ -50,6 +50,13 @@ string Utils::checkLocation(const string &path)
 	return path;
 }
 
+void Utils::configureEntities()
+{
+	// Error mesh
+	string entMesh = LOCATION(utils.getMediaPath() + "/Engine/" + "Error.mesh");
+	mError = graphicSystem.getSceneMgr()->createEntity("Engine:Error", entMesh);
+}
+
 string Utils::getTimeDifference()
 {
 	// If we don't call writeTimestamp before this function

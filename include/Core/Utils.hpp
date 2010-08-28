@@ -34,6 +34,9 @@ class Utils : public singleton<Utils>
         string mDimension;
         ptime mTimeStamp;
 
+        // Default entities
+        Ogre::Entity mError;
+
         void createPlane(Ogre::Mesh *newMesh);
         void createSphere(Ogre::Mesh *newMesh);
         void createCube(Ogre::Mesh *newMesh);
@@ -43,15 +46,18 @@ class Utils : public singleton<Utils>
 
         string checkLocation(const string &path);
         const string getMediaPath() const;
-        const string getDimension() const;
-        void setDimension(string &d);
-        ptime getCurrentTime() const;
-
         void setMediaPath(const string &path);
 
+        const string getDimension() const;
+        void setDimension(string &d);
+
         // For time measuring
+        ptime getCurrentTime() const;
         void writeTimestamp();
         string getTimeDifference();
+
+        // For default entities
+        void configureEntities();
 };
 
 #endif
