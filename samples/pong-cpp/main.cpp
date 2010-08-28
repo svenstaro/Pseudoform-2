@@ -33,6 +33,7 @@ class GameState : public State
 {
     public:
         void init() {
+        	/*
             //World::MakeCamera("MenuCamera", true, Camera::FREE);
             Camera *cam = World::MakeCamera("MainCamera", "MainCamera");
             //GraphicSystem::get_mutable_instance().getViewport()->setCamera(cam->cameraHandle());
@@ -48,6 +49,7 @@ class GameState : public State
             World::GetLight("SpotLight")->lightHandle()->setPosition(vec3(300, 300, 0));
 
             World::MakeObject("ErrorObject");
+            */
         }
 
         string type() { return "GameState"; }

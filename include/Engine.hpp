@@ -34,7 +34,7 @@ namespace Engine
         GameApplication &Application() { return GameApplication::get_mutable_instance(); }
         void setDimension(string &dimension) { Utils::get_mutable_instance().setDimension(dimension); }
         const float GetElapsed() { return GameApplication::get_const_instance().getElapsed(); }
-
+/*
         Object *MakeObject(const string& entityName)
         {
             return EntityManager::get_mutable_instance().MakeObject(entityName);
@@ -59,7 +59,7 @@ namespace Engine
             return EntityManager::get_mutable_instance().GetLight(entityName);
         }
 
-        /*Camera *MakeCamera(const string &cameraName, bool attachViewport = false, Camera::CameraType camType = Camera::DONT_USE,
+        Camera *MakeCamera(const string &cameraName, bool attachViewport = false, Camera::CameraType camType = Camera::DONT_USE,
                 const float nearClip = 1, const float farClip = 1000,
                 bool autoAR = true, const float FOV = 90, vec3 pos = vec3(0, 1000, 1000), vec3 lookAt = vec3(0, 0, 0))
         {
@@ -73,7 +73,7 @@ namespace Engine
             localTemp->setCameraType(camType);
 
             return localTemp;
-        }*/
+        }
 
         Camera *MakeCamera(const string &name, const string filename)
         {
@@ -86,7 +86,7 @@ namespace Engine
         {
             return EntityManager::get_mutable_instance().GetCamera(cameraName);
         }
-
+*/
         unsigned int GetWidth() { return Systems::GetGraphic().getWindow()->getWidth(); }
         unsigned int GetHeight() { return Systems::GetGraphic().getWindow()->getHeight(); }
 
