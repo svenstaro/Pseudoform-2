@@ -12,13 +12,12 @@
 #include <boost/foreach.hpp>
 #include <boost/serialization/singleton.hpp>
 
-#include <Ogre.h>
-
 using namespace boost::serialization;
 using namespace std;
 
-//class GraphicSystem : public ISystem,  public Ogre::Singleton<GraphicSystem>
-//class GraphicSystem : public ISystem, public singleton<GraphicSystem>
+#define graphicSystem (GraphicSystem::get_mutable_instance())
+#define graphicSystemConst (GraphicSystem::get_const_instance())
+
 class GraphicSystem : public ISystem, public ISingleton<GraphicSystem>
 {
     protected:

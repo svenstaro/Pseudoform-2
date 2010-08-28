@@ -21,6 +21,9 @@
 using namespace boost::serialization;
 using namespace Engine;
 
+#define inputSystem (InputSystem::get_mutable_instance())
+#define inputSystemConst (InputSystem::get_const_instance())
+
 class InputSystem : public ISystem, public ISingleton<InputSystem>, public OIS::KeyListener, public OIS::MouseListener,
                     public Ogre::WindowEventListener
 {

@@ -17,6 +17,9 @@
 using namespace boost::serialization;
 using namespace std;
 
+#define guiSystem (GuiSystem::get_mutable_instance())
+#define guiSystemConst (GuiSystem::get_const_instance())
+
 class GuiSystem : public ISystem, public ISingleton<GuiSystem>
 {
     private:
