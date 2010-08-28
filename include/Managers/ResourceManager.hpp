@@ -11,6 +11,9 @@ using namespace boost::serialization;
 
 #define DEF_RESGROUP Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME
 
+#define resourceManager (ResourceManager::get_mutable_instance())
+#define resourceManagerConst (ResourceManager::get_const_instance())
+
 class ResourceManager : public singleton<ResourceManager>
 {
     public:

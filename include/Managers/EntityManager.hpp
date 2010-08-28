@@ -18,24 +18,15 @@
 using namespace boost::serialization;
 using namespace std;
 
+#define entityManager (EntityManager::get_mutable_instance())
+#define entityManagerConst (EntityManager::get_const_instance())
+
 class EntityManager : public singleton<EntityManager>
 {
     protected:
         boost::ptr_map<const string, Entity> mEntityList;
 
     public:
-        // Object entity
-        Object *MakeObject(const string &entityName);
-        Object *GetObject(const string &entityName);
-
-        // Light entity
-        Light *MakeLight(const string &entityName);
-        Light *GetLight(const string &entityName);
-
-        // Camera entity
-        Camera *MakeCamera(const string &cameraName);
-        Camera *GetCamera(const string &cameraName);
-
         // Templated interface
         bool DeleteEntity(const string &entityName);
 

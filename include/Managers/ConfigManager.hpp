@@ -16,6 +16,10 @@ using boost::property_tree::ptree;
 using namespace std;
 
 #define CONFIG(key, type, def) ConfigManager::get_mutable_instance().getValue<type>(key, def)
+
+#define configManager (ConfigManager::get_mutable_instance())
+#define configManagerConst (ConfigManager::get_const_instance())
+
 class ConfigManager : public singleton<ConfigManager>
 {
     protected:

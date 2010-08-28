@@ -21,10 +21,15 @@ using namespace boost::serialization;
 #define CONNECT0(EventType, EventName, FunctionPointer) EventManager::get_mutable_instance().connect<EventType>(EventName, bind(FunctionPointer, this));
 #define CONNECT(EventType, EventName, FunctionPointer) EventManager::get_mutable_instance().connect<EventType>(EventName, bind(FunctionPointer, this, _1));
 #define CONNECT2(EventType, EventName, FunctionPointer) EventManager::get_mutable_instance().connect<EventType>(EventName, bind(FunctionPointer, this, _1, _2));
+
+// Connect non-class method (simple function)
 #define CONNECT_SINGLE(EventType, EventName, FunctionPointer) EventManager::get_mutable_instance().connect<EventType>(EventName, FunctionPointer);
+
+// Call signal
 #define SIGNAL(EventType, EventName, ...) EventManager::get_mutable_instance().get<EventType>(EventName)->Call(EventType::ArgsType(__VA_ARGS__));
 
-// TODO: Add function for removing listener from signal
+#define eventManager (EventManager::get_mutable_instance())
+#define eventManagerConst (EventManager::get_const_instance())
 
 class EventManager : public singleton<EventManager>
 {
