@@ -4,6 +4,7 @@
 #include "System.hpp"
 #include "Core/Types.hpp"
 #include "Core/Singleton.hpp"
+#include "Core/Utils.hpp"
 
 #include "Managers/LogManager.hpp"
 #include "Managers/ConfigManager.hpp"
@@ -28,6 +29,9 @@ class GraphicSystem : public ISystem, public ISingleton<GraphicSystem>
         Ogre::Viewport *mViewport;
         Ogre::Camera *mCamera;
 
+        // For default entities
+        Ogre::Entity *mError;
+
     public:
         Ogre::Root *getRoot() const { return mRoot; }
         Ogre::RenderWindow *getWindow() const { return mWindow; }
@@ -35,6 +39,9 @@ class GraphicSystem : public ISystem, public ISingleton<GraphicSystem>
         Ogre::SceneManager *getSceneMgr() const { return mSceneMgr; }
         Ogre:: Viewport *getViewport() const { return mViewport; }
         Ogre::Camera *getCamera() const { return mCamera; }
+
+        // For default entities
+        void configureEntities();
 
         GraphicSystem();
         ~GraphicSystem();

@@ -48,7 +48,7 @@ void GameApplication::Start()
     mRunning = true;
 
     utils.setMediaPath(CONFIG("resources.MediaFolder", string, "Media"));
-    utils.configureEntities();
+    graphicSystem.configureEntities();
 
     SIGNAL(Engine::Events::GlobalInitEvent, "Inited", );
 

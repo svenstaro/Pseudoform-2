@@ -22,7 +22,7 @@ using namespace boost::posix_time;
 #define NEW_EVENT(Signature, Name) typedef SlotObject< signals2::signal<Signature> > Name;
 
 // Check the location exists
-#define LOCATION(path) Utils::get_mutable_instance().checkLocation(path);
+#define LOCATION(path) Utils::get_mutable_instance().checkLocation(path)
 
 #define utils (Utils::get_mutable_instance())
 #define utilsConst (Utils::get_const_instance())
@@ -33,9 +33,6 @@ class Utils : public singleton<Utils>
 		string mMediaPath;
         string mDimension;
         ptime mTimeStamp;
-
-        // Default entities
-        Ogre::Entity mError;
 
         void createPlane(Ogre::Mesh *newMesh);
         void createSphere(Ogre::Mesh *newMesh);
@@ -55,9 +52,6 @@ class Utils : public singleton<Utils>
         ptime getCurrentTime() const;
         void writeTimestamp();
         string getTimeDifference();
-
-        // For default entities
-        void configureEntities();
 };
 
 #endif

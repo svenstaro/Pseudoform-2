@@ -109,6 +109,13 @@ void GraphicSystem::update(float elapsed)
     // ...
 }
 
+void GraphicSystem::configureEntities()
+{
+	// Error mesh
+	string entMesh = LOCATION(utils.getMediaPath() + "/Engine/" + "Error.mesh");
+	mError = getSceneMgr()->createEntity("Engine:Error", entMesh);
+}
+
 std::string GraphicSystem::toString()
 {
     return "GraphicSystem";
