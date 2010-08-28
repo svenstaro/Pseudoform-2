@@ -59,7 +59,7 @@ namespace Engine
             return EntityManager::get_mutable_instance().GetLight(entityName);
         }
 
-        Camera *MakeCamera(const string &cameraName, bool attachViewport = false, Camera::CameraType camType = Camera::DONT_USE,
+        /*Camera *MakeCamera(const string &cameraName, bool attachViewport = false, Camera::CameraType camType = Camera::DONT_USE,
                 const float nearClip = 1, const float farClip = 1000,
                 bool autoAR = true, const float FOV = 90, vec3 pos = vec3(0, 1000, 1000), vec3 lookAt = vec3(0, 0, 0))
         {
@@ -72,6 +72,13 @@ namespace Engine
 
             localTemp->setCameraType(camType);
 
+            return localTemp;
+        }*/
+
+        Camera *MakeCamera(const string &name, const string filename)
+        {
+            Camera *localTemp = EntityManager::get_mutable_instance().MakeCamera(name);
+            localTemp->loadFromFile(filename);
             return localTemp;
         }
 

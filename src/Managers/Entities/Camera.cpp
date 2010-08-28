@@ -1,18 +1,56 @@
 #include "Managers/Entities/Camera.hpp"
 
-Camera::Camera(const string cameraName)
+Camera::Camera(const string entityName)
 {
 	Ogre::SceneManager *sceneMgr = GraphicSystem::get_const_instance().getSceneMgr();
 
-    mEntityName = cameraName;
-    mCamera = sceneMgr->createCamera(cameraName);
+    mEntityName = entityName;
+
+    mCamera = sceneMgr->createCamera(entityName);
 
     mMove = 250;
     mRotate = 0.13;
 
-    mNode = sceneMgr->getRootSceneNode()->createChildSceneNode("Node:Camera_" + cameraName);
-    mPitchNode = mNode->createChildSceneNode("Node:CameraPitch_" + cameraName);
+    mNode = sceneMgr->getRootSceneNode()->createChildSceneNode("Node:Camera_" + entityName);
+    mPitchNode = mNode->createChildSceneNode("Node:CameraPitch_" + entityName);
     mPitchNode->attachObject(mCamera);
+
+}
+
+void Camera::loadFromFile(const string &filename, const string &res)
+{
+    _declareEntityResources();
+
+    if (Ogre::ResourceGroupManager::getSingletonPtr()->resourceExists(res, filename))
+    {
+        //Ogre::ResourceGroupManager::getSingleton().declareResource(entMesh, "Mesh", res);
+
+        ptree tree_handle;
+        read_info(Utils::get_const_instance().getMediaPath() + "Entities/" +  filename + "/init.info", tree_handle);
+
+        float fov = tree_handle.get<float>("type_settings.fov", 90);
+        float nearClip = tree_handle.get<float>("type_settings.nearClip", 1);
+        float farClip = tree_handle.get<float>("type_settings.farClip", 1000);
+        bool autoAR = tree_handle.get<bool>("type_settings.autoAR", true);
+        configure(nearClip, farClip, autoAR, fov);
+        bool attachVP = tree_handle.get<bool>("type_settings.attachVP", true);
+        if(attachVP)
+            GraphicSystem::get_mutable_instance().getViewport()->setCamera(mCamera);
+        string type = tree_handle.get<string>("type_settings.cam_type", "DONT_USE");
+        if(type == "DONT_USE")
+            setCameraType(Camera::DONT_USE);
+        else if(type == "FREE")
+            setCameraType(Camera::FREE);
+        else if(type == "FIRST_PERSON")
+            setCameraType(Camera::FIRST_PERSON);
+        else if(type == "ATTACHED")
+            setCameraType(Camera::ATTACHED);
+        LOG("Loaded Camera from " + filename);
+    }
+
+
+    _defaultLoader(filename);
+
 }
 
 void Camera::configure(const float nearClip, const float farClip, bool autoAR, const float FOV,
