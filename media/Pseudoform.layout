@@ -1,0 +1,75 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<MyGUI type="Layout">
+    <Widget type="StaticImage" skin="StaticImage" position="0 0 1152 864" align="Center" layer="Back">
+        <Property key="Image_Texture" value="body_bg.png"/>
+        <Widget type="StaticImage" skin="StaticImage" position="129 0 894 137" align="Center">
+            <Property key="Image_Texture" value="body_logo.png"/>
+        </Widget>
+        <Widget type="StaticImage" skin="StaticImage" position="129 132 894 50" align="Center">
+            <Property key="Image_Texture" value="body_nav_bg.png"/>
+        </Widget>
+        <Widget type="StaticImage" skin="StaticImage" position="129 182 894 634" align="Center">
+            <Property key="Image_Texture" value="body_content_bg.png"/>
+            <Widget type="StaticText" skin="StaticText" position="64 24 224 32">
+                <Property key="Widget_Caption" value="About Pseudoform:"/>
+                <Property key="Text_FontHeight" value="30"/>
+            </Widget>
+            <Widget type="Edit" skin="WordWrap" position="80 66 744 238">
+                <Property key="Edit_ReadOnly" value="true"/>
+                <Property key="Edit_MultiLine" value="true"/>
+                <Property key="Edit_WordWrap" value="true"/>
+                <Property key="Edit_VisibleVScroll" value="false"/>
+                <Property key="Edit_VisibleHScroll" value="false"/>
+                <Property key="Edit_Static" value="true"/>
+                <Property key="Widget_Caption" value="Formerly known as the Portalized project, Pseudoform is a community-driven collaboration project that aims to create an involving and brain-melting first-person puzzle-solving game. It doesn&apos;t have a finite goal nor a cleary defined target audience. While some players might enjoy puzzles, other might prefer creating these puzzles or other game assets. Of course, the puzzle aspect could be ignored altogether by simply enjoy toying with physics. The fun possibilities are certainly endless."/>
+                <Property key="Text_FontHeight" value="23"/>
+            </Widget>
+            <Widget type="StaticImage" skin="StaticImage" position="63 208 240 280" name="ButtonPlay">
+                <Property key="Image_Texture" value="button_play.png"/>
+                <Property key="Widget_Alpha" value="0"/>
+                <Controller type="ControllerPosition">
+                    <Property key="Coord" value=""/>
+                    <Property key="Function" value="Accelerated"/>
+                    <Property key="Position" value="63 280"/>
+                    <Property key="Time" value="0.2"/>
+                </Controller>
+                <Controller type="ControllerFadeAlpha">
+                    <Property key="Alpha" value="1"/>
+                    <Property key="Coef" value="0.4"/>
+                    <Property key="Enabled" value="true"/>
+                </Controller>
+            </Widget>
+            <Widget type="StaticImage" skin="StaticImage" position="591 208 240 280" name="ButtonCommunity">
+                <Property key="Image_Texture" value="button_community.png"/>
+                <Property key="Widget_Alpha" value="0"/>
+                <Controller type="ControllerPosition">
+                    <Property key="Function" value="Accelerated"/>
+                    <Property key="Position" value="591 280"/>
+                    <Property key="Time" value="0.6"/>
+                </Controller>
+                <Controller type="ControllerFadeAlpha">
+                    <Property key="Alpha" value="1"/>
+                    <Property key="Coef" value="0.4"/>
+                    <Property key="Enabled" value="true"/>
+                </Controller>
+            </Widget>
+            <Widget type="StaticImage" skin="StaticImage" position="327 208 240 280" name="ButtonCustomize">
+                <Property key="Image_Texture" value="button_customize.png"/>
+                <Property key="Widget_Alpha" value="0"/>
+                <Controller type="ControllerPosition">
+                    <Property key="Function" value="Accelerated"/>
+                    <Property key="Position" value="327 280"/>
+                    <Property key="Time" value="0.4"/>
+                </Controller>
+                <Controller type="ControllerFadeAlpha">
+                    <Property key="Alpha" value="1"/>
+                    <Property key="Coef" value="0.4"/>
+                    <Property key="Enabled" value="true"/>
+                </Controller>
+            </Widget>
+        </Widget>
+        <Widget type="StaticImage" skin="StaticImage" position="129 816 894 56">
+            <Property key="Image_Texture" value="body_footer.png"/>
+        </Widget>
+    </Widget>
+</MyGUI>

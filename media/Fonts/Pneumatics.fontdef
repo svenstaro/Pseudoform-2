@@ -1,0 +1,7 @@
+Pneumatics
+{
+    type truetype
+    source pneumati.ttf
+    size 16
+    resolution 96
+}

@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<MyGUI type="Layout">
+    <Widget type="Widget" skin="PanelEmpty" position="5 5 200 80" layer="Info">
+        <Widget type="StaticText" skin="StaticText" position="0 0 200 25" align="Left VCenter" layer="Info" name="fps_statistic">
+            <Property key="Text_TextAlign" value="Left"/>
+            <Property key="Text_FontName" value="font_Pneumatic.26"/>
+            <Property key="Widget_Caption" value="fps: "/>
+            <Property key="Text_TextColour" value="#FFFFFF"/>
+        </Widget>
+        <Widget type="StaticText" skin="StaticText" position="0 25 200 25" align="Left VCenter" layer="Info" name="triangles_statistic">
+            <Property key="Text_TextAlign" value="Left"/>
+            <Property key="Text_FontName" value="font_Pneumatic.26"/>
+            <Property key="Widget_Caption" value="triangles: "/>
+            <Property key="Text_TextColour" value="#FFFFFF"/>
+        </Widget>
+        <Widget type="StaticText" skin="StaticText" position="0 50 200 25" align="Left VCenter" layer="Info" name="batches_statistic">
+            <Property key="Text_TextAlign" value="Left"/>
+            <Property key="Text_FontName" value="font_Pneumatic.26"/>
+            <Property key="Widget_Caption" value="batches: "/>
+            <Property key="Text_TextColour" value="#FFFFFF"/>
+        </Widget>
+    </Widget>
+</MyGUI>

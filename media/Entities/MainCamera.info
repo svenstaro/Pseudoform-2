@@ -1,0 +1,18 @@
+common_settigns
+{
+    name MainCamera 
+    type camera 
+
+    position "20, 50, 99"
+    orientation "0, 0, 0"
+    scale "1, 1, 1"
+
+    visible true
+}
+
+type_settings
+{
+    lookAt "0, 0, 0"
+    camType "FREE"
+    attachVP "true"
+}

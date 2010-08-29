@@ -1,0 +1,16 @@
+common_settigns
+{
+    name ErrorObject
+    type object
+
+    position "0, 0, 0"
+    orientation "Default"
+    scale "100, 100, 100"
+
+    visible true
+}
+
+type_settings
+{
+    mesh "ErrorObject/ErrorObject.mesh"
+}
