@@ -17,7 +17,7 @@ Camera::Camera(const string &entityName)
     mPitchNode->attachObject(mCamera);
 }
 
-void Camera::loadFromFile(const string &filePath)
+Camera *Camera::loadFromFile(const string &filePath)
 {
     ptree tree_handle = defaultLoader(filePath);
 
@@ -49,6 +49,8 @@ void Camera::loadFromFile(const string &filePath)
         setCameraType(Camera::ATTACHED);
     else
     	setCameraType(Camera::DONT_USE);
+
+    return this;
 }
 
 Ogre::Camera *Camera::handle() { return mCamera; }

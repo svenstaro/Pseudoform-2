@@ -14,7 +14,7 @@ Light::Light(const string &entityName)
 	mNode->attachObject(mEntity);
 }
 
-void Light::loadFromFile(const string &filePath)
+Light *Light::loadFromFile(const string &filePath)
 {
 	ptree tree_handle = defaultLoader(filePath);
 
@@ -36,6 +36,8 @@ void Light::loadFromFile(const string &filePath)
 
 	mNode->detachObject(mEntity);
 	mNode->attachObject(mLight);
+
+	return this;
 }
 
 void Light::dump()

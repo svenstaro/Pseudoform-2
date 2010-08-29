@@ -1,0 +1,16 @@
+common_settigns
+{
+    name Light
+    type object
+
+    position "0, 0, 0"
+    orientation "Default"
+    scale "1, 1, 1"
+
+    visible true
+}
+
+type_settings
+{
+    mesh "Light/Light.mesh"
+}

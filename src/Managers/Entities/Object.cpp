@@ -15,7 +15,7 @@ Object::Object(const string &entityName, const string &resGroup)
     mNode->attachObject(mEntity);
 }
 
-void Object::loadFromFile(const string &filePath)
+Object *Object::loadFromFile(const string &filePath)
 {
 	ptree tree_handle = defaultLoader(filePath);
 
@@ -31,6 +31,8 @@ void Object::loadFromFile(const string &filePath)
 	mEntity = graphicSystem.getSceneMgr()->createEntity(mEntityName, mEntityMesh);
 
 	mNode->attachObject(mEntity);
+
+	return this;
 }
 
 void Object::dump()

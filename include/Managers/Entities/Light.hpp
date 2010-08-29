@@ -19,7 +19,7 @@ class Light : public Entity
         Light(const string &entityName);
 
         Ogre::Light *handle();
-        void loadFromFile(const string &filePath);
+        Light *loadFromFile(const string &filePath);
 
         void setDiffuse(const colour &diffuse);
         void setSpecular(const colour &specular);

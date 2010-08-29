@@ -33,7 +33,7 @@ class Camera : public Entity
         Ogre::Camera *handle();
         Ogre::SceneNode *getPitchNode();
 
-        void loadFromFile(const string &filePath);
+        Camera *loadFromFile(const string &filePath);
 
         void setCameraType(CameraType type);
         void setActive(bool state);
