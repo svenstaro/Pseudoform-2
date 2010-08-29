@@ -10,7 +10,7 @@ class MenuState : public State
             guiSystem.loadLayout("Pseudoform.layout");
 
             World::findWidget<MyGUI::StaticImage>("ButtonPlay")->eventMouseButtonClick =
-            		MyGUI::newDelegate(this, &MenuState::ButtoPlayClicked);
+                    MyGUI::newDelegate(this, &MenuState::ButtoPlayClicked);
         }
 
         void shutdown() {
