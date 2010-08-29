@@ -38,6 +38,12 @@ void Light::loadFromFile(const string &filePath)
 	mNode->attachObject(mLight);
 }
 
+void Light::dump()
+{
+	defaultDump();
+	// TODO: typeDump light
+}
+
 Ogre::Light *Light::handle() { return mLight; }
 
 // Setters

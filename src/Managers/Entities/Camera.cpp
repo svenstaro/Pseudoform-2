@@ -38,6 +38,7 @@ void Camera::loadFromFile(const string &filePath)
         graphicSystem.getViewport()->setCamera(mCamera);
 
     string type = tree_handle.get<string>("type_settings.camType", "DONT_USE");
+    mCamTypeStr = type;
     if(type == "DONT_USE")
         setCameraType(Camera::DONT_USE);
     else if(type == "FREE")
@@ -61,6 +62,19 @@ void Camera::setActive(bool state)
 	else
 		graphicSystem.getViewport()->setCamera(graphicSystem.getBaseCamera());
 }
+
+void Camera::dump()
+{
+	defaultDump();
+	LOG_NOFORMAT("\t ---Type settings---\n");
+	LOG_NOFORMAT(FORMAT("\t%1%: %2%\n", "FOV" % mCamera->getFOVy()));
+	LOG_NOFORMAT(FORMAT("\t%1%: %2%\n", "Near clip distance" % mCamera->getNearClipDistance()));
+	LOG_NOFORMAT(FORMAT("\t%1%: %2%\n", "Far clip distance" % mCamera->getFarClipDistance()));
+	LOG_NOFORMAT(FORMAT("\t%1%: %2%\n", "Auto aspect ratio" % utils.bool2string(mCamera->getAutoAspectRatio())));
+	LOG_NOFORMAT(FORMAT("\t%1%: %2%\n", "Active camera" % utils.bool2string(graphicSystem.getViewport()->getCamera() == mCamera)));
+	LOG_NOFORMAT(FORMAT("\t%1%: %2%\n", "Camera type" % mCamTypeStr));
+}
+
 float Camera::getMoveStep() { return mMove; }
 float Camera::getRotateStep() { return mRotate; }
 void Camera::setMoveStep(float step) { mMove = step; }

@@ -31,11 +31,15 @@ class Entity : private boost::noncopyable
         ptree defaultLoader(const string &infoPath); 			 // Predefined loading of common settings
         virtual void loadFromFile(const string &filePath) = 0;   // Loading entity type-derived settings
 
+        void defaultDump(); 			// Dumping default entity settings
+        virtual void dump() = 0;	    // Dumping type-related entity settings
+
     public:
         virtual ~Entity();
         virtual void update(float elapsed) = 0;
         virtual string type() = 0;
 
+        const string getResGroup() const;
         const string getName() const;
         const string getMeshName() const;
         bool isDrawable() const;

@@ -8,10 +8,17 @@ const string Entity::getName() const
 {
     return mEntityName;
 }
+
+const string Entity::getResGroup() const
+{
+	return mResGroup;
+}
+
 const string Entity::getMeshName() const
 {
     return mEntityMesh;
 }
+
 bool Entity::isDrawable() const
 {
     return mDrawable;
@@ -99,7 +106,7 @@ ptree Entity::defaultLoader(const string &infoPath)
 {
     if (!boost::filesystem::exists(utils.getMediaPath() + infoPath))
     {
-    	LOG_META(FORMAT("The given location: `%1%` is invalid!", infoPath));
+    	LOG_META(FORMAT("The given location: 1% is invalid!", infoPath));
     	return ptree();
     }
 
@@ -134,4 +141,16 @@ ptree Entity::defaultLoader(const string &infoPath)
 		setScale(vec3(storage[0], storage[1], storage[2]));
 
 	return tree_handle;
+}
+
+void Entity::defaultDump()
+{
+	LOG(FORMAT("Dumping %1% entity settings of type %2%:", mEntityName % type()));
+	LOG_NOFORMAT("\t ---Common settings---\n");
+	LOG_NOFORMAT(FORMAT("\t%1%: %2%\n", "Resource group" % mResGroup));
+	LOG_NOFORMAT(FORMAT("\t%1%: %2%\n", "Entity mesh" % mEntityMesh));
+	LOG_NOFORMAT(FORMAT("\t%1%: %2%\n", "Visible" % utils.bool2string(isDrawable())));
+	LOG_NOFORMAT(FORMAT("\t%1%: %2%\n", "Position" % utils.vec2string(getPosition())));
+	LOG_NOFORMAT(FORMAT("\t%1%: %2%\n", "Orientation" % utils.quat2string(getOrientation())));
+	LOG_NOFORMAT(FORMAT("\t%1%: %2%\n", "Scale" % utils.vec2string(getScale())));
 }

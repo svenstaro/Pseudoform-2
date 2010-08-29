@@ -31,6 +31,7 @@ class Light : public Entity
         float getRadius();
         float getPower();
 
+        void dump();
         string type();
         void update(float elapsed);
 };

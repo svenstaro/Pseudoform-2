@@ -33,6 +33,11 @@ void Object::loadFromFile(const string &filePath)
 	mNode->attachObject(mEntity);
 }
 
+void Object::dump()
+{
+	defaultDump();
+}
+
 void Object::setImage(const string& imgPath)
 {
     Ogre::MaterialPtr textureMat = Ogre::MaterialManager::getSingleton().create("Material:" + mEntityName, Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME);

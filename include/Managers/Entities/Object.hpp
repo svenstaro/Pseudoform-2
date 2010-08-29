@@ -19,6 +19,7 @@ class Object : public Entity
 
         // Inherited from Entity class
         void loadFromFile(const string &filePath);
+        void dump();
         string type();
         void update(float elapsed);
 };

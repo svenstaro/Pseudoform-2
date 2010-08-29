@@ -14,6 +14,7 @@ class Camera : public Entity
 	protected:
 		Ogre::Camera *mCamera;
 		Ogre::SceneNode *mPitchNode;
+		string mCamTypeStr;
 
 		float mMove;
 		float mRotate;
@@ -47,6 +48,7 @@ class Camera : public Entity
 		void onKeyPressed(const OIS::KeyEvent &e);
 		void onMouseMoved(const OIS::MouseEvent &e);
 
+        void dump();
         string type();
         void update(float elapsed);
 };
