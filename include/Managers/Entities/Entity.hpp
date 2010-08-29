@@ -29,7 +29,7 @@ class Entity : private boost::noncopyable
         bool parseArguments(const string &argName, const string &argData, float *outData, vector<string> &storage);
 
         ptree defaultLoader(const string &infoPath); 			 // Predefined loading of common settings
-        virtual void loadFromFile(const string &filePath) = 0;   // Loading entity type-derived settings
+        virtual Entity *loadFromFile(const string &filePath) = 0;   // Loading entity type-derived settings
 
         void defaultDump(); 			// Dumping default entity settings
         virtual void dump() = 0;	    // Dumping type-related entity settings
@@ -46,7 +46,7 @@ class Entity : private boost::noncopyable
 
         Ogre::SceneNode *getNode() const;
         Ogre::Entity *getEntity() const;
-        
+
         const vec3 &getPosition() const;
         const quat &getOrientation() const;
         const vec3 &getScale() const;
@@ -54,7 +54,7 @@ class Entity : private boost::noncopyable
         void setName(const string &entityName);
         void setMeshName(const string &meshPath);
         void setDrawable(bool state);
-        
+
         void setMaterial(const string &matName, const string &group = Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME);
         void setPosition(const vec3 &pos = vec3());
         void setRotation(const quat &rot = quat());

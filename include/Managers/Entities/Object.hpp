@@ -18,7 +18,7 @@ class Object : public Entity
         void setImage(const string& imgPath);
 
         // Inherited from Entity class
-        void loadFromFile(const string &filePath);
+        Object *loadFromFile(const string &filePath);
         void dump();
         string type();
         void update(float elapsed);

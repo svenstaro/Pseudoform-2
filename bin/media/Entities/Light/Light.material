@@ -1,0 +1,11 @@
+material Material.001
+{
+	receive_shadows on
+	technique
+	{
+		pass
+		{
+			lighting off
+		}
+	}
+}

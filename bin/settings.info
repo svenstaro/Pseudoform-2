@@ -33,5 +33,6 @@ resources
     MediaFolder1 "media/Fonts"
     MediaFolder2 "media/Materials"
     MediaFolder3 "media/Entities"
+    MediaEngine  "media/Engine"
     MyGUI "media/MyGUI"
 }
