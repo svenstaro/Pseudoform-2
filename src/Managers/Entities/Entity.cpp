@@ -106,7 +106,7 @@ ptree Entity::defaultLoader(const string &infoPath)
 {
     if (!boost::filesystem::exists(utils.getMediaPath() + infoPath))
     {
-    	LOG_META(FORMAT("The given location: 1% is invalid!", infoPath));
+    	LOG_META(FORMAT("The given location: %1% is invalid!", infoPath));
     	return ptree();
     }
 
@@ -114,9 +114,6 @@ ptree Entity::defaultLoader(const string &infoPath)
 	read_info(LOCATION(utilsConst.getMediaPath() + infoPath), tree_handle);
 
 	setDrawable( tree_handle.get<bool>("common_settigns.visible", true) );
-
-	// I don't think we need this
-	// setName( tree_handle.get<string>("common_settigns.name", mEntityName) );
 
 	string argName;
 	vector<string> parseStorage;
