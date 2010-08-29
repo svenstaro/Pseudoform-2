@@ -2,7 +2,7 @@
 
 Light::Light(const string &entityName)
 {
-	LOG(FORMAT("Loading new entity `%1%`", entityName));
+	LOG(FORMAT("Loading new entity `%1%` of type `%2%`", entityName % type()));
 
 	mEntityName = entityName;
 
@@ -16,7 +16,6 @@ Light::Light(const string &entityName)
 
 void Light::loadFromFile(const string &filePath)
 {
-	if (boost::filesystem::exists(utils.getMediaPath() + filePath)) return;
 	ptree tree_handle = defaultLoader(filePath);
 
 	string argName;

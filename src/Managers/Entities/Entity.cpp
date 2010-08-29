@@ -79,8 +79,6 @@ bool Entity::parseArguments(const string &argName, const string &argData, float 
 	storage.clear();
 	unsigned short counter = 0;
 
-	LOG_NOFORMAT(FORMAT("\t\t `%1%` ­— `%2%`\n", argName % argData));
-
 	// The default value should be taken
 	if (argData.find("Default") != string::npos) return false;
 
@@ -99,7 +97,11 @@ bool Entity::parseArguments(const string &argName, const string &argData, float 
 
 ptree Entity::defaultLoader(const string &infoPath)
 {
-	LOG_NOFORMAT("\tDumping information, parsed from file:\n");
+    if (!boost::filesystem::exists(utils.getMediaPath() + infoPath))
+    {
+    	LOG_META(FORMAT("The given location: `%1%` is invalid!", infoPath));
+    	return ptree();
+    }
 
 	ptree tree_handle;
 	read_info(LOCATION(utilsConst.getMediaPath() + infoPath), tree_handle);

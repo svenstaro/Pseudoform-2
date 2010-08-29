@@ -35,7 +35,7 @@ class GameState : public State
         void init() {
         	MakeCamera("MainCamera")->loadFromFile("Entities/MainCamera.info");
         	MakeLight("DirectionalLight");
-        	MakeObject("ErrorObject");
+        	MakeObject("ErrorObject")->loadFromFile("Entities/ErrorObject.info");
         }
 
         string type() { return "GameState"; }
