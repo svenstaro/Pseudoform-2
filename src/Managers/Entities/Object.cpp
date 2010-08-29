@@ -3,30 +3,35 @@
 #include <OgreMeshManager.h>
 #include <OgreMaterial.h>
 
-Object::Object(const string entityName, const string &entityMesh, const string &res)
+Object::Object(const string &entityName, const string &resGroup)
 {
+	LOG(FORMAT("Loading new entity `%1%`", entityName));
 	mEntityName = entityName;
-	_declareEntityResources();
+	mResGroup = resGroup;
 
-    string entMesh = entityName + ".mesh";
-    if (entityMesh != "") entMesh = entityMesh;
+    mEntity = graphicSystem.getSceneMgr()->createEntity("Error:" + entityName, CONFIG("resorces.ErrorMesh", string, "Engine/Error.mesh"));
+    mNode = graphicSystem.getSceneMgr()->getRootSceneNode()->createChildSceneNode("Node:" + entityName);
 
-    // Attaching new mesh (with name entMesh) to the entity
-    if (Ogre::ResourceGroupManager::getSingletonPtr()->resourceExists(res, entMesh))
-    {
-        Ogre::ResourceGroupManager::getSingleton().declareResource(entMesh, "Mesh", res);
-        Ogre::SceneManager *sceneMgr = graphicSystem.getSceneMgr();
+    mNode->attachObject(mEntity);
+}
 
-        mEntity = sceneMgr->createEntity(entityName, entMesh);
-        mNode = sceneMgr->getRootSceneNode()->createChildSceneNode("Node:" + mEntityName);
-        mNode->attachObject(mEntity);
-    }
-    else
-    {
-        LOG_META(FORMAT("Mesh with name '%1%' doesn`t exist in resources list!", entMesh));
-    }
+void Object::loadFromFile(const string &filePath)
+{
+    if (boost::filesystem::exists(utils.getMediaPath() + filePath)) return;
+	ptree tree_handle = defaultLoader(filePath);
 
-    _defaultLoader(entityName);
+	// Detaching default node with real one
+	mNode->detachObject(mEntity);
+
+	// Get the path for the real mesh
+	string meshLocation = tree_handle.get<string>("type_settigns.position", utils.getMediaPath() + "Engine/Error.mesh");
+	// Declare it in need resource group
+	Ogre::ResourceGroupManager::getSingleton().declareResource(meshLocation, "Mesh", mResGroup);
+
+	mEntityMesh = meshLocation;
+	mEntity = graphicSystem.getSceneMgr()->createEntity(mEntityName, mEntityMesh);
+
+	mNode->attachObject(mEntity);
 }
 
 void Object::setImage(const string& imgPath)
@@ -38,5 +43,4 @@ void Object::setImage(const string& imgPath)
 }
 
 string Object::type() { return "object"; }
-void Object::_loadData() { }
 void Object::update(float elapsed) { }

@@ -21,6 +21,16 @@ using namespace std;
 #define entityManager (EntityManager::get_mutable_instance())
 #define entityManagerConst (EntityManager::get_const_instance())
 
+// Fast creating of entities
+#define MakeObject(entName) entityManager.MakeEntity<Object>(entName)
+#define MakeLight(entName) entityManager.MakeEntity<Light>(entName)
+#define MakeCamera(entName) entityManager.MakeEntity<Camera>(entName)
+
+// Fast accessing to the entities
+#define GetObject(entName) entityManager.GetEntity<Object>(entName)
+#define GetLight(entName) entityManager.GetEntity<Light>(entName)
+#define GetCamera(entName) entityManager.GetEntity<Camera>(entName)
+
 class EntityManager : public singleton<EntityManager>
 {
     protected:

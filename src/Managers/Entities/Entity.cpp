@@ -97,35 +97,17 @@ bool Entity::parseArguments(const string &argName, const string &argData, float 
 	return true;
 }
 
-void Entity::_declareEntityResources()
+ptree Entity::defaultLoader(const string &infoPath)
 {
-	LOG(FORMAT("Loading new entity `%1%`", mEntityName));
-
-	string entityData = utilsConst.getMediaPath() + "Entities/" + mEntityName;
-
-	if (!boost::filesystem::exists(entityData))
-	{
-		LOG_META(FORMAT("There isn't media-folder for the entity with `%1%` name", mEntityName));
-		mHasMediaFolder = false;
-	}
-	else
-	{
-		Ogre::ResourceGroupManager::getSingleton().addResourceLocation(entityData, "FileSystem", "General", true);
-		mHasMediaFolder = true;
-	}
-}
-
-void Entity::_defaultLoader(const string &entityName)
-{
-	if (!mHasMediaFolder) return;
-
 	LOG_NOFORMAT("\tDumping information, parsed from file:\n");
 
 	ptree tree_handle;
-	read_info(utilsConst.getMediaPath() + "Entities/" +  mEntityName + "/init.info", tree_handle);
+	read_info(LOCATION(utilsConst.getMediaPath() + infoPath), tree_handle);
 
 	setDrawable( tree_handle.get<bool>("common_settigns.visible", true) );
-	setName( tree_handle.get<string>("common_settigns.name", mEntityName) );
+
+	// I don't think we need this
+	// setName( tree_handle.get<string>("common_settigns.name", mEntityName) );
 
 	string argName;
 	vector<string> parseStorage;
@@ -148,4 +130,6 @@ void Entity::_defaultLoader(const string &entityName)
 	argName = tree_handle.get<string>("common_settigns.scale", "1, 1, 1");
 	if (parseArguments("scale", argName, storage, parseStorage))
 		setScale(vec3(storage[0], storage[1], storage[2]));
+
+	return tree_handle;
 }

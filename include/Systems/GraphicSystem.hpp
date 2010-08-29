@@ -29,19 +29,13 @@ class GraphicSystem : public ISystem, public ISingleton<GraphicSystem>
         Ogre::Viewport *mViewport;
         Ogre::Camera *mCamera;
 
-        // For default entities
-        Ogre::Entity *mError;
-
     public:
         Ogre::Root *getRoot() const { return mRoot; }
         Ogre::RenderWindow *getWindow() const { return mWindow; }
         Ogre::RenderSystem *getRenderSys() const { return mRenderSys; }
         Ogre::SceneManager *getSceneMgr() const { return mSceneMgr; }
         Ogre:: Viewport *getViewport() const { return mViewport; }
-        Ogre::Camera *getCamera() const { return mCamera; }
-
-        // For default entities
-        void configureEntities();
+        Ogre::Camera *getBaseCamera() const { return mCamera; }
 
         GraphicSystem();
         ~GraphicSystem();

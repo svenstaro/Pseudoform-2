@@ -19,8 +19,8 @@ class Entity : private boost::noncopyable
     protected:
         string mEntityName;
         string mEntityMesh;
+        string mResGroup;
         bool mDrawable;
-        bool mHasMediaFolder;
 
         // TODO: Move entity object to entity class only
         Ogre::Entity *mEntity;
@@ -28,26 +28,13 @@ class Entity : private boost::noncopyable
 
         bool parseArguments(const string &argName, const string &argData, float *outData, vector<string> &storage);
 
-        void _defaultLoader(const string &EntityName); // Predefined loading of common settings
-        void _declareEntityResources();				   // Parsing resources of new entity
-        virtual void _loadData() = 0;  				   // Loading entity type-derived settings
+        ptree defaultLoader(const string &infoPath); 			 // Predefined loading of common settings
+        virtual void loadFromFile(const string &filePath) = 0;   // Loading entity type-derived settings
 
     public:
         virtual ~Entity();
         virtual void update(float elapsed) = 0;
         virtual string type() = 0;
-
-        template<typename EventType>
-        void AddBehavior(const string &eventName, const typename EventType::SignatureSlotType &eventSlot)
-        {
-            CONNECT(EventType, eventName, eventSlot);
-        }
-
-        template<typename EventType>
-        void RemoveBehavior()
-        {
-            // TODO: Implement me!
-        }
 
         const string getName() const;
         const string getMeshName() const;

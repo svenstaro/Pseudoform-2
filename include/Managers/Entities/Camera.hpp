@@ -27,15 +27,15 @@ class Camera : public Entity
         	DONT_USE	// If we don't want predefined stuff
         } mCameraType;
 
-        Camera(const string entityName);
-        void configure(const float nearClip = 1, const float farClip = 1000, bool autoAR = true, const float FOV = 90,
-        		vec3 pos = vec3(0, 1000, 1000), vec3 lookAt = vec3(0, 0, 0));
-        Ogre::Camera *cameraHandle();
+        Camera(const string &entityName);
+
+        Ogre::Camera *handle();
         Ogre::SceneNode *getPitchNode();
 
-        void loadFromFile(const string & filename, const string &res = Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME);
+        void loadFromFile(const string &filePath);
 
         void setCameraType(CameraType type);
+        void setActive(bool state);
 
         void setMoveStep(float step);
         void setRotateStep(float step);
@@ -47,7 +47,6 @@ class Camera : public Entity
 		void onKeyPressed(const OIS::KeyEvent &e);
 		void onMouseMoved(const OIS::MouseEvent &e);
 
-        void _loadData();
         string type();
         void update(float elapsed);
 };

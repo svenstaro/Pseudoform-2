@@ -1,77 +1,73 @@
 #include "Managers/Entities/Camera.hpp"
 
-Camera::Camera(const string entityName)
+Camera::Camera(const string &entityName)
 {
-	Ogre::SceneManager *sceneMgr = graphicSystemConst.getSceneMgr();
+	LOG(FORMAT("Loading new entity `%1%`", entityName));
 
-    mEntityName = entityName;
+	mEntityName = entityName;
 
-    mCamera = sceneMgr->createCamera(entityName);
+    mCamera = graphicSystem.getSceneMgr()->createCamera(entityName);
 
     mMove = 250;
     mRotate = 0.13;
 
-    mNode = sceneMgr->getRootSceneNode()->createChildSceneNode("Node:Camera_" + entityName);
+    mNode = graphicSystem.getSceneMgr()->getRootSceneNode()->createChildSceneNode("Node:Camera_" + entityName);
     mPitchNode = mNode->createChildSceneNode("Node:CameraPitch_" + entityName);
+
     mPitchNode->attachObject(mCamera);
-
 }
 
-void Camera::loadFromFile(const string &filename, const string &res)
+void Camera::loadFromFile(const string &filePath)
 {
-    _declareEntityResources();
+	if (boost::filesystem::exists(utils.getMediaPath() + filePath)) return;
+    ptree tree_handle = defaultLoader(filePath);
 
-    if (Ogre::ResourceGroupManager::getSingletonPtr()->resourceExists(res, filename))
-    {
-        //Ogre::ResourceGroupManager::getSingleton().declareResource(entMesh, "Mesh", res);
+    mCamera->setFOVy(deg(tree_handle.get<float>("type_settings.fov", 90)));
+    mCamera->setNearClipDistance(tree_handle.get<float>("type_settings.nearClip", 1));
+    mCamera->setFarClipDistance(tree_handle.get<float>("type_settings.farClip", 1000));
+    mCamera->setAutoAspectRatio(tree_handle.get<bool>("type_settings.autoAR", true));
 
-        ptree tree_handle;
-        read_info(utilsConst.getMediaPath() + "Entities/" +  filename + "/init.info", tree_handle);
+	vector<string> parseStorage;
+	float storage[3];
+	memset(storage, 0, sizeof(float)*3);
 
-        float fov = tree_handle.get<float>("type_settings.fov", 90);
-        float nearClip = tree_handle.get<float>("type_settings.nearClip", 1);
-        float farClip = tree_handle.get<float>("type_settings.farClip", 1000);
-        bool autoAR = tree_handle.get<bool>("type_settings.autoAR", true);
-        configure(nearClip, farClip, autoAR, fov);
-        bool attachVP = tree_handle.get<bool>("type_settings.attachVP", true);
-        if(attachVP)
-            graphicSystem.getViewport()->setCamera(mCamera);
-        string type = tree_handle.get<string>("type_settings.cam_type", "DONT_USE");
-        if(type == "DONT_USE")
-            setCameraType(Camera::DONT_USE);
-        else if(type == "FREE")
-            setCameraType(Camera::FREE);
-        else if(type == "FIRST_PERSON")
-            setCameraType(Camera::FIRST_PERSON);
-        else if(type == "ATTACHED")
-            setCameraType(Camera::ATTACHED);
-        LOG("Loaded Camera from " + filename);
-    }
+	string argName = tree_handle.get<string>("type_settigns.lookAt", "0, 0, 0");
+	if (parseArguments("lookAt", argName, storage, parseStorage))
+		mCamera->lookAt(vec3(storage[0], storage[1], storage[2]));
 
+    if (tree_handle.get<bool>("type_settings.attachVP", false))
+        graphicSystem.getViewport()->setCamera(mCamera);
 
-    _defaultLoader(filename);
-
+    string type = tree_handle.get<string>("type_settings.camType", "DONT_USE");
+    if(type == "DONT_USE")
+        setCameraType(Camera::DONT_USE);
+    else if(type == "FREE")
+        setCameraType(Camera::FREE);
+    else if(type == "FIRST_PERSON")
+        setCameraType(Camera::FIRST_PERSON);
+    else if(type == "ATTACHED")
+        setCameraType(Camera::ATTACHED);
+    else
+    	setCameraType(Camera::DONT_USE);
 }
 
-void Camera::configure(const float nearClip, const float farClip, bool autoAR, const float FOV,
-		vec3 pos, vec3 lookAt)
-{
-    mCamera->setNearClipDistance(nearClip);
-    mCamera->setFarClipDistance(farClip);
-    mCamera->setAutoAspectRatio(autoAR);
-    mCamera->setFOVy(deg(FOV));
-}
-
-Ogre::Camera *Camera::cameraHandle() { return mCamera; }
+Ogre::Camera *Camera::handle() { return mCamera; }
 Ogre::SceneNode *Camera::getPitchNode() { return mPitchNode; }
 
+void Camera::setActive(bool state)
+{
+	// If false, set up base camera
+	if (state)
+		graphicSystem.getViewport()->setCamera(mCamera);
+	else
+		graphicSystem.getViewport()->setCamera(graphicSystem.getBaseCamera());
+}
 float Camera::getMoveStep() { return mMove; }
 float Camera::getRotateStep() { return mRotate; }
 void Camera::setMoveStep(float step) { mMove = step; }
 void Camera::setRotateStep(float step) { mRotate = step; }
 
 string Camera::type() { return "camera"; }
-void Camera::_loadData() { }
 void Camera::update(float elapsed) { }
 
 #define WIDTH  graphicSystem.getWindow()->getWidth()

@@ -14,9 +14,11 @@ using namespace std;
 class Object : public Entity
 {
     public:
-        Object(const string entityName, const string &entityMesh = "", const string &res = Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME);
+        Object(const string &entityName, const string &resGroup = Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME);
         void setImage(const string& imgPath);
-        void _loadData();
+
+        // Inherited from Entity class
+        void loadFromFile(const string &filePath);
         string type();
         void update(float elapsed);
 };

@@ -33,23 +33,9 @@ class GameState : public State
 {
     public:
         void init() {
-        	/*
-            //World::MakeCamera("MenuCamera", true, Camera::FREE);
-            Camera *cam = World::MakeCamera("MainCamera", "MainCamera");
-            //GraphicSystem::get_mutable_instance().getViewport()->setCamera(cam->cameraHandle());
-            //cam->setCameraType(Camera::FREE);
-            //World::MakeLight("MainLight", Ogre::Light::LT_DIRECTIONAL)->lightHandle()->setDirection(vec3(0, 100, 0));
-
-            World::MakeLight("PointLight", Ogre::Light::LT_POINT,
-            		colour(1.0, 0.0, 0.0), colour(1.0, 0.0, 0.0))->lightHandle()->setPosition(vec3(0, 150, 250));
-            World::MakeLight("DirectionalLight", Ogre::Light::LT_DIRECTIONAL,
-            		colour(.25, .25, 0), colour(.25, .25, 0))->lightHandle()->setDirection(vec3(0, -1, 1));
-            World::MakeLight("SpotLight", Ogre::Light::LT_SPOTLIGHT,
-            		colour(0, 0, 1.0), colour(0, 0, 1.0))->lightHandle()->setDirection(vec3(-1, -1, 0));
-            World::GetLight("SpotLight")->lightHandle()->setPosition(vec3(300, 300, 0));
-
-            World::MakeObject("ErrorObject");
-            */
+        	MakeCamera("MainCamera")->loadFromFile("Entities/MainCamera.info");
+        	MakeLight("DirectionalLight");
+        	MakeObject("ErrorObject");
         }
 
         string type() { return "GameState"; }

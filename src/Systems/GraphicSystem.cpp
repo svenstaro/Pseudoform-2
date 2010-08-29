@@ -106,14 +106,7 @@ void GraphicSystem::init()
 
 void GraphicSystem::update(float elapsed)
 {
-    // ...
-}
-
-void GraphicSystem::configureEntities()
-{
-	// Error mesh
-	string entMesh = LOCATION(utils.getMediaPath() + "/Engine/" + "Error.mesh");
-	mError = getSceneMgr()->createEntity("Engine:Error", entMesh);
+	// TODO: Move updating states here
 }
 
 std::string GraphicSystem::toString()

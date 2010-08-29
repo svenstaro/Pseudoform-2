@@ -44,7 +44,7 @@ string Utils::checkLocation(const string &path)
 {
 	if (!boost::filesystem::exists(path))
 	{
-		LOG(FORMAT("The path `%1%` isn't valid!", path));
+		LOG(FORMAT("The path `%1%` could be invalid!", path));
 	}
 
 	return path;

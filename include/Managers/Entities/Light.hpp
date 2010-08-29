@@ -16,12 +16,10 @@ class Light : public Entity
 		Ogre::Light *mLight;
 
     public:
-        Light(const string entityName);
+        Light(const string &entityName);
 
-        void configure(Ogre::Light::LightTypes lt = Ogre::Light::LT_POINT,
-        		colour diffuse = colour(1, 1, 1), colour specular = colour(1, 1, 1),
-        		float attenuation = 10, float power = 1);
-        Ogre::Light *lightHandle();
+        Ogre::Light *handle();
+        void loadFromFile(const string &filePath);
 
         void setDiffuse(const colour &diffuse);
         void setSpecular(const colour &specular);
@@ -34,7 +32,6 @@ class Light : public Entity
         float getPower();
 
         string type();
-        void _loadData();
         void update(float elapsed);
 };
 
