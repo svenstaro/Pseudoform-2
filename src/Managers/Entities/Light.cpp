@@ -43,7 +43,11 @@ Light *Light::loadFromFile(const string &filePath)
 Light *Light::dump()
 {
 	defaultDump();
-	// TODO: typeDump light
+	LOG_NOFORMAT("\t ---Type settings---\n");
+	LOG_NOFORMAT(FORMAT("\t%1%: %2%\n", "Diffuse" % mLight->getDiffuseColour()));
+	LOG_NOFORMAT(FORMAT("\t%1%: %2%\n", "Specular" % mLight->getSpecularColour()));
+	LOG_NOFORMAT(FORMAT("\t%1%: %2%\n", "Radius" % mLight->getAttenuationRange()));
+	LOG_NOFORMAT(FORMAT("\t%1%: %2%\n", "Power" % mLight->getPowerScale()));
 
 	return this;
 }

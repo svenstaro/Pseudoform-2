@@ -34,7 +34,7 @@ class GameState : public State
     public:
         void init() {
         	MakeCamera("MainCamera")->loadFromFile("Entities/MainCamera.info")->dump();
-        	MakeLight("DirectionalLight");
+        	MakeLight("DirectionalLight")->dump();
         	MakeObject("ErrorObject")->loadFromFile("Entities/ErrorObject.info")->dump();
         	MakeObject("TestLight")->loadFromFile("Entities/Light.info")->dump()->setPosition(vec3(0, 50, 0));
 
