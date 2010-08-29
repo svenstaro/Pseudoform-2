@@ -21,6 +21,7 @@ Object *Object::loadFromFile(const string &filePath)
 
 	// Detaching default node with real one
 	mNode->detachObject(mEntity);
+    graphicSystem.getSceneMgr()->destroyEntity(mEntity);
 
 	// Get the path for the real mesh
 	string meshLocation = tree_handle.get<string>("type_settings.mesh", CONFIG("resorces.ErrorMesh", string, "Engine/Error.mesh"));
