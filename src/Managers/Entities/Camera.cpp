@@ -56,16 +56,18 @@ Camera *Camera::loadFromFile(const string &filePath)
 Ogre::Camera *Camera::handle() { return mCamera; }
 Ogre::SceneNode *Camera::getPitchNode() { return mPitchNode; }
 
-void Camera::setActive(bool state)
+Camera *Camera::setActive(bool state)
 {
 	// If false, set up base camera
 	if (state)
 		graphicSystem.getViewport()->setCamera(mCamera);
 	else
 		graphicSystem.getViewport()->setCamera(graphicSystem.getBaseCamera());
+
+     return this;
 }
 
-void Camera::dump()
+Camera *Camera::dump()
 {
 	defaultDump();
 	LOG_NOFORMAT("\t ---Type settings---\n");
@@ -75,12 +77,13 @@ void Camera::dump()
 	LOG_NOFORMAT(FORMAT("\t%1%: %2%\n", "Auto aspect ratio" % utils.bool2string(mCamera->getAutoAspectRatio())));
 	LOG_NOFORMAT(FORMAT("\t%1%: %2%\n", "Active camera" % utils.bool2string(graphicSystem.getViewport()->getCamera() == mCamera)));
 	LOG_NOFORMAT(FORMAT("\t%1%: %2%\n", "Camera type" % mCamTypeStr));
+	return this;
 }
 
 float Camera::getMoveStep() { return mMove; }
 float Camera::getRotateStep() { return mRotate; }
-void Camera::setMoveStep(float step) { mMove = step; }
-void Camera::setRotateStep(float step) { mRotate = step; }
+Camera *Camera::setMoveStep(float step) { mMove = step; return this; }
+Camera *Camera::setRotateStep(float step) { mRotate = step; return this; }
 
 string Camera::type() { return "camera"; }
 void Camera::update(float elapsed) { }
@@ -88,7 +91,7 @@ void Camera::update(float elapsed) { }
 #define WIDTH  graphicSystem.getWindow()->getWidth()
 #define HEIGHT graphicSystem.getWindow()->getHeight()
 
-void Camera::setCameraType(CameraType type)
+Camera *Camera::setCameraType(CameraType type)
 {
 	mCameraType = type;
 
@@ -99,6 +102,7 @@ void Camera::setCameraType(CameraType type)
 	    CONNECT0(Engine::Events::GlobalUpdateEvent, "Updated", &Camera::onUpdated);
 	    CONNECT0(Engine::Events::GlobalInitEvent, "Inited", &Camera::onInited);
 	}
+	return this;
 }
 
 void Camera::onInited()

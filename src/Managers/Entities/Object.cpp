@@ -35,17 +35,20 @@ Object *Object::loadFromFile(const string &filePath)
 	return this;
 }
 
-void Object::dump()
+Object *Object::dump()
 {
 	defaultDump();
+	return this;
 }
 
-void Object::setImage(const string& imgPath)
+Object *Object::setImage(const string& imgPath)
 {
     Ogre::MaterialPtr textureMat = Ogre::MaterialManager::getSingleton().create("Material:" + mEntityName, Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME);
     textureMat->getTechnique(0)->getPass(0)->createTextureUnitState(imgPath);
 
     graphicSystem.getSceneMgr()->getEntity(mEntityName)->setMaterial(textureMat);
+
+    return this;
 }
 
 string Object::type() { return "object"; }

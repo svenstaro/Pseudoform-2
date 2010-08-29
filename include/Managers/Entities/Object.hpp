@@ -15,11 +15,11 @@ class Object : public Entity
 {
     public:
         Object(const string &entityName, const string &resGroup = Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME);
-        void setImage(const string& imgPath);
+        Object *setImage(const string& imgPath);
 
         // Inherited from Entity class
         Object *loadFromFile(const string &filePath);
-        void dump();
+        Object *dump();
         string type();
         void update(float elapsed);
 };

@@ -48,34 +48,41 @@ const vec3 &Entity::getScale() const
 
 // =============================================================================
 // Setters
-void Entity::setName(const string &entityName)
+Entity *Entity::setName(const string &entityName)
 {
     mEntityName = entityName;
+    return this;
 }
-void Entity::setMeshName(const string &meshPath)
+Entity *Entity::setMeshName(const string &meshPath)
 {
     mEntityMesh = meshPath;
+    return this;
 }
-void Entity::setDrawable(bool state)
+Entity *Entity::setDrawable(bool state)
 {
     mDrawable = state;
+    return this;
 }
 
-void Entity::setMaterial(const string &matName, const string &group)
+Entity *Entity::setMaterial(const string &matName, const string &group)
 {
     mEntity->setMaterialName(matName, group);
+    return this;
 }
-void Entity::setPosition(const vec3 &pos)
+Entity *Entity::setPosition(const vec3 &pos)
 {
     mNode->setPosition(pos);
+    return this;
 }
-void Entity::setRotation(const quat &rot)
+Entity *Entity::setRotation(const quat &rot)
 {
     mNode->setOrientation(rot);
+    return this;
 }
-void Entity::setScale(const vec3 &scale)
+Entity *Entity::setScale(const vec3 &scale)
 {
     mNode->setScale(scale);
+    return this;
 }
 
 // =============================================================================

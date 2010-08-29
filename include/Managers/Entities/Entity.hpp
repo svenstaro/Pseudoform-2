@@ -32,7 +32,7 @@ class Entity : private boost::noncopyable
         virtual Entity *loadFromFile(const string &filePath) = 0;   // Loading entity type-derived settings
 
         void defaultDump(); 			// Dumping default entity settings
-        virtual void dump() = 0;	    // Dumping type-related entity settings
+        virtual Entity *dump() = 0;	    // Dumping type-related entity settings
 
     public:
         virtual ~Entity();
@@ -51,14 +51,14 @@ class Entity : private boost::noncopyable
         const quat &getOrientation() const;
         const vec3 &getScale() const;
 
-        void setName(const string &entityName);
-        void setMeshName(const string &meshPath);
-        void setDrawable(bool state);
+        Entity *setName(const string &entityName);
+        Entity *setMeshName(const string &meshPath);
+        Entity *setDrawable(bool state);
 
-        void setMaterial(const string &matName, const string &group = Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME);
-        void setPosition(const vec3 &pos = vec3());
-        void setRotation(const quat &rot = quat());
-        void setScale(const vec3 &scale = vec3());
+        Entity *setMaterial(const string &matName, const string &group = Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME);
+        Entity *setPosition(const vec3 &pos = vec3());
+        Entity *setRotation(const quat &rot = quat());
+        Entity *setScale(const vec3 &scale = vec3());
 };
 
 

@@ -40,19 +40,21 @@ Light *Light::loadFromFile(const string &filePath)
 	return this;
 }
 
-void Light::dump()
+Light *Light::dump()
 {
 	defaultDump();
 	// TODO: typeDump light
+
+	return this;
 }
 
 Ogre::Light *Light::handle() { return mLight; }
 
 // Setters
-void Light::setDiffuse(const colour &diffuse) { mLight->setDiffuseColour(diffuse); }
-void Light::setSpecular(const colour &specular) { mLight->setSpecularColour(specular); }
-void Light::setRadius(float value) { mLight->setAttenuation(value, 0, 0, 0); }
-void Light::setPower(float value) { mLight->setPowerScale(value); }
+Light *Light::setDiffuse(const colour &diffuse) { mLight->setDiffuseColour(diffuse); return this; }
+Light *Light::setSpecular(const colour &specular) { mLight->setSpecularColour(specular); return this; }
+Light *Light::setRadius(float value) { mLight->setAttenuation(value, 0, 0, 0); return this; }
+Light *Light::setPower(float value) { mLight->setPowerScale(value); return this; }
 
 // Getters
 colour Light::getDiffuse() { return mLight->getDiffuseColour(); }
