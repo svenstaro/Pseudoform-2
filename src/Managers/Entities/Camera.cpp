@@ -74,8 +74,8 @@ Camera *Camera::dump()
 	LOG_NOFORMAT(FORMAT("\t%1%: %2%\n", "FOV" % mCamera->getFOVy()));
 	LOG_NOFORMAT(FORMAT("\t%1%: %2%\n", "Near clip distance" % mCamera->getNearClipDistance()));
 	LOG_NOFORMAT(FORMAT("\t%1%: %2%\n", "Far clip distance" % mCamera->getFarClipDistance()));
-	LOG_NOFORMAT(FORMAT("\t%1%: %2%\n", "Auto aspect ratio" % utils.bool2string(mCamera->getAutoAspectRatio())));
-	LOG_NOFORMAT(FORMAT("\t%1%: %2%\n", "Active camera" % utils.bool2string(graphicSystem.getViewport()->getCamera() == mCamera)));
+	LOG_NOFORMAT(FORMAT("\t%1%: %2%\n", "Auto aspect ratio" % mCamera->getAutoAspectRatio()));
+	LOG_NOFORMAT(FORMAT("\t%1%: %2%\n", "Active camera" % (graphicSystem.getViewport()->getCamera() == mCamera)));
 	LOG_NOFORMAT(FORMAT("\t%1%: %2%\n", "Camera type" % mCamTypeStr));
 	return this;
 }

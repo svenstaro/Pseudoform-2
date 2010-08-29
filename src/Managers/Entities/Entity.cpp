@@ -153,8 +153,8 @@ void Entity::defaultDump()
 	LOG_NOFORMAT("\t ---Common settings---\n");
 	LOG_NOFORMAT(FORMAT("\t%1%: %2%\n", "Resource group" % mResGroup));
 	LOG_NOFORMAT(FORMAT("\t%1%: %2%\n", "Entity mesh" % mEntityMesh));
-	LOG_NOFORMAT(FORMAT("\t%1%: %2%\n", "Visible" % utils.bool2string(isDrawable())));
-	LOG_NOFORMAT(FORMAT("\t%1%: %2%\n", "Position" % utils.vec2string(getPosition())));
-	LOG_NOFORMAT(FORMAT("\t%1%: %2%\n", "Orientation" % utils.quat2string(getOrientation())));
-	LOG_NOFORMAT(FORMAT("\t%1%: %2%\n", "Scale" % utils.vec2string(getScale())));
+	LOG_NOFORMAT(FORMAT("\t%1%: %2%\n", "Visible" % isDrawable()));
+	LOG_NOFORMAT(FORMAT("\t%1%: %2%\n", "Position" % getPosition()));
+	LOG_NOFORMAT(FORMAT("\t%1%: %2%\n", "Orientation" % getOrientation()));
+	LOG_NOFORMAT(FORMAT("\t%1%: %2%\n", "Scale" % getScale()));
 }

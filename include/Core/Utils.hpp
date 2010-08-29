@@ -53,12 +53,6 @@ class Utils : public singleton<Utils>
         ptime getCurrentTime() const;
         void writeTimestamp();
         string getTimeDifference();
-
-        string bool2string(bool var) { return(var ? "true" : "false"); }
-        string vec2string(const vec3 &v) { return FORMAT("vec3(x=%1%;y=%2%;z=%3%)", v.x % v.y % v.z); }
-        string vec2string(const vec2 &v) { return FORMAT("vec2(x=%1%;y=%2%)", v.x % v.y); }
-        string quat2string(const quat &q) { return FORMAT("quat(w=%1%;x=%2%;y=%3%;z=%4%)", q.w % q.x % q.y % q.z); }
-        string color2string(const colour &c) { return FORMAT("color(r=%1%;g=%2%;b=%3%;a=%4%)", c.r % c.g % c.b % c.a); }
 };
 
 #endif
