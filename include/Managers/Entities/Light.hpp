@@ -21,17 +21,17 @@ class Light : public Entity
         Ogre::Light *handle();
         Light *loadFromFile(const string &filePath);
 
-        void setDiffuse(const colour &diffuse);
-        void setSpecular(const colour &specular);
-        void setRadius(float value);
-        void setPower(float value);
+        Light *setDiffuse(const colour &diffuse);
+        Light *setSpecular(const colour &specular);
+        Light *setRadius(float value);
+        Light *setPower(float value);
 
         colour getDiffuse();
         colour getSpecular();
         float getRadius();
         float getPower();
 
-        void dump();
+        Light *dump();
         string type();
         void update(float elapsed);
 };

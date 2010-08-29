@@ -48,34 +48,41 @@ const vec3 &Entity::getScale() const
 
 // =============================================================================
 // Setters
-void Entity::setName(const string &entityName)
+Entity *Entity::setName(const string &entityName)
 {
     mEntityName = entityName;
+    return this;
 }
-void Entity::setMeshName(const string &meshPath)
+Entity *Entity::setMeshName(const string &meshPath)
 {
     mEntityMesh = meshPath;
+    return this;
 }
-void Entity::setDrawable(bool state)
+Entity *Entity::setDrawable(bool state)
 {
     mDrawable = state;
+    return this;
 }
 
-void Entity::setMaterial(const string &matName, const string &group)
+Entity *Entity::setMaterial(const string &matName, const string &group)
 {
     mEntity->setMaterialName(matName, group);
+    return this;
 }
-void Entity::setPosition(const vec3 &pos)
+Entity *Entity::setPosition(const vec3 &pos)
 {
     mNode->setPosition(pos);
+    return this;
 }
-void Entity::setRotation(const quat &rot)
+Entity *Entity::setRotation(const quat &rot)
 {
     mNode->setOrientation(rot);
+    return this;
 }
-void Entity::setScale(const vec3 &scale)
+Entity *Entity::setScale(const vec3 &scale)
 {
     mNode->setScale(scale);
+    return this;
 }
 
 // =============================================================================
@@ -146,8 +153,8 @@ void Entity::defaultDump()
 	LOG_NOFORMAT("\t ---Common settings---\n");
 	LOG_NOFORMAT(FORMAT("\t%1%: %2%\n", "Resource group" % mResGroup));
 	LOG_NOFORMAT(FORMAT("\t%1%: %2%\n", "Entity mesh" % mEntityMesh));
-	LOG_NOFORMAT(FORMAT("\t%1%: %2%\n", "Visible" % utils.bool2string(isDrawable())));
-	LOG_NOFORMAT(FORMAT("\t%1%: %2%\n", "Position" % utils.vec2string(getPosition())));
-	LOG_NOFORMAT(FORMAT("\t%1%: %2%\n", "Orientation" % utils.quat2string(getOrientation())));
-	LOG_NOFORMAT(FORMAT("\t%1%: %2%\n", "Scale" % utils.vec2string(getScale())));
+	LOG_NOFORMAT(FORMAT("\t%1%: %2%\n", "Visible" % isDrawable()));
+	LOG_NOFORMAT(FORMAT("\t%1%: %2%\n", "Position" % getPosition()));
+	LOG_NOFORMAT(FORMAT("\t%1%: %2%\n", "Orientation" % getOrientation()));
+	LOG_NOFORMAT(FORMAT("\t%1%: %2%\n", "Scale" % getScale()));
 }

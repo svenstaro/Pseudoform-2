@@ -35,11 +35,11 @@ class Camera : public Entity
 
         Camera *loadFromFile(const string &filePath);
 
-        void setCameraType(CameraType type);
-        void setActive(bool state);
+        Camera *setCameraType(CameraType type);
+        Camera *setActive(bool state);
 
-        void setMoveStep(float step);
-        void setRotateStep(float step);
+        Camera *setMoveStep(float step);
+        Camera *setRotateStep(float step);
         float getMoveStep();
         float getRotateStep();
 
@@ -48,7 +48,7 @@ class Camera : public Entity
 		void onKeyPressed(const OIS::KeyEvent &e);
 		void onMouseMoved(const OIS::MouseEvent &e);
 
-        void dump();
+        Camera *dump();
         string type();
         void update(float elapsed);
 };
