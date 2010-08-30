@@ -34,11 +34,12 @@ class GameState : public State
     public:
         void init() {
         	MakeCamera("MainCamera")->loadFromFile("Entities/MainCamera.info")->dump();
-        	MakeLight("DirectionalLight")->loadFromFile("Entities/MainLight.info")->dump();
+        	MakeLight("Light")->loadFromFile("Entities/MainLight.info")->dump();
         	//MakeObject("ErrorObject")->loadFromFile("Entities/ErrorObject.info");//->dump();
         	MakeObject("Head")->loadFromFile("Entities/OgreHead.info")->dump();
-        	MakeObject("TestLight")->loadFromFile("Entities/LightObject.info")->setPosition(vec3(0, 50, 0));//->dump();
+        	//MakeObject("TestLight")->loadFromFile("Entities/LightObject.info")->setPosition(vec3(0, 50, 0));//->dump();
 
+            entityManager.DeleteAllEntities();
         	//GetCamera("MainCamera")->dump();
         	//GetObject("ErrorObject")->dump();
         }

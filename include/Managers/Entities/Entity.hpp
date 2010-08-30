@@ -35,7 +35,10 @@ class Entity : private boost::noncopyable
         void defaultDump(); 			// Dumping default entity settings
         virtual Entity *dump() = 0;	    // Dumping type-related entity settings
 
+        void deleteOgre();
+
     public:
+        Entity(){mEntity = NULL; mNode = NULL; mDebugEntity = NULL;}
         virtual ~Entity();
         virtual void update(float elapsed) = 0;
         virtual string type() = 0;

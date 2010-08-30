@@ -19,6 +19,9 @@ class Camera : public Entity
 		float mMove;
 		float mRotate;
 
+		boost::signals2::connection mEMouseMoved;
+		boost::signals2::connection mEUpdated;
+
     public:
         enum CameraType
         {
@@ -29,6 +32,7 @@ class Camera : public Entity
         } mCameraType;
 
         Camera(const string &entityName);
+        ~Camera();
 
         Ogre::Camera *handle();
         Ogre::SceneNode *getPitchNode();

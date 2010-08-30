@@ -1,6 +1,6 @@
 #include "Managers/Entities/Light.hpp"
 
-Light::Light(const string &entityName)
+Light::Light(const string &entityName):Entity()
 {
 	LOG(FORMAT("Loading new entity `%1%` of type `%2%`", entityName % type()));
 
@@ -8,12 +8,17 @@ Light::Light(const string &entityName)
 
 	// TODO: Load not Error mesh in Light class (get some other mesh type)
 	mLight = graphicSystem.getSceneMgr()->createLight("Light:" + entityName);
-	//mLight->setType(Ogre::Light::LT_SPOTLIGHT);
 	mDebugEntity = graphicSystem.getSceneMgr()->createEntity("LightMesh:" + entityName, CONFIG("resorces.LightMesh", string, "Engine/Light.mesh"));
 	mNode = graphicSystem.getSceneMgr()->getRootSceneNode()->createChildSceneNode("Node:" + entityName);
 
 	showDebug(true);
     mNode->attachObject(mLight);
+}
+
+Light::~Light()
+{
+    if(mLight)
+        graphicSystem.getSceneMgr()->destroyLight(mLight);
 }
 
 Light *Light::loadFromFile(const string &filePath)
