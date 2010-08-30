@@ -85,6 +85,16 @@ Entity *Entity::setScale(const vec3 &scale)
     return this;
 }
 
+Entity *Entity::showDebug(const bool show)
+{
+    if(!mDebugEntity) return this;
+    if(show)
+        mNode->attachObject(mDebugEntity);
+    else
+    	mNode->detachObject(mDebugEntity);
+    return this;
+}
+
 // =============================================================================
 // Settings loader
 bool Entity::parseArguments(const string &argName, const string &argData, float *outData, vector<string> &storage)
@@ -124,8 +134,8 @@ ptree Entity::defaultLoader(const string &infoPath)
 
 	string argName;
 	vector<string> parseStorage;
-	float storage[3];
-	memset(storage, 0, sizeof(float)*3);
+	float storage[4];
+	memset(storage, 0, sizeof(float)*4);
 
 	// Position
 	argName = tree_handle.get<string>("common_settigns.position", "0, 0, 0");

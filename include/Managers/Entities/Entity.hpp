@@ -25,6 +25,7 @@ class Entity : private boost::noncopyable
         // TODO: Move entity object to entity class only
         Ogre::Entity *mEntity;
         Ogre::SceneNode *mNode;
+        Ogre::Entity *mDebugEntity;
 
         bool parseArguments(const string &argName, const string &argData, float *outData, vector<string> &storage);
 
@@ -59,6 +60,8 @@ class Entity : private boost::noncopyable
         Entity *setPosition(const vec3 &pos = vec3());
         Entity *setRotation(const quat &rot = quat());
         Entity *setScale(const vec3 &scale = vec3());
+
+        Entity *showDebug(const bool show);
 };
 
 
