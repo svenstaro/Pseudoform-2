@@ -8,6 +8,7 @@ Light::Light(const string &entityName)
 
 	// TODO: Load not Error mesh in Light class (get some other mesh type)
 	mLight = graphicSystem.getSceneMgr()->createLight("Light:" + entityName);
+	//mLight->setType(Ogre::Light::LT_SPOTLIGHT);
 	mDebugEntity = graphicSystem.getSceneMgr()->createEntity("LightMesh:" + entityName, CONFIG("resorces.LightMesh", string, "Engine/Light.mesh"));
 	mNode = graphicSystem.getSceneMgr()->getRootSceneNode()->createChildSceneNode("Node:" + entityName);
 
@@ -32,7 +33,7 @@ Light *Light::loadFromFile(const string &filePath)
 	if (parseArguments("specular", argName, storage, parseStorage))
 		setSpecular(colour(storage[0], storage[1], storage[2], storage[3]));
 
-	setRadius(tree_handle.get<float>("type_settings.radius", 100000));
+    setRadius(tree_handle.get<float>("type_settings.radius", 100000));
 	setPower(tree_handle.get<float>("type_settings.power", 1));
 
 	showDebug(false);
@@ -48,6 +49,18 @@ Light *Light::dump()
 	LOG_NOFORMAT(FORMAT("\t%1%: %2%\n", "Specular" % mLight->getSpecularColour()));
 	LOG_NOFORMAT(FORMAT("\t%1%: %2%\n", "Radius" % mLight->getAttenuationRange()));
 	LOG_NOFORMAT(FORMAT("\t%1%: %2%\n", "Power" % mLight->getPowerScale()));
+	switch(mLight->getType())
+	{
+	    case Ogre::Light::LT_DIRECTIONAL:
+            LOG_NOFORMAT("\tType: DIRECTIONAL\n");
+            break;
+        case Ogre::Light::LT_SPOTLIGHT:
+            LOG_NOFORMAT("\tType: SPOTLIGHT\n");
+            break;
+        case Ogre::Light::LT_POINT:
+            LOG_NOFORMAT("\tType: POINT\n");
+            break;
+	}
 
 	return this;
 }
@@ -57,7 +70,7 @@ Ogre::Light *Light::handle() { return mLight; }
 // Setters
 Light *Light::setDiffuse(const colour &diffuse) { mLight->setDiffuseColour(diffuse); return this; }
 Light *Light::setSpecular(const colour &specular) { mLight->setSpecularColour(specular); return this; }
-Light *Light::setRadius(float value) { mLight->setAttenuation(value, 0, 0, 0); return this; }
+Light *Light::setRadius(float value) { mLight->setAttenuation(value, 1, 0.007, 0); return this; }
 Light *Light::setPower(float value) { mLight->setPowerScale(value); return this; }
 
 // Getters
