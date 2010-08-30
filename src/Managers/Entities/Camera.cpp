@@ -1,6 +1,6 @@
 #include "Managers/Entities/Camera.hpp"
 
-Camera::Camera(const string &entityName)
+Camera::Camera(const string &entityName):Entity()
 {
 	LOG(FORMAT("Loading new entity `%1%` of type `%2%`", entityName % type()));
 
@@ -15,6 +15,19 @@ Camera::Camera(const string &entityName)
     mPitchNode = mNode->createChildSceneNode("Node:CameraPitch_" + entityName);
 
     mPitchNode->attachObject(mCamera);
+}
+
+Camera::~Camera()
+{
+    if(mPitchNode)
+        mNode->removeAndDestroyChild(mPitchNode->getName());
+    mPitchNode = NULL;
+    if(mCamera)
+        graphicSystem.getSceneMgr()->destroyCamera(mCamera);
+    mCamera = NULL;
+
+    if (mEMouseMoved.connected()) mEMouseMoved.disconnect();
+    if (mEUpdated.connected()) mEUpdated.disconnect();
 }
 
 Camera *Camera::loadFromFile(const string &filePath)
@@ -98,9 +111,9 @@ Camera *Camera::setCameraType(CameraType type)
 	if (type != Camera::DONT_USE)
 	{
 		//CONNECT(Engine::Events::KeyEvent, "KeyPressed", &Camera::onKeyPressed) //we don't need this anymore
-	    CONNECT(Engine::Events::MouseMoveEvent, "MouseMoved", &Camera::onMouseMoved);
-	    CONNECT0(Engine::Events::GlobalUpdateEvent, "Updated", &Camera::onUpdated);
-	    CONNECT0(Engine::Events::GlobalInitEvent, "Inited", &Camera::onInited);
+	    mEMouseMoved = CONNECT(Engine::Events::MouseMoveEvent, "MouseMoved", &Camera::onMouseMoved);
+	    mEUpdated = CONNECT0(Engine::Events::GlobalUpdateEvent, "Updated", &Camera::onUpdated);
+	    //CONNECT0(Engine::Events::GlobalInitEvent, "Inited", &Camera::onInited);
 	}
 	return this;
 }

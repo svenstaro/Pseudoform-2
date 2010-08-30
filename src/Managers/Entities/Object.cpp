@@ -3,7 +3,7 @@
 #include <OgreMeshManager.h>
 #include <OgreMaterial.h>
 
-Object::Object(const string &entityName, const string &resGroup)
+Object::Object(const string &entityName, const string &resGroup):Entity()
 {
 	LOG(FORMAT("Loading new entity `%1%` of type `%2%`", entityName % type()));
 	mEntityName = entityName;

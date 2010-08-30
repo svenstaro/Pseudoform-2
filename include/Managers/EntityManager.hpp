@@ -34,11 +34,13 @@ using namespace std;
 class EntityManager : public singleton<EntityManager>
 {
     protected:
-        boost::ptr_map<const string, Entity> mEntityList;
+        typedef boost::ptr_map<const string, Entity> TEntityList;
+        TEntityList mEntityList;
 
     public:
         // Templated interface
         bool DeleteEntity(const string &entityName);
+        int DeleteAllEntities();
 
         // Predefined interface for all objects types
         template<typename EntityType>

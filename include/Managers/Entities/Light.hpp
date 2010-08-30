@@ -17,6 +17,7 @@ class Light : public Entity
 
     public:
         Light(const string &entityName);
+        ~Light();
 
         Ogre::Light *handle();
         Light *loadFromFile(const string &filePath);

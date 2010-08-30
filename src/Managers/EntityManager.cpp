@@ -10,3 +10,18 @@ bool EntityManager::DeleteEntity(const string& entityName)
     mEntityList.erase(entityName);
     return true;
 }
+
+int EntityManager::DeleteAllEntities()
+{
+    int i = 0;
+    LOG("=====Deleting all entitys!======");
+    BOOST_FOREACH(TEntityList::value_type entity, mEntityList)
+    {
+        LOG("\tDeleting " + entity.first);
+        mEntityList.erase(entity.first);
+        i++;
+    }
+    LOG(FORMAT("Deleted %1% entitys", i));
+
+    return i;
+}

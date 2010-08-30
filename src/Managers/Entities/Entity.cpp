@@ -1,6 +1,22 @@
 #include "Managers/Entities/Entity.hpp"
 
-Entity::~Entity() { }
+Entity::~Entity()
+{
+    deleteOgre();
+}
+
+void Entity::deleteOgre()
+{
+    if(mNode)
+        graphicSystem.getSceneMgr()->getRootSceneNode()->removeAndDestroyChild(mNode->getName());
+    mNode = NULL;
+    if(mEntity)
+        graphicSystem.getSceneMgr()->destroyEntity(mEntity);
+    mEntity = NULL;
+    if(mDebugEntity)
+        graphicSystem.getSceneMgr()->destroyEntity(mDebugEntity);
+    mDebugEntity = NULL;
+}
 
 // =============================================================================
 // Getters
